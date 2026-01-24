@@ -276,9 +276,9 @@ export function TrackCarousel({
   const trackXMV = useTransform(scrollX, (v: number) => -v);
 
   // Apple-like dot indicator (liquid fill).
-  const DOT_HIT = 24;
-  const DOT_SIZE = 8;
-  const DOT_GAP = 6;
+  const DOT_HIT = 22;
+  const DOT_SIZE = 7;
+  const DOT_GAP = 10;
   const SLOT_W = DOT_HIT + DOT_GAP;
 
   const basePillWidth = DOT_SIZE;
@@ -418,12 +418,20 @@ export function TrackCarousel({
           <div className="flex items-center justify-center">
             <div
               ref={dotsWrapRef}
-              className="relative flex h-6 items-center justify-center"
-              style={{ width: Math.max(0, count * SLOT_W - DOT_GAP) }}
+              className={cx(
+                'relative flex items-center justify-center',
+                'rounded-full border border-black/10 bg-white/70 px-2 py-1',
+                'backdrop-blur-md shadow-soft'
+              )}
+              style={{ width: Math.max(0, count * SLOT_W - DOT_GAP) + 16 }}
             >
               <motion.div
                 aria-hidden
-                className="absolute left-0 top-1/2 z-0 h-2 rounded-full bg-neutral-900"
+                className={cx(
+                  'absolute left-0 top-1/2 z-0',
+                  'h-[7px] rounded-full bg-neutral-900',
+                  'shadow-[0_1px_10px_rgba(0,0,0,0.22)]'
+                )}
                 style={{ x: pillX, width: pillW, y: '-50%' }}
               />
 
@@ -436,15 +444,21 @@ export function TrackCarousel({
                     }}
                     type="button"
                     onClick={() => goToReal(i)}
-                    className="grid place-items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+                    className={cx(
+                      'grid place-items-center rounded-full',
+                      'transition-transform duration-200 [transition-timing-function:var(--motion-ease)]',
+                      'hover:scale-105 active:scale-95',
+                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500'
+                    )}
                     style={{ width: DOT_HIT, height: DOT_HIT }}
                     aria-label={`Go to slide ${i + 1}`}
                   >
                     <span
                       className={cx(
-                        'block h-2 w-2 rounded-full bg-neutral-900/45 transition-opacity',
+                        'block rounded-full bg-neutral-900/35 transition-opacity',
                         i === realIndex ? 'opacity-0' : 'opacity-100'
                       )}
+                      style={{ width: DOT_SIZE, height: DOT_SIZE }}
                     />
                   </button>
                 ))}
