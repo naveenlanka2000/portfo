@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 255 255 255;
+  --foreground: 10 10 10;
+  --accent: 10 132 255;
+  --ring: 10 132 255;
+
+  --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-short: 180ms;
+  --motion-medium: 360ms;
+  --motion-long: 600ms;
+  --motion-stagger: 60ms;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: rgb(var(--background));
+  color: rgb(var(--foreground));
+}
+
+::selection {
+  background: rgba(var(--accent) / 0.18);
+}
+
+*:focus-visible {
+  outline: 2px solid rgb(var(--ring));
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
