@@ -27,3 +27,4 @@ Motion tokens live in `src/lib/motion-tokens.ts` and are mirrored by CSS variabl
 
 - Replace `https://example.com` in the root metadata (`src/app/layout.tsx`) with your real domain.
 - The homepage hero image currently uses an external Unsplash URL as a placeholder.
+- If you develop from a OneDrive-synced folder on Windows and see `EPERM` errors writing `.next*/trace`, the most reliable fix is moving the repo outside OneDrive (or excluding `.next*` from sync).

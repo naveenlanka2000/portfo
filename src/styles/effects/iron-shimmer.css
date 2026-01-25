@@ -1,0 +1,87 @@
+/* Premium iron shimmer heading effect */
+
+:root {
+  --iron-shimmer-duration: 1200ms;
+  --iron-shimmer-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --iron-shimmer-angle: 115deg;
+  --iron-shimmer-size: 240% 100%;
+  --iron-shimmer-from: 120% 0;
+  --iron-shimmer-to: -120% 0;
+}
+
+@keyframes iron-shimmer-sweep {
+  from {
+    background-position: var(--iron-shimmer-from);
+  }
+  to {
+    background-position: var(--iron-shimmer-to);
+  }
+}
+
+.iron-shimmer-text {
+  --iron-base: rgb(var(--foreground));
+  --iron-hi-1: rgba(255, 255, 255, 0.96);
+  --iron-hi-2: rgba(248, 250, 252, 0.78);
+  --iron-accent: rgba(var(--accent) / 0.12);
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  background-image: linear-gradient(
+    var(--iron-shimmer-angle),
+    var(--iron-base) 0%,
+    var(--iron-base) 43%,
+    var(--iron-hi-1) 50%,
+    var(--iron-hi-2) 52.5%,
+    var(--iron-accent) 56%,
+    var(--iron-base) 63%,
+    var(--iron-base) 100%
+  );
+
+  background-size: var(--iron-shimmer-size);
+  background-position: var(--iron-shimmer-from);
+}
+
+.iron-shimmer-play .iron-shimmer-text,
+.shimmer-play .shimmer-text,
+.shimmer-play .iron-shimmer-text,
+.iron-shimmer-play .shimmer-text {
+  animation: iron-shimmer-sweep var(--iron-shimmer-duration) var(--iron-shimmer-ease) 1 both;
+  will-change: background-position;
+}
+
+@keyframes iron-emphasis-pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.92;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.iron-emphasis {
+  animation: iron-emphasis-pulse 220ms var(--iron-shimmer-ease) 1 both;
+}
+
+/* Reduced motion: no sweep; keep crisp text + subtle emphasis */
+@media (prefers-reduced-motion: reduce) {
+  .iron-shimmer-text,
+  .shimmer-text {
+    color: var(--iron-base);
+    -webkit-text-fill-color: var(--iron-base);
+    background-image: none;
+  }
+
+  .iron-shimmer-play .iron-shimmer-text,
+  .shimmer-play .shimmer-text,
+  .shimmer-play .iron-shimmer-text,
+  .iron-shimmer-play .shimmer-text {
+    animation: none;
+    will-change: auto;
+  }
+}

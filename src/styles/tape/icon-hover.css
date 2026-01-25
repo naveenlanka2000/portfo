@@ -1,0 +1,116 @@
+/* Premium icon hover microinteraction (Apple-inspired) */
+
+.tape-iconBox {
+  position: relative;
+  overflow: hidden;
+
+  /* Defaults (desktop) */
+  --tape-zoom: 1.08;
+  --tape-lift: -2px;
+  --tape-hover-dur: 200ms;
+  --tape-hover-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --tape-sheen-dur: 400ms;
+  --tape-sheen-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --tape-sheen-peak: 0.18;
+}
+
+/* Mobile: slightly reduced scale */
+@media (max-width: 640px) {
+  .tape-iconBox {
+    --tape-zoom: 1.06;
+  }
+}
+
+/* Coarse pointers (touch): tone down and disable sheen */
+@media (hover: none) and (pointer: coarse) {
+  .tape-iconBox {
+    --tape-zoom: 1.04;
+    --tape-lift: -1px;
+  }
+
+  .tape-iconBox::after {
+    display: none;
+  }
+}
+
+.tape-iconInner {
+  transform: translate3d(0, 0, 0) scale(1);
+  transition: transform var(--tape-hover-dur) var(--tape-hover-ease);
+}
+
+.tape-iconBox:is(:hover, :focus-visible) {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tape-iconBox:is(:hover, :focus-visible) .tape-iconInner {
+  will-change: transform;
+  transform: translate3d(0, var(--tape-lift), 0) scale(var(--tape-zoom));
+}
+
+/* Specular sheen: single diagonal sweep, triggered by .tape-sheen-play */
+.tape-iconBox::after {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-120%, 0, 0) rotate(24deg);
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(255, 255, 255, var(--tape-sheen-peak)) 50%,
+    rgba(255, 255, 255, 0) 58%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+@keyframes tape-sheen {
+  0% {
+    opacity: 0;
+    transform: translate3d(-120%, 0, 0) rotate(24deg);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(120%, 0, 0) rotate(24deg);
+  }
+}
+
+.tape-iconBox.tape-sheen-play::after {
+  animation: tape-sheen var(--tape-sheen-dur) var(--tape-sheen-ease) 1;
+}
+
+/* Reduced motion: no movement/sheens; provide emphasis only */
+@media (prefers-reduced-motion: reduce) {
+  .tape-item:focus-visible {
+    outline: none;
+  }
+
+  .tape-iconInner {
+    transition: opacity 200ms var(--tape-hover-ease),
+      filter 200ms var(--tape-hover-ease);
+    transform: none !important;
+  }
+
+  .tape-iconBox::after {
+    display: none;
+  }
+
+  .tape-iconBox:is(:hover, :focus-visible) {
+    box-shadow: none;
+  }
+
+  .tape-rmf-tint:is(:hover, :focus-visible) {
+    background: rgba(10, 132, 255, 0.10);
+    border-color: rgba(10, 132, 255, 0.26);
+  }
+
+  .tape-rmf-outline:is(:hover, :focus-visible) {
+    outline: 2px solid #0a84ff;
+    outline-offset: 3px;
+  }
+}

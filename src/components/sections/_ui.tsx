@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import { cx } from '@/lib/utils';
 import { clamp } from '@/utils/math';
 import { motionTokens } from '@/lib/motion-tokens';
+import { TopicHeading } from '@/components/TopicHeading';
 
 export type SectionHeaderProps = {
   title: string;
@@ -31,12 +32,7 @@ export function SectionHeader({ title, progress, subtitle }: SectionHeaderProps)
         animate={reduced ? { opacity: 1 } : { opacity }}
         transition={reduced ? { duration: motionTokens.durations.short / 1000 } : { duration: 0 }}
       >
-        <h2 className="text-4xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
-          {title}
-        </h2>
-        {subtitle ? (
-          <p className="mt-3 text-base leading-relaxed text-neutral-600 md:text-lg">{subtitle}</p>
-        ) : null}
+        <TopicHeading title={title} subtitle={subtitle} />
       </motion.div>
       <div className="mt-6 h-px w-full bg-black/10" />
     </div>

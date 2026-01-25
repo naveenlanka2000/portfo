@@ -5,8 +5,9 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { useSectionScrollProgress } from '@/hooks/useSectionScrollProgress';
 import { cx } from '@/lib/utils';
 import { motionTokens } from '@/lib/motion-tokens';
+import { ObsidianShimmerExperienceHeading } from '@/components/ObsidianShimmerExperienceHeading';
 
-import { SectionHeader, ScrollScrubImage } from './_ui';
+import { ScrollScrubImage } from './_ui';
 import { LeafMark } from './_marks';
 
 type ResearchItem = {
@@ -17,9 +18,9 @@ type ResearchItem = {
 const RESEARCH: ResearchItem = {
   title: 'CNN-Based Sri Lankan Medicinal Leaf Classification',
   bullets: [
-    'Conducted research on applying Convolutional Neural Networks (CNN) to classify Sri Lankan medicinal leaves.',
-    'Focused on supporting Ayurvedic medicine by identifying treatments through accurate leaf recognition.',
-    'Designed and trained deep learning models using Keras/TensorFlow, improving classification accuracy.',
+    'Applied Convolutional Neural Networks (CNNs) to classify Sri Lankan medicinal leaves from images.',
+    'Focused on practical recognition to support Ayurvedic medicine workflows.',
+    'Trained and evaluated models using Keras/TensorFlow with iterative experimentation.',
   ],
 };
 
@@ -41,11 +42,19 @@ export function ResearchSection({ className }: ResearchSectionProps) {
       <div className="mx-auto max-w-6xl px-5">
         <div className="grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-4">
-            <SectionHeader
-              title="Research"
-              subtitle="Applied ML research with a practical goal: better identification through vision." 
-              progress={progress}
-            />
+            <div className="sticky top-14">
+              <motion.div
+                initial={false}
+                animate={reduced ? { opacity: 1 } : { opacity: Math.min(1, Math.max(0, progress / 0.2)) }}
+                transition={reduced ? { duration: motionTokens.durations.short / 1000 } : { duration: 0 }}
+              >
+                <ObsidianShimmerExperienceHeading as="h2" text="Research" className="text-4xl md:text-5xl" />
+                <p className="mt-3 text-pretty text-base leading-relaxed text-neutral-600 md:text-lg">
+                  Applied ML research aimed at accurate identification through computer vision.
+                </p>
+              </motion.div>
+              <div className="mt-6 h-px w-full bg-black/10" />
+            </div>
             <span id="research-title" className="sr-only">
               Research
             </span>

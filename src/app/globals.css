@@ -1,3 +1,6 @@
+@import '../styles/effects/iron-shimmer.css';
+@import '../styles/tape/tape.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,11 +11,42 @@
   --accent: 10 132 255;
   --ring: 10 132 255;
 
+  --header-bg: 255 255 255;
+  --header-bg-alpha: 0.75;
+  --header-bg-alpha-blur: 0.6;
+  --header-border: 0 0 0;
+  --header-border-alpha: 0.1;
+  --header-fg: 10 10 10;
+  --header-muted: 115 115 115;
+  --header-link: 64 64 64;
+  --header-link-hover: 10 10 10;
+  --header-badge-bg: 10 10 10;
+  --header-badge-fg: 255 255 255;
+  --header-cta-bg: 10 10 10;
+  --header-cta-fg: 255 255 255;
+
   --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --motion-short: 180ms;
   --motion-medium: 360ms;
   --motion-long: 600ms;
   --motion-stagger: 60ms;
+}
+
+html[data-page-tone='dark'] {
+  /* Brighter frosted header over deep black. */
+  --header-bg: 255 255 255;
+  --header-bg-alpha: 0.12;
+  --header-bg-alpha-blur: 0.1;
+  --header-border: 255 255 255;
+  --header-border-alpha: 0.22;
+  --header-fg: 255 255 255;
+  --header-muted: 200 200 200;
+  --header-link: 220 220 220;
+  --header-link-hover: 255 255 255;
+  --header-badge-bg: 255 255 255;
+  --header-badge-fg: 10 10 10;
+  --header-cta-bg: 255 255 255;
+  --header-cta-fg: 10 10 10;
 }
 
 html {

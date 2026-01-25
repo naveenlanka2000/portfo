@@ -6,7 +6,7 @@ import { projects } from '@/lib/projects';
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Selected work presented like high-end product pages.',
+  description: 'Selected backend + full-stack projects with clear scope and stack.',
 };
 
 export default function ProjectsPage() {
@@ -15,8 +15,7 @@ export default function ProjectsPage() {
       <header className="max-w-2xl">
         <h1 className="text-4xl font-semibold tracking-tight text-neutral-900">Projects</h1>
         <p className="mt-3 text-base leading-relaxed text-neutral-600">
-          A curated set of case studies with a product-page narrative: brief, challenge, solution,
-          outcome.
+          A curated set of projects across backend services, booking workflows, mobile apps, and data-driven web UIs.
         </p>
       </header>
 

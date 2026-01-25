@@ -4,7 +4,7 @@ import { Reveal } from '@/components/reveal';
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Bio, skills, and experience.',
+  description: 'Backend + full-stack background, skills, and experience.',
 };
 
 export default function AboutPage() {
@@ -16,9 +16,8 @@ export default function AboutPage() {
         </Reveal>
         <Reveal delay={0.12} y={24}>
           <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
-            I’m Naveen Lanka — a software engineering graduate focused on backend development and web
-            technologies. I enjoy building secure, scalable services and clean UIs, and I’m especially
-            interested in AI + applied research.
+            I’m Naveen Lanka — a software engineering graduate focused on backend and full-stack development.
+            I build secure, reliable services and ship clean web experiences, with an interest in applied ML.
           </p>
         </Reveal>
       </header>
@@ -38,11 +37,11 @@ export default function AboutPage() {
               </div>
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Data</h3>
-                <p className="mt-2 text-sm text-neutral-700">MySQL (schema design, queries), DB management</p>
+                <p className="mt-2 text-sm text-neutral-700">MySQL (schema design, queries, data integrity)</p>
               </div>
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">AI/ML</h3>
-                <p className="mt-2 text-sm text-neutral-700">CNNs, TensorFlow, Keras</p>
+                <p className="mt-2 text-sm text-neutral-700">CNNs, TensorFlow, Keras (experimentation & evaluation)</p>
               </div>
             </div>
           </div>
@@ -58,9 +57,9 @@ export default function AboutPage() {
                   <span className="text-xs text-neutral-500">Oct 2024 – Mar 2025</span>
                 </div>
                 <ul className="mt-2 grid gap-2">
-                  <li>Developed and maintained backend services using Java.</li>
-                  <li>Implemented secure data handling, patient records, and appointment scheduling modules.</li>
-                  <li>Collaborated with cross-functional teams to improve performance and reliability.</li>
+                  <li>Built and maintained Java backend services for core clinical workflows.</li>
+                  <li>Implemented secure data handling for patient records and appointment scheduling.</li>
+                  <li>Collaborated across teams to improve reliability and performance.</li>
                 </ul>
               </div>
 
@@ -71,8 +70,8 @@ export default function AboutPage() {
                 </div>
                 <ul className="mt-2 grid gap-2">
                   <li>Built and trained CNN models to classify Sri Lankan medicinal leaves.</li>
-                  <li>Used TensorFlow/Keras to improve classification accuracy and experimentation speed.</li>
-                  <li>Goal: support Ayurvedic medicine by enabling accurate leaf recognition.</li>
+                  <li>Used TensorFlow/Keras to iterate quickly on architectures and evaluation.</li>
+                  <li>Goal: support Ayurvedic medicine with accurate leaf recognition.</li>
                 </ul>
               </div>
             </div>
@@ -87,19 +86,19 @@ export default function AboutPage() {
             <div className="mt-5 grid gap-4 text-sm text-neutral-600">
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">Online Banking Application</p>
-                <p>Feedback module with React, Spring Boot, and MySQL; implemented secure backend services.</p>
+                <p>Feedback module with React, Spring Boot, and MySQL; focused on secure data handling.</p>
               </div>
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">Air Ticket Booking System</p>
-                <p>Java + SQL reservation system for bookings, cancellations, and passenger records.</p>
+                <p>Java + SQL reservation flows for bookings, cancellations, and passenger records.</p>
               </div>
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">Medicare Application</p>
-                <p>Flutter cross-platform app for appointments and medical resources.</p>
+                <p>Flutter app for appointments and healthcare resources.</p>
               </div>
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">Food Market DB Management</p>
-                <p>Web app with HTML/CSS/JS + SQL to manage inventory, sales, and suppliers.</p>
+                <p>Web app with HTML/CSS/JS + SQL for inventory, sales, and supplier management.</p>
               </div>
             </div>
           </div>

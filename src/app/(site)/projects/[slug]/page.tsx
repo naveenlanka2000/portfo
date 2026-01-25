@@ -35,7 +35,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
     <div className="mx-auto max-w-6xl px-5 py-14">
       <header className="max-w-3xl">
         <Reveal y={24}>
-          <p className="text-sm font-medium text-neutral-600">Case study</p>
+          <p className="text-sm font-medium text-neutral-600">Project</p>
         </Reveal>
         <Reveal delay={0.12} y={24}>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
@@ -78,8 +78,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-soft">
             <h2 className="text-lg font-semibold tracking-tight text-neutral-900">Challenge</h2>
             <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-              Define the user problem crisply, align stakeholders, and ship a fast experience that still
-              feels premium.
+              Turn real-world requirements into a reliable workflow: clear data rules, edge cases, and a structure that can grow.
             </p>
           </div>
         </Reveal>
@@ -87,8 +86,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-soft">
             <h2 className="text-lg font-semibold tracking-tight text-neutral-900">Solution</h2>
             <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-              Build a tokenized UI system, design scroll narrative sections, and implement motion with a
-              single reusable API.
+              Implemented the core features end-to-end: API/service logic, persistence, and a UI that keeps the main tasks fast and predictable.
             </p>
           </div>
         </Reveal>

@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { useSectionScrollProgress } from '@/hooks/useSectionScrollProgress';
 import { cx } from '@/lib/utils';
 import { motionTokens } from '@/lib/motion-tokens';
+import { ObsidianShimmerExperienceHeading } from '@/components/ObsidianShimmerExperienceHeading';
 
 import { SectionHeader } from './_ui';
 import { BrandIcon } from './BrandIcon';
@@ -22,9 +23,9 @@ const EXPERIENCE: ExperienceItem[] = [
     company: 'NFORCE Dental Management System',
     dateRange: 'Oct 2024 – Mar 2025',
     bullets: [
-      'Developed and maintained backend services using Java.',
-      'Implemented secure data handling, patient record management, and appointment scheduling modules.',
-      'Collaborated with cross-functional teams to improve system performance and efficiency.',
+      'Built and maintained Java backend services for core clinical workflows.',
+      'Implemented secure handling for patient records and appointment scheduling flows.',
+      'Worked with cross-functional teams to improve reliability and performance.',
     ],
   },
 ];
@@ -47,11 +48,19 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
       <div className="mx-auto max-w-6xl px-5">
         <div className="grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-4">
-            <SectionHeader
-              title="Experience"
-              subtitle="Shipped backend systems with a focus on security, reliability, and clean data flows."
-              progress={progress}
-            />
+            <div className="sticky top-14">
+              <motion.div
+                initial={false}
+                animate={reduced ? { opacity: 1 } : { opacity: Math.min(1, Math.max(0, progress / 0.2)) }}
+                transition={reduced ? { duration: motionTokens.durations.short / 1000 } : { duration: 0 }}
+              >
+                <ObsidianShimmerExperienceHeading as="h2" className="text-4xl md:text-5xl" />
+                <p className="mt-3 text-pretty text-base leading-relaxed text-neutral-600 md:text-lg">
+                  Backend experience focused on secure workflows, clean data handling, and reliable delivery.
+                </p>
+              </motion.div>
+              <div className="mt-6 h-px w-full bg-black/10" />
+            </div>
             <span id="experience-title" className="sr-only">
               Experience
             </span>

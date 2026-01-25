@@ -16,8 +16,9 @@ const baseConfig = {
 };
 
 export default function nextConfig(phase) {
-  // Prevent dev and build from fighting over the same `.next` files on Windows
-  // (common EPERM/locked-file issue, especially in synced folders like OneDrive).
+  // NOTE: `distDir` must be project-relative.
+  // On Windows/OneDrive, you may still hit EPERM for `.next*/trace`.
+  // The recommended workaround is to junction these folders to a TEMP location.
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return { ...baseConfig, distDir: '.next-dev' };
   }

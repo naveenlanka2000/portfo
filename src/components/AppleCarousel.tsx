@@ -29,7 +29,8 @@ export type AppleCarouselProps = {
 };
 
 const DOT_SIZE = 8;
-const DOT_GAP = 8;
+// Visual spacing between dot hit targets (tap area remains DOT_HIT).
+const DOT_GAP = 4;
 const DOT_HIT = 24;
 const SLOT_WIDTH = DOT_HIT + DOT_GAP;
 
@@ -290,7 +291,7 @@ function AppleCarouselCardView({
               'inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium',
               'bg-white/80 text-black backdrop-blur-xl',
               'border border-white/25 shadow-soft',
-              'transition-colors duration-200 hover:bg-white/90',
+              'transition-all duration-200 hover:bg-white/90 active:scale-95',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70'
             )}
           >
@@ -393,14 +394,12 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
         return;
       }
 
-      // Choose the shortest path around the loop.
-      const current = clamp(index - 1, 0, count - 1);
-      const rawDelta = next - current;
-      const wrappedDelta = ((rawDelta % count) + count) % count;
-      const delta = wrappedDelta <= count / 2 ? wrappedDelta : wrappedDelta - count;
-
-      directionRef.current = delta >= 0 ? 1 : -1;
-      setIndex((prev) => prev + delta);
+      // Dot clicks should feel direct (Apple-like): go straight to that dot.
+      // We avoid "shortest wrap" via clones because it can momentarily pass through the end-clone
+      // (e.g. 4 -> 1 would animate to 5 then snap to 1).
+      const desiredDisplay = next + 1; // real slides live at display indices [1..count]
+      directionRef.current = desiredDisplay >= index ? 1 : -1;
+      setIndex(desiredDisplay);
     },
     [count, hasLoop, index]
   );
@@ -575,27 +574,16 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
     }).right
   );
 
-  const leftSpring = useSpring(rawLeft, {
-    stiffness: 200,
-    damping: 30,
-    mass: 0.35,
-    restDelta: reduced ? 1 : 0.01,
-  });
-
-  const rightSpring = useSpring(rawRight, {
-    stiffness: 200,
-    damping: 30,
-    mass: 0.35,
-    restDelta: reduced ? 1 : 0.01,
-  });
-
-  const widthMv = useTransform([leftSpring, rightSpring], (values: number[]) => {
+  // NOTE: scrollX is already tween-animated. Adding extra springs on top can cause
+  // tiny overshoot/settling (visible as the pill not stopping perfectly). Use
+  // the computed bounds directly so it lands exactly on the dot.
+  const widthMv = useTransform([rawLeft, rawRight], (values: number[]) => {
     const l = values[0] ?? 0;
     const r = values[1] ?? l;
     return Math.max(DOT_SIZE, r - l);
   });
 
-  const sectionTitle = useMemo(() => ariaLabel ?? 'More from Apple', [ariaLabel]);
+  const sectionTitle = useMemo(() => ariaLabel ?? 'Highlights', [ariaLabel]);
 
   if (count === 0) return null;
 
@@ -604,8 +592,8 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
       <div className="px-2 py-2">
         <div className="flex items-end justify-between gap-6">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">More from Apple</h2>
-            <p className="mt-2 text-sm text-neutral-600">Scroll to explore. The indicator scrubs with your finger.</p>
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">{sectionTitle}</h2>
+            <p className="mt-2 text-sm text-neutral-600">Scroll or drag to explore. The indicator follows your progress.</p>
           </div>
         </div>
 
@@ -628,10 +616,10 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
 
         {/* Pagination: fixed dots + moving cylinder */}
         <div className="mt-9">
-          <div className="mx-auto flex items-center justify-center" style={{ height: 22 }}>
+          <div className="relative flex items-center" style={{ height: 22 }}>
             <div
               ref={dotsWrapRef}
-              className="relative flex items-center justify-center"
+              className="relative mx-auto flex items-center justify-center"
               style={{ height: 22, width: trayWidth }}
             >
               <div className="relative flex items-center justify-center" style={{ gap: DOT_GAP }}>
@@ -664,45 +652,47 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
                 style={{
                   height: DOT_SIZE,
                   width: widthMv,
-                  left: leftSpring,
+                  left: rawLeft,
                 }}
               />
             </div>
 
-            <button
-              type="button"
-              onClick={() => setIsPlaying((p) => !p)}
-              disabled={!!reduced || count <= 1}
-              aria-label={isPlaying ? 'Pause carousel' : 'Play carousel'}
-              className={cx(
-                'ml-4 inline-flex h-7 w-7 items-center justify-center rounded-full',
-                'border border-black/15 bg-black/5 text-black/80 backdrop-blur-xl',
-                'transition-colors duration-200 hover:bg-black/10',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30',
-                'disabled:cursor-not-allowed disabled:opacity-50'
-              )}
-            >
-              {isPlaying ? (
-                // Pause icon
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                  <rect x="2" y="2" width="3" height="8" rx="1" fill="currentColor" />
-                  <rect x="7" y="2" width="3" height="8" rx="1" fill="currentColor" />
-                </svg>
-              ) : (
-                // Play icon
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                  <path d="M4 2.6v6.8c0 .45.5.73.9.5l5.5-3.4a.58.58 0 000-1L4.9 2.1c-.4-.24-.9.05-.9.5z" fill="currentColor" />
-                </svg>
-              )}
-            </button>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2">
+              <button
+                type="button"
+                onClick={() => setIsPlaying((p) => !p)}
+                disabled={!!reduced || count <= 1}
+                aria-label={isPlaying ? 'Pause carousel' : 'Play carousel'}
+                className={cx(
+                  'inline-flex h-7 w-7 items-center justify-center rounded-full',
+                  'border border-black/15 bg-black/5 text-black/80 backdrop-blur-xl',
+                  'transition-colors duration-200 hover:bg-black/10',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30',
+                  'disabled:cursor-not-allowed disabled:opacity-50'
+                )}
+              >
+                {isPlaying ? (
+                  // Pause icon
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <rect x="2" y="2" width="3" height="8" rx="1" fill="currentColor" />
+                    <rect x="7" y="2" width="3" height="8" rx="1" fill="currentColor" />
+                  </svg>
+                ) : (
+                  // Play icon
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path
+                      d="M4 2.6v6.8c0 .45.5.73.9.5l5.5-3.4a.58.58 0 000-1L4.9 2.1c-.4-.24-.9.05-.9.5z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
 
-          <div className="mt-4 text-center text-[11px] leading-snug text-neutral-500">
-            Trade‑in values will vary. Pricing is after trade‑in.
-          </div>
+          <div className="mt-4 text-center text-[11px] leading-snug text-neutral-500">Tap dots to jump between items.</div>
         </div>
       </div>
     </section>
   );
 }
-

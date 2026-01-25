@@ -4,6 +4,15 @@ const config: Config = {
   content: ['./src/**/*.{ts,tsx}'],
   theme: {
     extend: {
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '100%': { backgroundPosition: '-200% 50%' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 5s linear infinite',
+      },
       colors: {
         neutral: {
           100: '#f5f5f5',

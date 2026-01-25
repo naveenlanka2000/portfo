@@ -11,20 +11,20 @@ const siteUrl = 'https://example.com';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Your Name — Product-minded Designer/Engineer',
-    template: 'Your Name — %s',
+    default: 'Naveen Lanka — Software Engineer (Backend + Full‑Stack)',
+    template: 'Naveen Lanka — %s',
   },
   description:
-    'Premium, performance-first digital experiences with refined motion and meticulous detail.',
+    'Backend + full-stack engineer building secure APIs, clean data systems, and polished web experiences.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     url: siteUrl,
-    title: 'Your Name — Product-minded Designer/Engineer',
+    title: 'Naveen Lanka — Software Engineer (Backend + Full‑Stack)',
     description:
-      'Premium, performance-first digital experiences with refined motion and meticulous detail.',
+      'Backend + full-stack engineer building secure APIs, clean data systems, and polished web experiences.',
     images: [{ url: '/og/site.png', width: 1200, height: 630, alt: 'Portfolio preview' }],
   },
   twitter: {

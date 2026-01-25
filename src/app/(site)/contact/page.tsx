@@ -4,7 +4,7 @@ import { Reveal } from '@/components/reveal';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Let’s connect — email, phone, or a quick message.',
+  description: 'Get in touch about roles, projects, or collaboration.',
 };
 
 export default function ContactPage() {
@@ -16,8 +16,7 @@ export default function ContactPage() {
         </Reveal>
         <Reveal delay={0.12} y={24}>
           <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
-            Open to backend / full-stack roles and impactful projects. Share a short brief and I’ll reply
-            with next steps.
+            Open to backend and full-stack roles. Send a short brief and I’ll reply with availability and next steps.
           </p>
         </Reveal>
       </header>
@@ -54,7 +53,7 @@ export default function ContactPage() {
             </div>
 
             <p className="pt-2 text-xs text-neutral-500">
-              Prefer email? That’s the fastest.
+              Prefer email? That’s the fastest way to reach me.
             </p>
           </div>
         </Reveal>
@@ -83,14 +82,10 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              className="mt-2 inline-flex h-11 items-center justify-center rounded-full bg-neutral-900 px-6 text-sm font-medium text-white shadow-soft transition-transform duration-200 [transition-timing-function:var(--motion-ease)] active:scale-[0.98]"
+              className="mt-2 inline-flex h-11 items-center justify-center rounded-full bg-neutral-900 px-6 text-sm font-medium text-white shadow-soft transition-transform duration-200 active:scale-95"
             >
               Send
             </button>
-
-            <p className="text-xs text-neutral-500">
-              This is a starter UI. Wire it to email/API when ready.
-            </p>
           </form>
         </Reveal>
       </section>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-label="Abstract product card illustration">
+  <defs>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f3f4f6"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a84ff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.06"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="56%" cy="22%" r="70%">
+      <stop offset="0" stop-color="#0a84ff" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#0a84ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="1500" fill="none"/>
+
+  <g transform="translate(110 150)">
+    <rect x="0" y="0" width="980" height="1200" rx="64" fill="url(#card)" stroke="#000" stroke-opacity="0.06"/>
+    <rect x="0" y="0" width="980" height="1200" rx="64" fill="url(#glow)"/>
+
+    <g transform="translate(80 90)">
+      <text x="0" y="0" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter" font-size="28" fill="#111827" fill-opacity="0.72">Naveen Lanka</text>
+      <text x="0" y="48" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter" font-size="52" font-weight="700" fill="#0b0b0c">Software Engineer</text>
+
+      <g transform="translate(0 120)">
+        <rect x="0" y="0" width="820" height="10" rx="5" fill="#111827" fill-opacity="0.10"/>
+        <rect x="0" y="30" width="720" height="10" rx="5" fill="#111827" fill-opacity="0.08"/>
+        <rect x="0" y="60" width="640" height="10" rx="5" fill="#111827" fill-opacity="0.07"/>
+      </g>
+
+      <g transform="translate(0 260)">
+        <rect x="0" y="0" width="240" height="54" rx="27" fill="#111827"/>
+        <text x="120" y="36" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter" font-size="18" fill="#ffffff" fill-opacity="0.92">View work</text>
+
+        <rect x="260" y="0" width="240" height="54" rx="27" fill="#ffffff" stroke="#000" stroke-opacity="0.12"/>
+        <text x="380" y="36" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter" font-size="18" fill="#111827" fill-opacity="0.9">About</text>
+      </g>
+
+      <g transform="translate(0 390)" opacity="0.95">
+        <rect x="0" y="0" width="820" height="310" rx="28" fill="#ffffff" stroke="#000" stroke-opacity="0.08"/>
+        <g transform="translate(34 34)">
+          <rect x="0" y="0" width="140" height="140" rx="22" fill="url(#edge)"/>
+          <rect x="170" y="12" width="560" height="12" rx="6" fill="#111827" fill-opacity="0.10"/>
+          <rect x="170" y="44" width="480" height="12" rx="6" fill="#111827" fill-opacity="0.08"/>
+          <rect x="170" y="76" width="440" height="12" rx="6" fill="#111827" fill-opacity="0.07"/>
+
+          <g transform="translate(0 178)">
+            <rect x="0" y="0" width="220" height="44" rx="22" fill="#0a84ff" fill-opacity="0.14"/>
+            <rect x="240" y="0" width="190" height="44" rx="22" fill="#111827" fill-opacity="0.08"/>
+            <rect x="450" y="0" width="160" height="44" rx="22" fill="#111827" fill-opacity="0.06"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -22,7 +22,6 @@ const links = [
   { href: '/projects', label: 'All work' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
-  { href: '/styleguide', label: 'Style' },
 ] as const;
 
 export function SiteHeader() {
@@ -45,15 +44,17 @@ export function SiteHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/5 bg-white/75 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <header
+      className="sticky top-0 z-40 border-b border-[rgb(var(--header-border)/var(--header-border-alpha))] bg-[rgb(var(--header-bg)/var(--header-bg-alpha))] backdrop-blur supports-[backdrop-filter]:bg-[rgb(var(--header-bg)/var(--header-bg-alpha-blur))]"
+    >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
         <Link href="/" className="group inline-flex items-center gap-2">
-          <span className="grid size-8 place-items-center rounded-xl bg-neutral-900 text-sm font-semibold text-white shadow-soft">
+          <span className="grid size-8 place-items-center rounded-xl bg-[rgb(var(--header-badge-bg))] text-sm font-semibold text-[rgb(var(--header-badge-fg))] shadow-soft">
             N
           </span>
-          <span className="text-sm font-medium tracking-tight text-neutral-900">
+          <span className="text-sm font-medium tracking-tight text-[rgb(var(--header-fg))]">
             Naveen Lanka
-            <span className="text-neutral-500"> — Software Engineer</span>
+            <span className="text-[rgb(var(--header-muted))]"> — Software Engineer</span>
           </span>
         </Link>
 
@@ -64,7 +65,7 @@ export function SiteHeader() {
                 key={l.href}
                 href={l.href}
                 onClick={onAnchorClick(l.href.replace('/#', '#'))}
-                className="text-sm text-neutral-700 transition-colors hover:text-neutral-900"
+                className="text-sm text-[rgb(var(--header-link))] transition-colors hover:text-[rgb(var(--header-link-hover))]"
               >
                 {l.label}
               </a>
@@ -72,7 +73,7 @@ export function SiteHeader() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-sm text-neutral-700 transition-colors hover:text-neutral-900"
+                className="text-sm text-[rgb(var(--header-link))] transition-colors hover:text-[rgb(var(--header-link-hover))]"
               >
                 {l.label}
               </Link>
@@ -82,7 +83,7 @@ export function SiteHeader() {
 
         <Link
           href="/projects"
-          className="inline-flex items-center justify-center rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white shadow-soft transition-transform duration-200 [transition-timing-function:var(--motion-ease)] hover:-translate-y-0.5 active:translate-y-0"
+          className="inline-flex items-center justify-center rounded-full bg-[rgb(var(--header-cta-bg))] px-4 py-2 text-sm font-medium text-[rgb(var(--header-cta-fg))] shadow-soft transition-transform duration-200 active:scale-95"
         >
           View work
         </Link>

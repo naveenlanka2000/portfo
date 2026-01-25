@@ -5,8 +5,8 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { useSectionScrollProgress } from '@/hooks/useSectionScrollProgress';
 import { cx } from '@/lib/utils';
 import { motionTokens } from '@/lib/motion-tokens';
+import { ObsidianShimmerExperienceHeading } from '@/components/ObsidianShimmerExperienceHeading';
 
-import { SectionHeader } from './_ui';
 import { BrandIcon, type BrandKind } from './BrandIcon';
 
 type ProjectItem = {
@@ -72,11 +72,19 @@ export function ProjectsSection({ className }: ProjectsSectionProps) {
       <div className="mx-auto max-w-6xl px-5">
         <div className="grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-4">
-            <SectionHeader
-              title="Projects"
-              subtitle="A few builds across backend systems, booking flows, and cross-platform apps."
-              progress={progress}
-            />
+            <div className="sticky top-14">
+              <motion.div
+                initial={false}
+                animate={reduced ? { opacity: 1 } : { opacity: Math.min(1, Math.max(0, progress / 0.2)) }}
+                transition={reduced ? { duration: motionTokens.durations.short / 1000 } : { duration: 0 }}
+              >
+                <ObsidianShimmerExperienceHeading as="h2" text="Projects" className="text-4xl md:text-5xl" />
+                <p className="mt-3 text-pretty text-base leading-relaxed text-neutral-600 md:text-lg">
+                  Selected builds across backend services, booking workflows, mobile apps, and data-driven web UIs.
+                </p>
+              </motion.div>
+              <div className="mt-6 h-px w-full bg-black/10" />
+            </div>
             <span id="projects-title" className="sr-only">
               Projects
             </span>

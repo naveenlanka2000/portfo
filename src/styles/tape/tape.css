@@ -1,0 +1,93 @@
+@import './icon-hover.css';
+
+/* Premium horizontal icons tape */
+
+.tape {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+/* Edge fades (premium mask) */
+.tape::before,
+.tape::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 42px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.tape::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.tape::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.tape-track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  transform: translate3d(0, 0, 0);
+}
+
+.tape-seq {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.tape-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tape-size, 44px);
+  height: var(--tape-size, 44px);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+  color: rgb(var(--foreground));
+  flex: 0 0 auto;
+
+  padding: 0;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tape-item:focus-visible {
+  outline: 2px solid rgb(var(--ring));
+  outline-offset: 3px;
+}
+
+.tape-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.tape-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  color: rgb(var(--foreground));
+}
+
+.tape-control:focus-visible {
+  outline: 2px solid rgb(var(--ring));
+  outline-offset: 3px;
+}
