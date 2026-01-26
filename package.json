@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "node scripts/next-with-node-path.mjs dev",
+    "build": "node scripts/next-with-node-path.mjs build",
+    "start": "node scripts/next-with-node-path.mjs start",
     "lint": "next lint",
     "format": "prettier . --check",
     "format:write": "prettier . --write"
@@ -14,6 +14,7 @@
   "dependencies": {
     "framer-motion": "^11.18.2",
     "next": "14.2.25",
+    "portfolio": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
