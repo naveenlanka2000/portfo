@@ -16,11 +16,11 @@ type ResearchItem = {
 };
 
 const RESEARCH: ResearchItem = {
-  title: 'CNN-Based Sri Lankan Medicinal Leaf Classification',
+  title: 'Medicinal Leaf Classification via CNN',
   bullets: [
-    'Applied Convolutional Neural Networks (CNNs) to classify Sri Lankan medicinal leaves from images.',
-    'Focused on practical recognition to support Ayurvedic medicine workflows.',
-    'Trained and evaluated models using Keras/TensorFlow with iterative experimentation.',
+    'Developed a Convolutional Neural Network for medicinal leaf classification.',
+    'Engineered a model to support Ayurvedic medicine with image recognition.',
+    'Iteratively trained and validated models using Keras and TensorFlow.',
   ],
 };
 

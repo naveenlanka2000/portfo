@@ -12,7 +12,7 @@ export const projects: Project[] = [
   {
     slug: 'online-banking-application',
     title: 'Online Banking Application',
-    tagline: 'Secure banking workflows with a feedback module and clean data handling.',
+    tagline: 'A full-stack banking application with a focus on security and user experience, featuring a comprehensive feedback module.',
     year: '2025',
     role: 'Backend + Frontend',
     stack: ['Java', 'Spring Boot', 'React', 'MySQL'],
@@ -21,7 +21,7 @@ export const projects: Project[] = [
   {
     slug: 'air-ticket-booking-system',
     title: 'Air Ticket Booking System',
-    tagline: 'Java + SQL reservation flows for booking, cancellations, and passenger records.',
+    tagline: 'A robust airline reservation system developed with Java and SQL, designed for efficient booking, cancellations, and passenger data management.',
     year: '2024',
     role: 'Backend / Database',
     stack: ['Java', 'SQL', 'Data Modeling'],
@@ -30,7 +30,7 @@ export const projects: Project[] = [
   {
     slug: 'medicare-application',
     title: 'Medicare Application',
-    tagline: 'A Flutter app for appointments and healthcare resources.',
+    tagline: 'A cross-platform mobile app for healthcare, enabling users to manage appointments and access medical resources seamlessly.',
     year: '2024',
     role: 'Mobile App Development',
     stack: ['Flutter', 'Dart', 'Mobile UI'],
@@ -39,7 +39,7 @@ export const projects: Project[] = [
   {
     slug: 'food-market-db-management',
     title: 'Food Market DB Management',
-    tagline: 'Inventory, sales, and supplier management with a SQL-backed web UI.',
+    tagline: 'A web-based inventory and sales management tool for a food market, built with a SQL backend and a user-friendly interface.',
     year: '2023',
     role: 'Full‑Stack',
     stack: ['HTML', 'CSS', 'JavaScript', 'SQL'],

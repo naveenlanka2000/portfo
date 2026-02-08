@@ -19,7 +19,7 @@ type ExperienceItem = {
 
 const EXPERIENCE: ExperienceItem[] = [
   {
-    role: 'Backend Developer',
+    role: 'Software Engineer',
     company: 'NFORCE Dental Management System',
     dateRange: 'Oct 2024 – Mar 2025',
     bullets: [

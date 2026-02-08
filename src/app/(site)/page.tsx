@@ -44,25 +44,25 @@ export default function HomePage() {
                       '@type': 'CreativeWork',
                       name: 'Online Banking Application',
                       description:
-                        'Built a feedback management module using React, Spring Boot, and MySQL. Implemented secure backend services with IntelliJ IDEA.',
+                        'Secure banking workflows with a feedback module and clean data handling.',
                     },
                     {
                       '@type': 'CreativeWork',
                       name: 'Air Ticket Booking System',
                       description:
-                        'Designed a reservation system in Java and SQL for booking, cancellations, and passenger data handling.',
+                        'Java + SQL reservation flows for booking, cancellations, and passenger records.',
                     },
                     {
                       '@type': 'CreativeWork',
                       name: 'Medicare Application',
                       description:
-                        'Developed a cross-platform healthcare app using Flutter for appointment management and medical resources.',
+                        'A Flutter app for appointments and healthcare resources.',
                     },
                     {
                       '@type': 'CreativeWork',
                       name: 'Food Market Database Management',
                       description:
-                        'Created a web application using HTML, CSS, JavaScript, and SQL to manage inventory, sales, and suppliers.',
+                        'Inventory, sales, and supplier management with a SQL-backed web UI.',
                     },
                   ],
                 },
@@ -72,8 +72,8 @@ export default function HomePage() {
         />
 
         <HeroLayers
-          title="Building secure backends and polished web apps."
-          subtitle="Java/Spring Boot and Python APIs, React/Next.js frontends, and MySQL-backed systems — with hands-on experience building healthcare scheduling and booking workflows."
+          title="Crafting Secure Backends & Polished Web Apps"
+          subtitle="Specializing in Java/Spring Boot, Python APIs, and React/Next.js frontends, with a focus on creating efficient healthcare and booking systems."
           ctaPrimary={{ label: 'View work', href: '/projects' }}
           ctaSecondary={{ label: 'About me', href: '/about' }}
           assets={{
@@ -111,11 +111,11 @@ export default function HomePage() {
             <AppleCarousel
               ariaLabel="Highlights"
               cards={[
-                { title: 'Secure by default', sub: 'Validation & access control', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=70' },
-                { title: 'Workflow-first APIs', sub: 'Booking & scheduling', img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1800&q=70' },
-                { title: 'Clean data systems', sub: 'MySQL schema & queries', img: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1800&q=70' },
-                { title: 'Polished interfaces', sub: 'React + motion', img: 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=1800&q=70' },
-                { title: 'Research-minded', sub: 'CNN-based classification', img: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1800&q=70' },
+                { title: 'Secure Backend Services', sub: 'Validation & Access Control', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=70' },
+                { title: 'Workflow-Driven APIs', sub: 'Booking & Scheduling', img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1800&q=70' },
+                { title: 'Robust Data Systems', sub: 'MySQL Schema & Queries', img: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1800&q=70' },
+                { title: 'Polished Interfaces', sub: 'React + Motion', img: 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=1800&q=70' },
+                { title: 'ML-Powered Research', sub: 'CNN-Based Classification', img: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1800&q=70' },
               ]}
             />
 
