@@ -186,7 +186,7 @@ function MarqueeColumn({
       };
 
   return (
-    <div className="relative h-[480px] overflow-hidden">
+    <div className="relative h-[360px] overflow-hidden sm:h-[420px] lg:h-[480px]">
       <motion.div
         className="flex flex-col gap-6"
         animate={animate}
@@ -317,10 +317,13 @@ export function FloatingGallerySection({
           </div>
 
           <div className="lg:col-span-7">
-            <div className="grid gap-6 md:grid-cols-3">
-              <MarqueeColumn items={col1} direction="up" durationSec={col1Dur} />
-              <MarqueeColumn items={col2} direction="down" durationSec={col2Dur} />
-              <MarqueeColumn items={col3} direction="up" durationSec={col3Dur} />
+            {/* Mobile: keep the PC-style 3 columns by allowing horizontal scroll. */}
+            <div className="-mx-5 overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="grid min-w-[860px] grid-cols-3 gap-6 md:min-w-0">
+                <MarqueeColumn items={col1} direction="up" durationSec={col1Dur} />
+                <MarqueeColumn items={col2} direction="down" durationSec={col2Dur} />
+                <MarqueeColumn items={col3} direction="up" durationSec={col3Dur} />
+              </div>
             </div>
           </div>
         </div>
