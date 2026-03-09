@@ -138,14 +138,14 @@ function Card({ item }: { item: FloatingGalleryItem }) {
           </div>
         ) : null}
       </div>
-      <div className="mt-4">
-        <p className="text-sm font-medium tracking-tight text-white">{item.title}</p>
-        {item.caption ? <p className="mt-1 text-xs text-white/70">{item.caption}</p> : null}
+      <div className="mt-3 sm:mt-4">
+        <p className="text-xs font-medium tracking-tight text-white sm:text-sm">{item.title}</p>
+        {item.caption ? <p className="mt-1 text-[11px] text-white/70 sm:text-xs">{item.caption}</p> : null}
       </div>
     </>
   );
 
-  const frame = "rounded-3xl border border-white/10 bg-neutral-950 p-4 text-white shadow-[0_1px_0_rgba(255,255,255,0.04),0_10px_30px_rgba(0,0,0,0.35)]";
+  const frame = "rounded-3xl border border-white/10 bg-neutral-950 p-3 text-white shadow-[0_1px_0_rgba(255,255,255,0.04),0_10px_30px_rgba(0,0,0,0.35)] sm:p-4";
 
   // Only one 3D laptop container in the wall (the special top-right card).
   if (item.id === 'a3') {
@@ -154,7 +154,7 @@ function Card({ item }: { item: FloatingGalleryItem }) {
         showBase
         maxTiltDeg={18}
         scale={1.04}
-        className="relative cursor-pointer pb-14 transition-transform duration-200 [transition-timing-function:var(--motion-ease)] hover:z-10 hover:-translate-y-1"
+        className="relative cursor-pointer pb-10 transition-transform duration-200 [transition-timing-function:var(--motion-ease)] hover:z-10 hover:-translate-y-1 sm:pb-14"
         frameBaseClassName={frame}
       >
         {content}
@@ -186,9 +186,9 @@ function MarqueeColumn({
       };
 
   return (
-    <div className="relative h-[360px] overflow-hidden sm:h-[420px] lg:h-[480px]">
+    <div className="relative h-[320px] overflow-hidden sm:h-[420px] lg:h-[480px]">
       <motion.div
-        className="flex flex-col gap-6"
+        className="flex flex-col gap-4 sm:gap-6"
         animate={animate}
         transition={
           reduced
@@ -317,23 +317,8 @@ export function FloatingGallerySection({
           </div>
 
           <div className="lg:col-span-7">
-            {/* Mobile: swipe between columns (snap), so it fits the screen. */}
-            <div className="-mx-5 overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden">
-              <div className="flex snap-x snap-mandatory gap-6">
-                <div className="w-[84vw] shrink-0 snap-start">
-                  <MarqueeColumn items={col1} direction="up" durationSec={col1Dur} />
-                </div>
-                <div className="w-[84vw] shrink-0 snap-start">
-                  <MarqueeColumn items={col2} direction="down" durationSec={col2Dur} />
-                </div>
-                <div className="w-[84vw] shrink-0 snap-start">
-                  <MarqueeColumn items={col3} direction="up" durationSec={col3Dur} />
-                </div>
-              </div>
-            </div>
-
-            {/* Tablet/PC: show all 3 columns at once. */}
-            <div className="hidden gap-6 md:grid md:grid-cols-3">
+            {/* Always show all 3 columns; compact gaps for mobile widths. */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-6">
               <MarqueeColumn items={col1} direction="up" durationSec={col1Dur} />
               <MarqueeColumn items={col2} direction="down" durationSec={col2Dur} />
               <MarqueeColumn items={col3} direction="up" durationSec={col3Dur} />
