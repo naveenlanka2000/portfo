@@ -317,13 +317,26 @@ export function FloatingGallerySection({
           </div>
 
           <div className="lg:col-span-7">
-            {/* Mobile: keep the PC-style 3 columns by allowing horizontal scroll. */}
-            <div className="-mx-5 overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <div className="grid min-w-[860px] grid-cols-3 gap-6 md:min-w-0">
-                <MarqueeColumn items={col1} direction="up" durationSec={col1Dur} />
-                <MarqueeColumn items={col2} direction="down" durationSec={col2Dur} />
-                <MarqueeColumn items={col3} direction="up" durationSec={col3Dur} />
+            {/* Mobile: swipe between columns (snap), so it fits the screen. */}
+            <div className="-mx-5 overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden">
+              <div className="flex snap-x snap-mandatory gap-6">
+                <div className="w-[84vw] shrink-0 snap-start">
+                  <MarqueeColumn items={col1} direction="up" durationSec={col1Dur} />
+                </div>
+                <div className="w-[84vw] shrink-0 snap-start">
+                  <MarqueeColumn items={col2} direction="down" durationSec={col2Dur} />
+                </div>
+                <div className="w-[84vw] shrink-0 snap-start">
+                  <MarqueeColumn items={col3} direction="up" durationSec={col3Dur} />
+                </div>
               </div>
+            </div>
+
+            {/* Tablet/PC: show all 3 columns at once. */}
+            <div className="hidden gap-6 md:grid md:grid-cols-3">
+              <MarqueeColumn items={col1} direction="up" durationSec={col1Dur} />
+              <MarqueeColumn items={col2} direction="down" durationSec={col2Dur} />
+              <MarqueeColumn items={col3} direction="up" durationSec={col3Dur} />
             </div>
           </div>
         </div>
