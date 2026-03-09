@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef } from 'react';
 
 import { cx } from '@/lib/utils';
 import { IronShineHeadline } from '@/components/IronShineHeadline';
+import { LaptopTilt } from '@/components/LaptopTilt';
 
 export type FloatingGalleryItem = {
   id: string;
@@ -13,6 +14,7 @@ export type FloatingGalleryItem = {
   caption?: string;
   imageSrc: string;
   imageAlt: string;
+  overlay?: { title: string; subtitle?: string };
 };
 
 export type FloatingGallerySectionProps = {
@@ -49,6 +51,7 @@ const DEFAULT_ITEMS: FloatingGalleryItem[] = [
     imageSrc:
       'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=70',
     imageAlt: 'Laptop with code on screen',
+    overlay: { title: 'Naveen Lanka', subtitle: 'Software Engineer' },
   },
   {
     id: 'a4',
@@ -113,8 +116,8 @@ function chunk3(items: FloatingGalleryItem[]) {
 }
 
 function Card({ item }: { item: FloatingGalleryItem }) {
-  return (
-    <article className="rounded-3xl border border-white/10 bg-neutral-950 p-4 text-white shadow-[0_1px_0_rgba(255,255,255,0.04),0_10px_30px_rgba(0,0,0,0.35)]">
+  const content = (
+    <>
       <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/30" style={{ aspectRatio: '4 / 3' }}>
         <Image
           src={item.imageSrc}
@@ -123,13 +126,43 @@ function Card({ item }: { item: FloatingGalleryItem }) {
           sizes="(min-width: 1024px) 420px, 100vw"
           className="object-cover"
         />
+
+        {item.overlay ? (
+          <div className="absolute inset-x-0 bottom-0 p-4">
+            <div className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3 backdrop-blur">
+              <p className="text-sm font-semibold tracking-tight text-white">{item.overlay.title}</p>
+              {item.overlay.subtitle ? (
+                <p className="mt-1 text-xs text-white/75">{item.overlay.subtitle}</p>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
       </div>
       <div className="mt-4">
         <p className="text-sm font-medium tracking-tight text-white">{item.title}</p>
         {item.caption ? <p className="mt-1 text-xs text-white/70">{item.caption}</p> : null}
       </div>
-    </article>
+    </>
   );
+
+  const frame = "rounded-3xl border border-white/10 bg-neutral-950 p-4 text-white shadow-[0_1px_0_rgba(255,255,255,0.04),0_10px_30px_rgba(0,0,0,0.35)]";
+
+  // Only one 3D laptop container in the wall (the special top-right card).
+  if (item.id === 'a3') {
+    return (
+      <LaptopTilt
+        showBase
+        maxTiltDeg={18}
+        scale={1.04}
+        className="relative cursor-pointer pb-14 transition-transform duration-200 [transition-timing-function:var(--motion-ease)] hover:z-10 hover:-translate-y-1"
+        frameBaseClassName={frame}
+      >
+        {content}
+      </LaptopTilt>
+    );
+  }
+
+  return <article className={frame}>{content}</article>;
 }
 
 function MarqueeColumn({
