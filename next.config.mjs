@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js';
 
-const GH_PAGES_BASE_PATH = '/portfo';
 
 const baseConfig = {
   reactStrictMode: true,
