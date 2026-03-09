@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js';
 
+const GH_PAGES_BASE_PATH = '/portfo';
+
 const baseConfig = {
   reactStrictMode: true,
   output: 'export',
@@ -19,7 +21,16 @@ const baseConfig = {
 };
 
 export default function nextConfig(phase) {
-  const config = { ...baseConfig };
+  const isDev = phase === PHASE_DEVELOPMENT_SERVER;
+  const basePath = isDev ? '' : GH_PAGES_BASE_PATH;
+
+  const config = {
+    ...baseConfig,
+    basePath,
+    env: {
+      NEXT_PUBLIC_BASE_PATH: basePath,
+    },
+  };
 
   // NOTE: `distDir` must be project-relative.
   // On Windows/OneDrive, you may still hit EPERM for `.next*/trace`.
