@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js';
 
-// We changed this to an empty string so your site loads at the root of naveenlanka.me
-const GH_PAGES_BASE_PATH = '';
+const GH_PAGES_BASE_PATH = '/portfo';
 
 const baseConfig = {
   reactStrictMode: true,
