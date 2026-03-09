@@ -11,6 +11,7 @@ import { ExperienceSection } from '@/components/sections/Experience';
 import { ResearchSection } from '@/components/sections/Research';
 import { ProjectsSection } from '@/components/sections/Projects';
 import { projects } from '@/lib/projects';
+import { withBasePath } from '@/lib/utils';
 
 export default function HomePage() {
   const featured = projects.slice(0, 3);
@@ -77,10 +78,10 @@ export default function HomePage() {
           ctaPrimary={{ label: 'View work', href: '/projects' }}
           ctaSecondary={{ label: 'About me', href: '/about' }}
           assets={{
-            backgroundSrc: '/hero/bg-texture.svg',
-            midAccentSrc: '/hero/mid-accent.svg',
-            primarySrc: '/hero/primary.svg',
-            foregroundAccentSrc: '/hero/foreground-accent.svg',
+            backgroundSrc: withBasePath('/hero/bg-texture.svg'),
+            midAccentSrc: withBasePath('/hero/mid-accent.svg'),
+            primarySrc: withBasePath('/hero/primary.svg'),
+            foregroundAccentSrc: withBasePath('/hero/foreground-accent.svg'),
           }}
         />
 

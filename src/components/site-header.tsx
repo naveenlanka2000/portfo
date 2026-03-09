@@ -4,6 +4,8 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
+import { withBasePath } from '@/lib/utils';
+
 function prefersReducedMotion() {
   return window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
 }
@@ -34,13 +36,13 @@ export function SiteHeader() {
 
     // If we're already on home, update hash without triggering a hard jump.
     if (pathname === '/') {
-      window.history.pushState(null, '', `/#${id}`);
+      window.history.pushState(null, '', withBasePath(`/#${id}`));
       scrollToId(id);
       return;
     }
 
     // Navigate to home without default scroll; HashScroller will handle smooth scrolling.
-    router.push(`/#${id}`, { scroll: false });
+    router.push(withBasePath(`/#${id}`), { scroll: false });
   };
 
   return (
@@ -63,7 +65,7 @@ export function SiteHeader() {
             l.href.startsWith('/#') ? (
               <a
                 key={l.href}
-                href={l.href}
+                href={withBasePath(l.href)}
                 onClick={onAnchorClick(l.href.replace('/#', '#'))}
                 className="text-sm text-[rgb(var(--header-link))] transition-colors hover:text-[rgb(var(--header-link-hover))]"
               >

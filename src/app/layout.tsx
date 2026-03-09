@@ -5,6 +5,7 @@ import './globals.css';
 import { HashScroller } from '@/components/hash-scroller';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
+import { withBasePath } from '@/lib/utils';
 
 const siteUrl = 'https://example.com';
 
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   description:
     'Backend + full-stack engineer building secure APIs, clean data systems, and polished web experiences.',
   alternates: {
-    canonical: '/',
+    canonical: withBasePath('/'),
   },
   openGraph: {
     type: 'website',
@@ -25,11 +26,11 @@ export const metadata: Metadata = {
     title: 'Naveen Lanka — Software Engineer (Backend + Full‑Stack)',
     description:
       'Backend + full-stack engineer building secure APIs, clean data systems, and polished web experiences.',
-    images: [{ url: '/og/site.png', width: 1200, height: 630, alt: 'Portfolio preview' }],
+    images: [{ url: withBasePath('/og/site.png'), width: 1200, height: 630, alt: 'Portfolio preview' }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/og/site.png'],
+    images: [withBasePath('/og/site.png')],
   },
 };
 

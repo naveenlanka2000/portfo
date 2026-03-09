@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { withBasePath } from '@/lib/utils';
+
 export function SiteFooter() {
   return (
     <footer className="bg-neutral-100/80">
@@ -41,13 +43,13 @@ export function SiteFooter() {
           </p>
           <div className="flex gap-4">
             <a href="https://github.com/naveenlanka2000" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
-              <img src="/brands/github.svg" alt="GitHub" className="h-6 w-6" />
+              <img src={withBasePath('/brands/github.svg')} alt="GitHub" className="h-6 w-6" />
             </a>
             <a href="https://www.linkedin.com/in/naveen-lanka" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
-              <img src="/brands/linkedin.svg" alt="LinkedIn" className="h-6 w-6" />
+              <img src={withBasePath('/brands/linkedin.svg')} alt="LinkedIn" className="h-6 w-6" />
             </a>
             <a href="https://twitter.com/NaveenLanka" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
-              <img src="/brands/x.svg" alt="X" className="h-6 w-6" />
+              <img src={withBasePath('/brands/x.svg')} alt="X" className="h-6 w-6" />
             </a>
           </div>
         </div>
