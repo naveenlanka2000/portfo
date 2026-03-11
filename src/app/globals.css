@@ -4,12 +4,6 @@
 @font-face {
   font-family: 'Eagle Horizon';
   src:
-    url('/portfo/fonts/EagleHorizon.woff2') format('woff2'),
-    url('/fonts/EagleHorizon.woff2') format('woff2'),
-    url('/portfo/fonts/EagleHorizon.woff') format('woff'),
-    url('/fonts/EagleHorizon.woff') format('woff'),
-    url('/portfo/fonts/EagleHorizon.otf') format('opentype'),
-    url('/fonts/EagleHorizon.otf') format('opentype'),
     url('/portfo/fonts/EagleHorizon.ttf') format('truetype'),
     url('/fonts/EagleHorizon.ttf') format('truetype');
   font-weight: 400;

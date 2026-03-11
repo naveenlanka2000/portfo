@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { withBasePath } from '@/lib/utils';
@@ -43,13 +44,13 @@ export function SiteFooter() {
           </p>
           <div className="flex gap-4">
             <a href="https://github.com/naveenlanka2000" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
-              <img src={withBasePath('/brands/github.svg')} alt="GitHub" className="h-6 w-6" />
+              <Image src={withBasePath('/brands/github.svg')} alt="GitHub" width={24} height={24} sizes="24px" />
             </a>
             <a href="https://www.linkedin.com/in/naveen-lanka" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
-              <img src={withBasePath('/brands/linkedin.svg')} alt="LinkedIn" className="h-6 w-6" />
+              <Image src={withBasePath('/brands/linkedin.svg')} alt="LinkedIn" width={24} height={24} sizes="24px" />
             </a>
             <a href="https://twitter.com/NaveenLanka" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
-              <img src={withBasePath('/brands/x.svg')} alt="X" className="h-6 w-6" />
+              <Image src={withBasePath('/brands/x.svg')} alt="X" width={24} height={24} sizes="24px" />
             </a>
           </div>
         </div>

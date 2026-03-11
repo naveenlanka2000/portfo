@@ -87,7 +87,7 @@ export function OrbitalPortrait({
       URL.revokeObjectURL(processedUrlRef.current);
       processedUrlRef.current = null;
     }
-  }, [src]);
+  }, [src, reduced]);
 
   useEffect(() => {
     if (reduced) setLoaderFilled(true);
