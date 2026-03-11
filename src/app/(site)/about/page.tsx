@@ -16,7 +16,11 @@ export default function AboutPage() {
         </Reveal>
         <Reveal delay={0.12} y={24}>
           <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
-            I’m Naveen Lanka — a software engineering graduate focused on backend and full-stack development.
+            I’m{' '}
+            <span className="[font-family:var(--font-cursive)] text-neutral-900">
+              Naveen Lanka
+            </span>{' '}
+            — a software engineering graduate focused on backend and full-stack development.
             I build secure, reliable services and ship clean web experiences, with an interest in applied ML.
           </p>
         </Reveal>

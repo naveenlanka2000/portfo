@@ -10,6 +10,7 @@ import { motionTokens } from '@/lib/motion-tokens';
 import { useHeroScrollProgress } from '@/hooks/useHeroScrollProgress';
 import { parallaxTranslateY } from '@/lib/motion/parallax';
 import { AnimatedHeadline } from '@/components/AnimatedHeadline';
+import { OrbitalPortrait } from '@/components/hero/OrbitalPortrait';
 
 function canUseCursorLight() {
   if (typeof window === 'undefined') return false;
@@ -22,6 +23,8 @@ export type HeroLayersProps = {
   subtitle?: string;
   ctaPrimary?: { label: string; href: string };
   ctaSecondary?: { label: string; href: string };
+  portraitSrc?: string;
+  portraitAlt?: string;
   assets: {
     backgroundSrc: string;
     midAccentSrc?: string;
@@ -43,6 +46,8 @@ export function HeroLayers({
   subtitle,
   ctaPrimary,
   ctaSecondary,
+  portraitSrc,
+  portraitAlt,
   assets,
   strengths,
   enableCursorLight = true,
@@ -61,29 +66,11 @@ export function HeroLayers({
   }, []);
 
   const sBg = strengths?.bg ?? 0.18;
-  const sMid = strengths?.mid ?? 0.35;
-  const sFg = strengths?.fg ?? 0.55;
-  const sHi = strengths?.hi ?? 0.65;
 
   const yBg = useMemo(() => {
     if (reduced) return 0;
     return parallaxTranslateY({ progress, viewportHeight: vh, strength: sBg, clamp: { minPx: -24, maxPx: 72 } });
   }, [progress, reduced, sBg, vh]);
-
-  const yMid = useMemo(() => {
-    if (reduced) return 0;
-    return parallaxTranslateY({ progress, viewportHeight: vh, strength: sMid, clamp: { minPx: -24, maxPx: 72 } });
-  }, [progress, reduced, sMid, vh]);
-
-  const yFg = useMemo(() => {
-    if (reduced) return 0;
-    return parallaxTranslateY({ progress, viewportHeight: vh, strength: sFg, clamp: { minPx: -24, maxPx: 72 } });
-  }, [progress, reduced, sFg, vh]);
-
-  const yHi = useMemo(() => {
-    if (reduced) return 0;
-    return parallaxTranslateY({ progress, viewportHeight: vh, strength: sHi, clamp: { minPx: -24, maxPx: 72 } });
-  }, [progress, reduced, sHi, vh]);
 
   const [hasEntered, setHasEntered] = useState(false);
   useEffect(() => {
@@ -223,56 +210,19 @@ export function HeroLayers({
           <div
             ref={mediaRef}
             className={cx(
-              'relative overflow-hidden rounded-3xl border border-black/10 bg-white',
-              'shadow-[0_1px_0_rgba(0,0,0,0.06),0_18px_48px_rgba(0,0,0,0.10)]'
+              'relative bg-transparent'
             )}
             style={{ aspectRatio: '4 / 5' }}
           >
-            {/* Background texture */}
-            <div
-              aria-hidden
-              className={cx('absolute inset-0', active && !reduced ? 'will-change-transform' : undefined)}
-              style={{ transform: `translate3d(0, ${yBg.toFixed(2)}px, 0)` }}
-            >
-              <Image src={assets.backgroundSrc} alt="" fill sizes="(min-width: 768px) 420px, 100vw" className="object-cover opacity-[0.9]" priority />
-            </div>
-
-            {/* Mid accent */}
-            {assets.midAccentSrc ? (
-              <div
-                aria-hidden
-                className={cx('absolute inset-0', active && !reduced ? 'will-change-transform' : undefined)}
-                style={{ transform: `translate3d(0, ${yMid.toFixed(2)}px, 0)` }}
-              >
-                <Image src={assets.midAccentSrc} alt="" fill sizes="(min-width: 768px) 420px, 100vw" className="object-cover" />
-              </div>
-            ) : null}
-
-            {/* Primary illustration */}
-            <div
-              className={cx('absolute inset-0', active && !reduced ? 'will-change-transform' : undefined)}
-              style={{ transform: `translate3d(0, ${yFg.toFixed(2)}px, 0)` }}
-            >
-              <Image
-                src={assets.primarySrc}
-                alt="Abstract hero illustration representing your portfolio"
-                fill
-                priority
-                sizes="(min-width: 768px) 420px, 100vw"
-                className="object-contain p-6"
+            {/* Portrait + orbital rings */}
+            <div className="relative z-10 flex h-full w-full items-center justify-center">
+              <OrbitalPortrait
+                src={portraitSrc}
+                alt={portraitAlt ?? 'Naveen Lanka portrait'}
+                name="Naveen Lanka"
+                tagline="SOFTWARE ENGINEER // BACKEND + WEB"
               />
             </div>
-
-            {/* Foreground accent */}
-            {assets.foregroundAccentSrc ? (
-              <div
-                aria-hidden
-                className={cx('absolute inset-0', active && !reduced ? 'will-change-transform' : undefined)}
-                style={{ transform: `translate3d(0, ${yHi.toFixed(2)}px, 0)` }}
-              >
-                <Image src={assets.foregroundAccentSrc} alt="" fill sizes="(min-width: 768px) 420px, 100vw" className="object-cover" />
-              </div>
-            ) : null}
 
             {/* Cursor light overlay (desktop only) */}
             {!reduced && enableCursorLight ? (

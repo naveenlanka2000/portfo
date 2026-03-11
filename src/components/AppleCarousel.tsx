@@ -422,18 +422,34 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
     };
   }, [measure]);
 
-  // Autoplay: ping-pong across the cards.
+  // Autoplay: advance automatically while playing.
   useEffect(() => {
     if (count <= 1) return;
     if (!!reduced) return;
     if (!isPlaying) return;
 
     const id = window.setInterval(() => {
-      setIndex((prev) => prev + 1);
+      setIndex((prev) => {
+        if (!hasLoop) {
+          const last = Math.max(0, count - 1);
+          const next = prev + directionRef.current;
+          if (next >= last) {
+            directionRef.current = -1;
+            return last;
+          }
+          if (next <= 0) {
+            directionRef.current = 1;
+            return 0;
+          }
+          return next;
+        }
+
+        return prev + 1;
+      });
     }, 4200);
 
     return () => window.clearInterval(id);
-  }, [count, isPlaying, reduced]);
+  }, [count, hasLoop, isPlaying, reduced]);
 
   // Animate virtual scrollX to the current snap position.
   useEffect(() => {

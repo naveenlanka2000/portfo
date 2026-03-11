@@ -1,6 +1,22 @@
 @import '../styles/effects/iron-shimmer.css';
 @import '../styles/tape/tape.css';
 
+@font-face {
+  font-family: 'Eagle Horizon';
+  src:
+    url('/portfo/fonts/EagleHorizon.woff2') format('woff2'),
+    url('/fonts/EagleHorizon.woff2') format('woff2'),
+    url('/portfo/fonts/EagleHorizon.woff') format('woff'),
+    url('/fonts/EagleHorizon.woff') format('woff'),
+    url('/portfo/fonts/EagleHorizon.otf') format('opentype'),
+    url('/fonts/EagleHorizon.otf') format('opentype'),
+    url('/portfo/fonts/EagleHorizon.ttf') format('truetype'),
+    url('/fonts/EagleHorizon.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +26,8 @@
   --foreground: 10 10 10;
   --accent: 10 132 255;
   --ring: 10 132 255;
+
+  --font-cursive: 'Eagle Horizon', var(--font-handwriting), ui-rounded, cursive;
 
   --header-bg: 255 255 255;
   --header-bg-alpha: 0.75;

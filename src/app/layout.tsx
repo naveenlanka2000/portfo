@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Space_Grotesk } from 'next/font/google';
 import { ReactNode } from 'react';
 import './globals.css';
 
@@ -8,6 +9,13 @@ import { SiteHeader } from '@/components/site-header';
 import { withBasePath } from '@/lib/utils';
 
 const siteUrl = 'https://example.com';
+
+const displayFont = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-display',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -37,7 +45,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-dvh antialiased">
+      <body className={`${displayFont.variable} min-h-dvh antialiased`}>
         <HashScroller />
         <a
           href="#content"

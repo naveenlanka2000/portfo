@@ -77,6 +77,7 @@ export default function HomePage() {
           subtitle="Specializing in Java/Spring Boot, Python APIs, and React/Next.js frontends, with a focus on creating efficient healthcare and booking systems."
           ctaPrimary={{ label: 'View work', href: '/projects' }}
           ctaSecondary={{ label: 'About me', href: '/about' }}
+          portraitSrc={withBasePath('/portrait.png')}
           assets={{
             backgroundSrc: withBasePath('/hero/bg-texture.svg'),
             midAccentSrc: withBasePath('/hero/mid-accent.svg'),
