@@ -36,20 +36,7 @@ export function OrbitalPortrait({
   const badgeLoopText = `${badgeText} • `.repeat(6);
   const loaderCircumference = 2 * Math.PI * 22;
 
-  const nameContainer = {
-    hidden: reduced ? {} : { opacity: 1 },
-    show: reduced
-      ? {}
-      : {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.035,
-            delayChildren: 0.08,
-          },
-        },
-  } as const;
-
-  const nameChar = {
+  const nameWhole = {
     hidden: reduced ? {} : { opacity: 0, y: 10, filter: 'blur(6px)' },
     show: reduced
       ? {}
@@ -57,7 +44,7 @@ export function OrbitalPortrait({
           opacity: 1,
           y: 0,
           filter: 'blur(0px)',
-          transition: { duration: 0.55, ease: easeSoft },
+          transition: { duration: 0.55, ease: easeSoft, delay: 0.08 },
         },
   } as const;
 
@@ -403,27 +390,35 @@ export function OrbitalPortrait({
           {/* Bottom copy */}
           <div className="absolute inset-x-0 bottom-[7%] z-[40] px-6 text-center">
             {reduced ? (
-              <div className="whitespace-nowrap font-[family:var(--font-display)] text-[clamp(32px,5.7vw,48px)] font-bold leading-[0.95] tracking-tight text-neutral-900">
+              <div
+                className={
+                  [
+                    'whitespace-nowrap font-[family:var(--font-display)] text-[clamp(32px,5.7vw,48px)] font-bold leading-[0.95] tracking-tight',
+                    'bg-clip-text text-transparent [-webkit-text-fill-color:transparent]',
+                    'bg-[linear-gradient(110deg,#000000_38%,#6f6f6f_48%,#b3b3b3_50%,#6f6f6f_52%,#000000_62%)]',
+                    'bg-[length:200%_100%]',
+                    'motion-safe:animate-shimmer motion-reduce:animate-none',
+                  ].join(' ')
+                }
+              >
                 {name}
               </div>
             ) : (
               <motion.div
-                className="whitespace-nowrap font-[family:var(--font-display)] text-[clamp(32px,5.7vw,48px)] font-bold leading-[0.95] tracking-tight text-neutral-900"
-                aria-label={name}
-                variants={nameContainer}
+                className={
+                  [
+                    'whitespace-nowrap font-[family:var(--font-display)] text-[clamp(32px,5.7vw,48px)] font-bold leading-[0.95] tracking-tight',
+                    'bg-clip-text text-transparent [-webkit-text-fill-color:transparent]',
+                    'bg-[linear-gradient(110deg,#000000_38%,#6f6f6f_48%,#b3b3b3_50%,#6f6f6f_52%,#000000_62%)]',
+                    'bg-[length:200%_100%]',
+                    'motion-safe:animate-shimmer motion-reduce:animate-none',
+                  ].join(' ')
+                }
+                variants={nameWhole}
                 initial="hidden"
                 animate={phase === 'done' ? 'show' : 'hidden'}
               >
-                {Array.from(name).map((ch, i) => (
-                  <motion.span
-                    key={`${ch}-${i}`}
-                    className="inline-block"
-                    variants={nameChar}
-                    aria-hidden
-                  >
-                    {ch === ' ' ? '\u00A0' : ch}
-                  </motion.span>
-                ))}
+                {name}
               </motion.div>
             )}
 
