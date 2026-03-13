@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f3f4f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect x="70" y="70" width="1460" height="860" rx="28" fill="#ffffff" stroke="#111827" stroke-opacity="0.15"/>
+  <text x="120" y="160" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="44" font-weight="700" fill="#111827">Training Log</text>
+  <text x="120" y="220" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="26" fill="#4b5563">Replace this placeholder with your console/log screenshot.</text>
+
+  <rect x="120" y="290" width="1360" height="520" rx="22" fill="#0b1220"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono'" font-size="26" fill="#d1d5db">
+    <text x="160" y="360">Epoch [1/10], Loss: 0.7188</text>
+    <text x="160" y="410">Epoch [2/10], Loss: 0.6831</text>
+    <text x="160" y="460">Epoch [3/10], Loss: 0.6689</text>
+    <text x="160" y="510">Epoch [4/10], Loss: 0.6114</text>
+    <text x="160" y="560">Epoch [5/10], Loss: 0.5534</text>
+    <text x="160" y="610">Epoch [6/10], Loss: 0.4443</text>
+    <text x="160" y="660">Epoch [7/10], Loss: 0.3520</text>
+    <text x="160" y="710">Epoch [8/10], Loss: 0.3111</text>
+    <text x="160" y="760">Epoch [9/10], Loss: 0.2006</text>
+    <text x="160" y="810">Epoch [10/10], Loss: 0.1813</text>
+  </g>
+
+  <text x="120" y="900" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto" font-size="22" fill="#6b7280">Path: public/research/medicinal-cnn/training-log.svg</text>
+</svg>

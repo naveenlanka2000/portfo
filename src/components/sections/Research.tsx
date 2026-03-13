@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
+import Image from 'next/image';
 
 import { useSectionScrollProgress } from '@/hooks/useSectionScrollProgress';
 import { cx } from '@/lib/utils';
@@ -15,6 +16,12 @@ type ResearchItem = {
   bullets: string[];
 };
 
+type ResearchFigure = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
 const RESEARCH: ResearchItem = {
   title: 'Medicinal Leaf Classification via CNN',
   bullets: [
@@ -22,6 +29,39 @@ const RESEARCH: ResearchItem = {
     'Engineered a model to support Ayurvedic medicine with image recognition.',
     'Iteratively trained and validated models using Keras and TensorFlow.',
   ],
+};
+
+const RESEARCH_FIGURES: ResearchFigure[] = [
+  {
+    src: '/research/medicinal-cnn/training-curves.svg',
+    alt: 'Training and validation accuracy/loss curves for the CNN model',
+    caption: 'Training/validation curves',
+  },
+  {
+    src: '/research/medicinal-cnn/confusion-matrix.svg',
+    alt: 'Confusion matrix for defect vs no_defect classification',
+    caption: 'Confusion matrix',
+  },
+  {
+    src: '/research/medicinal-cnn/epoch-loss.svg',
+    alt: 'Epoch-by-epoch loss decreasing during CNN training',
+    caption: 'Epoch loss (training)',
+  },
+  {
+    src: '/research/medicinal-cnn/training-log.svg',
+    alt: 'Training log showing accuracy and validation metrics across epochs',
+    caption: 'Training log snapshot',
+  },
+];
+
+// Derived from the provided confusion matrix screenshot:
+// True defect: 32 predicted defect, 1 predicted no_defect
+// True no_defect: 10 predicted defect, 23 predicted no_defect
+const RESEARCH_METRICS = {
+  accuracy: (32 + 23) / (32 + 1 + 10 + 23),
+  precisionDefect: 32 / (32 + 10),
+  recallDefect: 32 / (32 + 1),
+  f1Defect: (2 * (32 / (32 + 10)) * (32 / (32 + 1))) / ((32 / (32 + 10)) + (32 / (32 + 1))),
 };
 
 export type ResearchSectionProps = {
@@ -113,9 +153,94 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                       Keras
                     </span>
                   </div>
+
+                  <div className="mt-7 rounded-lg border border-black/10 bg-[#f8f8f8] p-4">
+                    <div className="flex flex-wrap items-baseline justify-between gap-3">
+                      <h4 className="text-sm font-semibold tracking-tight text-neutral-900">Model results</h4>
+                      <p className="text-xs text-neutral-600">from evaluation plots</p>
+                    </div>
+
+                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                      <div className="rounded-md border border-black/10 bg-white px-3 py-2">
+                        <div className="text-[11px] uppercase tracking-wide text-neutral-500">Accuracy</div>
+                        <div className="mt-0.5 text-base font-semibold text-neutral-900">
+                          {(RESEARCH_METRICS.accuracy * 100).toFixed(1)}%
+                        </div>
+                      </div>
+                      <div className="rounded-md border border-black/10 bg-white px-3 py-2">
+                        <div className="text-[11px] uppercase tracking-wide text-neutral-500">F1 (defect)</div>
+                        <div className="mt-0.5 text-base font-semibold text-neutral-900">
+                          {(RESEARCH_METRICS.f1Defect * 100).toFixed(1)}%
+                        </div>
+                      </div>
+                      <div className="rounded-md border border-black/10 bg-white px-3 py-2">
+                        <div className="text-[11px] uppercase tracking-wide text-neutral-500">Precision (defect)</div>
+                        <div className="mt-0.5 text-base font-semibold text-neutral-900">
+                          {(RESEARCH_METRICS.precisionDefect * 100).toFixed(1)}%
+                        </div>
+                      </div>
+                      <div className="rounded-md border border-black/10 bg-white px-3 py-2">
+                        <div className="text-[11px] uppercase tracking-wide text-neutral-500">Recall (defect)</div>
+                        <div className="mt-0.5 text-base font-semibold text-neutral-900">
+                          {(RESEARCH_METRICS.recallDefect * 100).toFixed(1)}%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </motion.article>
               </div>
             </div>
+
+            <motion.div
+              initial={reduced ? false : { opacity: 0, y: 10 }}
+              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear' }}
+              className={cx(
+                'mt-6 rounded-xl border border-black/10 bg-white p-6',
+                'shadow-[0_1px_0_rgba(0,0,0,0.06),0_18px_44px_rgba(0,0,0,0.07)]'
+              )}
+            >
+              <div className="flex flex-wrap items-baseline justify-between gap-3">
+                <h3 className="text-lg font-semibold tracking-tight text-neutral-900 md:text-xl">Evaluation plots</h3>
+                <p className="text-sm text-neutral-600">click to open full size</p>
+              </div>
+
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                {RESEARCH_FIGURES.map((fig) => (
+                  <a
+                    key={fig.src}
+                    href={fig.src}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={cx(
+                      'group block overflow-hidden rounded-lg border border-black/10 bg-[#f8f8f8]',
+                      'transition-shadow motion-reduce:transition-none',
+                      'hover:shadow-[0_1px_0_rgba(0,0,0,0.06),0_14px_34px_rgba(0,0,0,0.10)]'
+                    )}
+                  >
+                    <div className="aspect-[16/10] w-full overflow-hidden">
+                      <Image
+                        src={fig.src}
+                        alt={fig.alt}
+                        width={1600}
+                        height={1000}
+                        sizes="(min-width: 640px) 50vw, 100vw"
+                        className={cx(
+                          'h-full w-full object-contain p-3',
+                          'transition-transform duration-300 motion-reduce:transition-none',
+                          'group-hover:scale-[1.02]'
+                        )}
+                      />
+                    </div>
+                    <div className="border-t border-black/10 bg-white px-4 py-3">
+                      <div className="text-sm font-medium text-neutral-900">{fig.caption}</div>
+                      <div className="mt-0.5 text-xs text-neutral-600">/research/medicinal-cnn</div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
