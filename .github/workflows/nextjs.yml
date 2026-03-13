@@ -56,6 +56,9 @@ jobs:
           NEXT_TELEMETRY_DISABLED: "1"
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
         run: npm run build
+      - name: Add CNAME (custom domain)
+        run: |
+          if [ -f CNAME ]; then cp CNAME out/CNAME; fi
       - name: Disable Jekyll
         run: touch out/.nojekyll
       - name: Upload artifact
