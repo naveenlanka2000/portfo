@@ -6,7 +6,6 @@ import { HeroLayers } from '@/components/hero/HeroLayers';
 import { LanguageTape } from '@/components/tape/LanguageTape';
 import { defaultLanguageTapeItems } from '@/components/tape/icons';
 import { ProjectCard } from '@/components/project-card';
-import { Reveal } from '@/components/reveal';
 import { ExperienceSection } from '@/components/sections/Experience';
 import { ResearchSection } from '@/components/sections/Research';
 import { ProjectsSection } from '@/components/sections/Projects';
@@ -101,9 +100,7 @@ export default function HomePage() {
 
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {featured.map((p, idx) => (
-              <Reveal key={p.slug} delay={idx * 0.06}>
-                <ProjectCard project={p} />
-              </Reveal>
+              <ProjectCard key={p.slug} project={p} />
             ))}
           </div>
         </section>
@@ -128,6 +125,8 @@ export default function HomePage() {
               gap={18}
               size={44}
               pauseOnHover={false}
+              hoverZoomScale={1.35}
+              hoverLiftPx={-4}
               className="mt-[3cm]"
             />
           </div>

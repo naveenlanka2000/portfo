@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 
 import { Reveal } from '@/components/reveal';
 import { getProjectBySlug, projects } from '@/lib/projects';
+import { tagToBrandKind } from '@/lib/brand';
+import { BrandIcon, type BrandKind } from '@/components/sections/BrandIcon';
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -63,8 +65,13 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               {project.stack.map((s) => (
                 <span
                   key={s}
-                  className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700"
+                  className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700"
                 >
+                  <BrandIcon
+                    kind={tagToBrandKind(s) as BrandKind}
+                    label={s}
+                    className="h-4 w-4 rounded-md bg-transparent ring-0 transition-transform duration-200 ease-out hover:scale-150"
+                  />
                   {s}
                 </span>
               ))}

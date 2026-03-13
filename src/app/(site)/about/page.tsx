@@ -1,6 +1,12 @@
 import type { Metadata } from 'next';
 
 import { Reveal } from '@/components/reveal';
+import { tagToBrandKind } from '@/lib/brand';
+import { BrandIcon, type BrandKind } from '@/components/sections/BrandIcon';
+
+const LANGUAGES = ['Java', 'Python', 'JavaScript', 'HTML', 'CSS'] as const;
+const FRAMEWORKS = ['Spring Boot', 'Flask', 'React', 'Flutter'] as const;
+const DATA = ['MySQL'] as const;
 
 export const metadata: Metadata = {
   title: 'About',
@@ -33,15 +39,58 @@ export default function AboutPage() {
             <div className="mt-5 grid gap-5">
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Languages</h3>
-                <p className="mt-2 text-sm text-neutral-700">Java, Python, JavaScript, HTML, CSS</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {LANGUAGES.map((t) => (
+                    <span
+                      key={t}
+                      className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700"
+                    >
+                      <BrandIcon
+                        kind={tagToBrandKind(t) as BrandKind}
+                        label={t}
+                        className="h-4 w-4 rounded-md bg-transparent ring-0 transition-transform duration-200 ease-out hover:scale-150"
+                      />
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Frameworks</h3>
-                <p className="mt-2 text-sm text-neutral-700">Spring Boot, Flask, React, Flutter</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {FRAMEWORKS.map((t) => (
+                    <span
+                      key={t}
+                      className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700"
+                    >
+                      <BrandIcon
+                        kind={tagToBrandKind(t) as BrandKind}
+                        label={t}
+                        className="h-4 w-4 rounded-md bg-transparent ring-0 transition-transform duration-200 ease-out hover:scale-150"
+                      />
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Data</h3>
-                <p className="mt-2 text-sm text-neutral-700">MySQL (schema design, queries, data integrity)</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {DATA.map((t) => (
+                    <span
+                      key={t}
+                      className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700"
+                    >
+                      <BrandIcon
+                        kind={tagToBrandKind(t) as BrandKind}
+                        label={t}
+                        className="h-4 w-4 rounded-md bg-transparent ring-0 transition-transform duration-200 ease-out hover:scale-150"
+                      />
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <p className="mt-3 text-sm text-neutral-700">Schema design, queries, data integrity</p>
               </div>
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">AI/ML</h3>

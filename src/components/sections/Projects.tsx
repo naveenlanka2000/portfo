@@ -6,6 +6,7 @@ import { useSectionScrollProgress } from '@/hooks/useSectionScrollProgress';
 import { cx } from '@/lib/utils';
 import { motionTokens } from '@/lib/motion-tokens';
 import { ObsidianShimmerExperienceHeading } from '@/components/ObsidianShimmerExperienceHeading';
+import { tagToBrandKind } from '@/lib/brand';
 
 import { BrandIcon, type BrandKind } from './BrandIcon';
 
@@ -39,20 +40,6 @@ const PROJECTS: ProjectItem[] = [
     tags: ['HTML', 'CSS', 'JavaScript', 'SQL'],
   },
 ];
-
-function tagToKind(tag: string) {
-  // map to available icon set
-  if (tag === 'Spring Boot') return 'spring-boot' as BrandKind;
-  if (tag === 'Java') return 'java' as BrandKind;
-  if (tag === 'React') return 'react' as BrandKind;
-  if (tag === 'Flutter') return 'flutter' as BrandKind;
-  if (tag === 'MySQL') return 'mysql' as BrandKind;
-  if (tag === 'SQL') return 'sql' as BrandKind;
-  if (tag === 'HTML') return 'html' as BrandKind;
-  if (tag === 'CSS') return 'css' as BrandKind;
-  if (tag === 'JavaScript') return 'javascript' as BrandKind;
-  return 'sql' as BrandKind;
-}
 
 export type ProjectsSectionProps = {
   className?: string;
@@ -128,7 +115,11 @@ export function ProjectsSection({ className }: ProjectsSectionProps) {
                         className="inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-[#f8f8f8] px-4 text-sm text-neutral-700"
                       >
                         <span className="text-neutral-900">
-                          <BrandIcon kind={tagToKind(t)} label={t} className="h-4 w-4 rounded-none" />
+                          <BrandIcon
+                            kind={tagToBrandKind(t) as BrandKind}
+                            label={t}
+                            className="h-4 w-4 rounded-md bg-transparent ring-0 transition-transform duration-200 ease-out hover:scale-150"
+                          />
                         </span>
                         {t}
                       </span>
