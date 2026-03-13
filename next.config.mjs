@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js';
+import fs from 'node:fs';
+import path from 'node:path';
 
 function getGithubPagesBasePath() {
   if (process.env.NEXT_PUBLIC_BASE_PATH) return process.env.NEXT_PUBLIC_BASE_PATH;
@@ -9,6 +11,16 @@ function getGithubPagesBasePath() {
   if (repoName) return `/${repoName}`;
 
   return '/portfo';
+}
+
+function hasCustomDomain() {
+  try {
+    const cnamePath = path.join(process.cwd(), 'CNAME');
+    if (!fs.existsSync(cnamePath)) return false;
+    return fs.readFileSync(cnamePath, 'utf8').trim().length > 0;
+  } catch {
+    return false;
+  }
 }
 
 const baseConfig = {
@@ -30,7 +42,9 @@ const baseConfig = {
 
 export default function nextConfig(phase) {
   const isDev = phase === PHASE_DEVELOPMENT_SERVER;
-  const basePath = isDev ? '' : getGithubPagesBasePath();
+  // With a custom domain (CNAME), GitHub Pages serves at the root path.
+  // Using a repo basePath (e.g. /portfo) would break all asset URLs + routes.
+  const basePath = isDev ? '' : hasCustomDomain() ? '' : getGithubPagesBasePath();
 
   const config = {
     ...baseConfig,
