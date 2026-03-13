@@ -8,7 +8,7 @@ import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { withBasePath } from '@/lib/utils';
 
-const siteUrl = 'https://example.com';
+const siteUrl = 'https://www.naveenlanka.me';
 
 const displayFont = Space_Grotesk({
   subsets: ['latin'],
