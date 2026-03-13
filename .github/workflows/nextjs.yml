@@ -55,7 +55,6 @@ jobs:
         env:
           NEXT_TELEMETRY_DISABLED: "1"
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
-          NEXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}${{ steps.pages.outputs.base_path }}
         run: npm run build
       - name: Disable Jekyll
         run: touch out/.nojekyll

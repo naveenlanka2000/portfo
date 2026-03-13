@@ -8,7 +8,7 @@ import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { withBasePath } from '@/lib/utils';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.naveenlanka.me';
+const siteUrl = 'https://example.com';
 
 const displayFont = Space_Grotesk({
   subsets: ['latin'],

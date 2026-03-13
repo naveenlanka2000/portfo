@@ -2,10 +2,7 @@
 import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js';
 
 function getGithubPagesBasePath() {
-  // Allow an explicit empty string when deploying to a custom domain root.
-  if (Object.prototype.hasOwnProperty.call(process.env, 'NEXT_PUBLIC_BASE_PATH')) {
-    return process.env.NEXT_PUBLIC_BASE_PATH ?? '';
-  }
+  if (process.env.NEXT_PUBLIC_BASE_PATH) return process.env.NEXT_PUBLIC_BASE_PATH;
 
   const repo = process.env.GITHUB_REPOSITORY;
   const repoName = repo?.includes('/') ? repo.split('/')[1] : undefined;
