@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 
 import { useSectionScrollProgress } from '@/hooks/useSectionScrollProgress';
-import { cx } from '@/lib/utils';
+import { cx, withBasePath } from '@/lib/utils';
 import { motionTokens } from '@/lib/motion-tokens';
 import { ObsidianShimmerExperienceHeading } from '@/components/ObsidianShimmerExperienceHeading';
 
@@ -207,38 +207,41 @@ export function ResearchSection({ className }: ResearchSectionProps) {
               </div>
 
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                {RESEARCH_FIGURES.map((fig) => (
-                  <a
-                    key={fig.src}
-                    href={fig.src}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={cx(
-                      'group block overflow-hidden rounded-lg border border-black/10 bg-[#f8f8f8]',
-                      'transition-shadow motion-reduce:transition-none',
-                      'hover:shadow-[0_1px_0_rgba(0,0,0,0.06),0_14px_34px_rgba(0,0,0,0.10)]'
-                    )}
-                  >
-                    <div className="aspect-[16/10] w-full overflow-hidden">
-                      <Image
-                        src={fig.src}
-                        alt={fig.alt}
-                        width={1600}
-                        height={1000}
-                        sizes="(min-width: 640px) 50vw, 100vw"
-                        className={cx(
-                          'h-full w-full object-contain p-3',
-                          'transition-transform duration-300 motion-reduce:transition-none',
-                          'group-hover:scale-[1.02]'
-                        )}
-                      />
-                    </div>
-                    <div className="border-t border-black/10 bg-white px-4 py-3">
-                      <div className="text-sm font-medium text-neutral-900">{fig.caption}</div>
-                      <div className="mt-0.5 text-xs text-neutral-600">/research/medicinal-cnn</div>
-                    </div>
-                  </a>
-                ))}
+                {RESEARCH_FIGURES.map((fig) => {
+                  const src = withBasePath(fig.src);
+                  return (
+                    <a
+                      key={fig.src}
+                      href={src}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={cx(
+                        'group block overflow-hidden rounded-lg border border-black/10 bg-[#f8f8f8]',
+                        'transition-shadow motion-reduce:transition-none',
+                        'hover:shadow-[0_1px_0_rgba(0,0,0,0.06),0_14px_34px_rgba(0,0,0,0.10)]'
+                      )}
+                    >
+                      <div className="aspect-[16/10] w-full overflow-hidden">
+                        <Image
+                          src={src}
+                          alt={fig.alt}
+                          width={1600}
+                          height={1000}
+                          sizes="(min-width: 640px) 50vw, 100vw"
+                          className={cx(
+                            'h-full w-full object-contain p-3',
+                            'transition-transform duration-300 motion-reduce:transition-none',
+                            'group-hover:scale-[1.02]'
+                          )}
+                        />
+                      </div>
+                      <div className="border-t border-black/10 bg-white px-4 py-3">
+                        <div className="text-sm font-medium text-neutral-900">{fig.caption}</div>
+                        <div className="mt-0.5 text-xs text-neutral-600">/research/medicinal-cnn</div>
+                      </div>
+                    </a>
+                  );
+                })}
               </div>
             </motion.div>
           </div>
