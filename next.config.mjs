@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js';
 
-const GH_PAGES_BASE_PATH = '/portfo';
+function getGithubPagesBasePath() {
+  if (process.env.NEXT_PUBLIC_BASE_PATH) return process.env.NEXT_PUBLIC_BASE_PATH;
+
+  const repo = process.env.GITHUB_REPOSITORY;
+  const repoName = repo?.includes('/') ? repo.split('/')[1] : undefined;
+  if (repoName) return `/${repoName}`;
+
+  return '/portfo';
+}
 
 const baseConfig = {
   reactStrictMode: true,
@@ -22,7 +30,7 @@ const baseConfig = {
 
 export default function nextConfig(phase) {
   const isDev = phase === PHASE_DEVELOPMENT_SERVER;
-  const basePath = isDev ? '' : GH_PAGES_BASE_PATH;
+  const basePath = isDev ? '' : getGithubPagesBasePath();
 
   const config = {
     ...baseConfig,
