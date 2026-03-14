@@ -7,39 +7,12 @@ import { cx } from '@/lib/utils';
 import { motionTokens } from '@/lib/motion-tokens';
 import { ObsidianShimmerExperienceHeading } from '@/components/ObsidianShimmerExperienceHeading';
 import { tagToBrandKind } from '@/lib/brand';
+import { projects } from '@/lib/projects';
 
 import { BrandIcon, type BrandKind } from './BrandIcon';
+import { TechTag } from './_ui';
 
-type ProjectItem = {
-  title: string;
-  description: string;
-  tags: string[];
-};
-
-const PROJECTS: ProjectItem[] = [
-  {
-    title: 'Online Banking Application',
-    description:
-      'Built a feedback management module using React, Spring Boot, and MySQL. Implemented secure backend services with IntelliJ IDEA.',
-    tags: ['React', 'Spring Boot', 'MySQL'],
-  },
-  {
-    title: 'Air Ticket Booking System',
-    description: 'Designed a reservation system in Java and SQL for booking, cancellations, and passenger data handling.',
-    tags: ['Java', 'SQL'],
-  },
-  {
-    title: 'Medicare Application',
-    description: 'Developed a cross-platform healthcare app using Flutter for appointment management and medical resources.',
-    tags: ['Flutter'],
-  },
-  {
-    title: 'Food Market Database Management',
-    description:
-      'Created a web application using HTML, CSS, JavaScript, and SQL to manage inventory, sales, and suppliers.',
-    tags: ['HTML', 'CSS', 'JavaScript', 'SQL'],
-  },
-];
+const PROJECT_TOOLBOX = ['Java', 'Spring Boot', 'MySQL', 'SQL', 'Postman', 'Git', 'React', 'Flutter'] as const;
 
 export type ProjectsSectionProps = {
   className?: string;
@@ -71,6 +44,25 @@ export function ProjectsSection({ className }: ProjectsSectionProps) {
                 </p>
               </motion.div>
               <div className="mt-6 h-px w-full bg-black/10" />
+
+              <div className="mt-6">
+                <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Toolbox</div>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  {PROJECT_TOOLBOX.map((t) => (
+                    <span
+                      key={t}
+                      className="inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1 text-xs font-medium text-neutral-800 ring-1 ring-black/5"
+                    >
+                      <BrandIcon
+                        kind={tagToBrandKind(t) as BrandKind}
+                        label={t}
+                        className="h-4 w-4 rounded-md bg-transparent ring-0"
+                      />
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
             <span id="projects-title" className="sr-only">
               Projects
@@ -79,7 +71,7 @@ export function ProjectsSection({ className }: ProjectsSectionProps) {
 
           <div className="md:col-span-8">
             <div className="grid gap-6 md:grid-cols-2">
-              {PROJECTS.map((p, i) => (
+              {projects.slice(0, 4).map((p, i) => (
                 <motion.article
                   key={p.title}
                   role="article"
@@ -88,10 +80,10 @@ export function ProjectsSection({ className }: ProjectsSectionProps) {
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear', delay: i * 0.06 }}
                   className={cx(
-                    'group rounded-xl border border-black/10 bg-white p-7',
-                    'shadow-[0_1px_0_rgba(0,0,0,0.06),0_16px_40px_rgba(0,0,0,0.08)]',
-                    'transition-transform [transition-duration:180ms] [transition-timing-function:cubic-bezier(0.2,0.8,0.2,1)]',
-                    'hover:-translate-y-1 focus-within:-translate-y-1'
+                    'group rounded-2xl bg-white p-7',
+                    'transition-transform [transition-duration:220ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
+                    'hover:scale-[1.01] focus-within:scale-[1.01]',
+                    'motion-reduce:hover:scale-100 motion-reduce:focus-within:scale-100'
                   )}
                 >
                   <div className="flex items-start justify-between gap-4">
@@ -106,23 +98,22 @@ export function ProjectsSection({ className }: ProjectsSectionProps) {
                     </span>
                   </div>
 
-                  <p className="mt-3 text-base leading-relaxed text-neutral-700 md:text-lg">{p.description}</p>
+                  <p className="mt-3 text-base leading-relaxed text-neutral-700 md:text-lg">{p.tagline}</p>
 
                   <div className="mt-6 flex flex-wrap gap-2">
-                    {p.tags.map((t) => (
-                      <span
+                    {p.stack.map((t) => (
+                      <TechTag
                         key={t}
-                        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-[#f8f8f8] px-4 text-sm text-neutral-700"
-                      >
-                        <span className="text-neutral-900">
+                        label={t}
+                        icon={
                           <BrandIcon
                             kind={tagToBrandKind(t) as BrandKind}
                             label={t}
-                            className="h-4 w-4 rounded-md bg-transparent ring-0 transition-transform duration-200 ease-out hover:scale-150"
+                            className="h-4 w-4 rounded-md bg-transparent ring-0"
                           />
-                        </span>
-                        {t}
-                      </span>
+                        }
+                        className="bg-neutral-50 border-black/5"
+                      />
                     ))}
                   </div>
                 </motion.article>

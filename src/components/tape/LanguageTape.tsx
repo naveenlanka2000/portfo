@@ -160,7 +160,7 @@ export function LanguageTape({
   }, []);
 
   return (
-    <div className={cx('mt-4', className)}>
+    <div className={cx('mt-4 w-full', className)}>
       <div
         ref={inViewRef}
         className="tape"
@@ -171,7 +171,7 @@ export function LanguageTape({
         onBlurCapture={onBlurCapture}
         style={{ ['--tape-size' as unknown as string]: `${size}px` }}
       >
-        <div className="px-3 py-3">
+        <div className="py-3">
           <div className="tape-track" ref={trackRef} role="list" aria-label="Languages & tools">
             <div className="tape-seq" ref={seqRef} aria-hidden={false}>
               {items.map((item) => (

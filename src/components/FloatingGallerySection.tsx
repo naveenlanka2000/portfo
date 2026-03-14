@@ -6,7 +6,6 @@ import { useEffect, useMemo, useRef } from 'react';
 
 import { cx } from '@/lib/utils';
 import { IronShineHeadline } from '@/components/IronShineHeadline';
-import { LaptopTilt } from '@/components/LaptopTilt';
 
 export type FloatingGalleryItem = {
   id: string;
@@ -30,16 +29,16 @@ export type FloatingGallerySectionProps = {
 const DEFAULT_ITEMS: FloatingGalleryItem[] = [
   {
     id: 'a1',
-    title: 'Spatial clarity',
-    caption: 'Architecture + light',
+    title: 'Clear architecture',
+    caption: 'simple modules, strong boundaries',
     imageSrc:
       'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=70',
     imageAlt: 'Team collaborating at a desk',
   },
   {
     id: 'a2',
-    title: 'Crisp surfaces',
-    caption: 'Material & shadow',
+    title: 'Secure workflows',
+    caption: 'validation, auth, safe defaults',
     imageSrc:
       'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=70',
     imageAlt: 'People working together in an office',
@@ -51,52 +50,51 @@ const DEFAULT_ITEMS: FloatingGalleryItem[] = [
     imageSrc:
       'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=70',
     imageAlt: 'Laptop with code on screen',
-    overlay: { title: 'Naveen Lanka', subtitle: 'Software Engineer' },
   },
   {
     id: 'a4',
-    title: 'UI rhythm',
-    caption: 'Hierarchy & spacing',
+    title: 'API discipline',
+    caption: 'contracts, edge cases, testing',
     imageSrc:
       'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=70',
     imageAlt: 'Close-up of code editor interface',
   },
   {
     id: 'a5',
-    title: 'Grid discipline',
-    caption: 'Bento composition',
+    title: 'Data integrity',
+    caption: 'schemas, queries, consistency',
     imageSrc:
       'https://images.unsplash.com/photo-1487014679447-9f8336841d58?auto=format&fit=crop&w=1200&q=70',
     imageAlt: 'Clean desk and minimal workspace elements',
   },
   {
     id: 'a6',
-    title: 'Structure in motion',
-    caption: 'Lines & perspective',
+    title: 'Performance mindset',
+    caption: 'fast paths, fewer surprises',
     imageSrc:
       'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=1200&q=70',
     imageAlt: 'Runner moving through a city street',
   },
   {
     id: 'a7',
-    title: 'Product polish',
-    caption: 'Detail-first systems',
+    title: 'Polished interfaces',
+    caption: 'motion that feels natural',
     imageSrc:
       'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=70',
     imageAlt: 'Minimal product workspace scene',
   },
   {
     id: 'a8',
-    title: 'Soft geometry',
-    caption: 'Curves & contrast',
+    title: 'Research rigor',
+    caption: 'measure, iterate, improve',
     imageSrc:
       'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=70',
     imageAlt: 'Minimal product design scene with soft light',
   },
   {
     id: 'a9',
-    title: 'Interface glow',
-    caption: 'Calm dark UI',
+    title: 'Calm systems',
+    caption: 'reliable, readable, maintainable',
     imageSrc:
       'https://images.unsplash.com/photo-1522199755839-a2bacb67c546?auto=format&fit=crop&w=1200&q=70',
     imageAlt: 'Laptop on desk with minimal scene',
@@ -146,21 +144,6 @@ function Card({ item }: { item: FloatingGalleryItem }) {
   );
 
   const frame = "rounded-3xl border border-white/10 bg-neutral-950 p-3 text-white shadow-[0_1px_0_rgba(255,255,255,0.04),0_10px_30px_rgba(0,0,0,0.35)] sm:p-4";
-
-  // Only one 3D laptop container in the wall (the special top-right card).
-  if (item.id === 'a3') {
-    return (
-      <LaptopTilt
-        showBase
-        maxTiltDeg={18}
-        scale={1.04}
-        className="relative cursor-pointer pb-10 transition-transform duration-200 [transition-timing-function:var(--motion-ease)] hover:z-10 hover:-translate-y-1 sm:pb-14"
-        frameBaseClassName={frame}
-      >
-        {content}
-      </LaptopTilt>
-    );
-  }
 
   return <article className={frame}>{content}</article>;
 }
@@ -223,7 +206,7 @@ export function FloatingGallerySection({
   className,
   items = DEFAULT_ITEMS,
   heading = 'A floating gallery of ideas',
-  subheading = 'A premium, Apple-like pre-footer: deep black theme switch + a drifting wall of bento cards.',
+  subheading = 'A quick snapshot of how I build: secure workflows, clean data, and interfaces that feel effortless.',
   durationSec,
 }: FloatingGallerySectionProps) {
   const reduced = useReducedMotion();
@@ -289,7 +272,7 @@ export function FloatingGallerySection({
       <div className="mx-auto max-w-6xl px-5 py-14">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-5">
-            <p className="text-xs font-medium tracking-wide text-white/60">Pre-footer</p>
+            <p className="text-xs font-medium tracking-wide text-white/60">Gallery</p>
 
             <div className="relative mt-3">
               <div
@@ -308,10 +291,10 @@ export function FloatingGallerySection({
             </div>
 
             <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-              <p className="text-sm font-medium text-white">Theme switch</p>
+              <p className="text-sm font-medium text-white">Ambient mode</p>
               <p className="mt-1 text-xs text-white/70">
-                Scroll into this section to smoothly interpolate the global background from white → black.
-                {reduced ? ' (Reduced motion: wall drift pauses.)' : ''}
+                The page tone blends smoothly as you enter and leave this gallery.
+                {reduced ? ' (Reduced motion: drift pauses.)' : ''}
               </p>
             </div>
           </div>

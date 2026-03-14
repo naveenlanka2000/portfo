@@ -7,13 +7,16 @@ import { useSectionScrollProgress } from '@/hooks/useSectionScrollProgress';
 import { cx, withBasePath } from '@/lib/utils';
 import { motionTokens } from '@/lib/motion-tokens';
 import { ObsidianShimmerExperienceHeading } from '@/components/ObsidianShimmerExperienceHeading';
+import { tagToBrandKind } from '@/lib/brand';
 
-import { ScrollScrubImage } from './_ui';
+import { ScrollScrubImage, TechTag } from './_ui';
 import { LeafMark } from './_marks';
+import { BrandIcon, type BrandKind } from './BrandIcon';
 
 type ResearchItem = {
   title: string;
   bullets: string[];
+  toolbox: string[];
 };
 
 type ResearchFigure = {
@@ -29,6 +32,7 @@ const RESEARCH: ResearchItem = {
     'Engineered a model to support Ayurvedic medicine with image recognition.',
     'Iteratively trained and validated models using Keras and TensorFlow.',
   ],
+  toolbox: ['Python', 'TensorFlow', 'Keras', 'OpenCV', 'NumPy', 'Pandas', 'Jupyter'],
 };
 
 const RESEARCH_FIGURES: ResearchFigure[] = [
@@ -94,6 +98,25 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                 </p>
               </motion.div>
               <div className="mt-6 h-px w-full bg-black/10" />
+
+              <div className="mt-6">
+                <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Toolbox</div>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  {RESEARCH.toolbox.map((t) => (
+                    <span
+                      key={t}
+                      className="inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1 text-xs font-medium text-neutral-800 ring-1 ring-black/5"
+                    >
+                      <BrandIcon
+                        kind={tagToBrandKind(t) as BrandKind}
+                        label={t}
+                        className="h-4 w-4 rounded-md bg-transparent ring-0"
+                      />
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
             <span id="research-title" className="sr-only">
               Research
@@ -123,10 +146,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                   whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear' }}
-                  className={cx(
-                    'rounded-xl border border-black/10 bg-white p-7',
-                    'shadow-[0_1px_0_rgba(0,0,0,0.06),0_16px_40px_rgba(0,0,0,0.08)]'
-                  )}
+                  className={cx('rounded-xl bg-white p-7')}
                 >
                   <h3 className="text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
                     {RESEARCH.title}
@@ -143,43 +163,60 @@ export function ResearchSection({ className }: ResearchSectionProps) {
 
                   <div className="mt-6 flex flex-wrap gap-2">
                     <span className="sr-only">Technologies:</span>
-                    <span className="inline-flex min-h-11 items-center rounded-full border border-black/10 bg-[#f8f8f8] px-4 text-sm text-neutral-700">
-                      CNN
-                    </span>
-                    <span className="inline-flex min-h-11 items-center rounded-full border border-black/10 bg-[#f8f8f8] px-4 text-sm text-neutral-700">
-                      TensorFlow
-                    </span>
-                    <span className="inline-flex min-h-11 items-center rounded-full border border-black/10 bg-[#f8f8f8] px-4 text-sm text-neutral-700">
-                      Keras
-                    </span>
+                    <TechTag label="CNN" className="bg-neutral-50 border-black/5" />
+                    <TechTag
+                      label="TensorFlow"
+                      icon={<BrandIcon kind="tensorflow" label="TensorFlow" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                      className="bg-neutral-50 border-black/5"
+                    />
+                    <TechTag
+                      label="Keras"
+                      icon={<BrandIcon kind="keras" label="Keras" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                      className="bg-neutral-50 border-black/5"
+                    />
+                    <TechTag
+                      label="OpenCV"
+                      icon={<BrandIcon kind="opencv" label="OpenCV" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                      className="bg-neutral-50 border-black/5"
+                    />
+                    <TechTag
+                      label="NumPy"
+                      icon={<BrandIcon kind="numpy" label="NumPy" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                      className="bg-neutral-50 border-black/5"
+                    />
+                    <TechTag
+                      label="Pandas"
+                      icon={<BrandIcon kind="pandas" label="Pandas" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                      className="bg-neutral-50 border-black/5"
+                    />
                   </div>
 
-                  <div className="mt-7 rounded-lg border border-black/10 bg-[#f8f8f8] p-4">
+                  <div className="mt-7 rounded-lg bg-[#f8f8f8] p-4">
                     <div className="flex flex-wrap items-baseline justify-between gap-3">
                       <h4 className="text-sm font-semibold tracking-tight text-neutral-900">Model results</h4>
                       <p className="text-xs text-neutral-600">from evaluation plots</p>
                     </div>
 
                     <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                      <div className="rounded-md border border-black/10 bg-white px-3 py-2">
+                      <div className="rounded-md bg-white px-3 py-2">
                         <div className="text-[11px] uppercase tracking-wide text-neutral-500">Accuracy</div>
                         <div className="mt-0.5 text-base font-semibold text-neutral-900">
                           {(RESEARCH_METRICS.accuracy * 100).toFixed(1)}%
                         </div>
                       </div>
-                      <div className="rounded-md border border-black/10 bg-white px-3 py-2">
+                      <div className="rounded-md bg-white px-3 py-2">
                         <div className="text-[11px] uppercase tracking-wide text-neutral-500">F1 (defect)</div>
                         <div className="mt-0.5 text-base font-semibold text-neutral-900">
                           {(RESEARCH_METRICS.f1Defect * 100).toFixed(1)}%
                         </div>
                       </div>
-                      <div className="rounded-md border border-black/10 bg-white px-3 py-2">
+                      <div className="rounded-md bg-white px-3 py-2">
                         <div className="text-[11px] uppercase tracking-wide text-neutral-500">Precision (defect)</div>
                         <div className="mt-0.5 text-base font-semibold text-neutral-900">
                           {(RESEARCH_METRICS.precisionDefect * 100).toFixed(1)}%
                         </div>
                       </div>
-                      <div className="rounded-md border border-black/10 bg-white px-3 py-2">
+                      <div className="rounded-md bg-white px-3 py-2">
                         <div className="text-[11px] uppercase tracking-wide text-neutral-500">Recall (defect)</div>
                         <div className="mt-0.5 text-base font-semibold text-neutral-900">
                           {(RESEARCH_METRICS.recallDefect * 100).toFixed(1)}%
@@ -196,10 +233,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
               whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear' }}
-              className={cx(
-                'mt-6 rounded-xl border border-black/10 bg-white p-6',
-                'shadow-[0_1px_0_rgba(0,0,0,0.06),0_18px_44px_rgba(0,0,0,0.07)]'
-              )}
+              className={cx('mt-6 rounded-xl bg-white p-6')}
             >
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="text-lg font-semibold tracking-tight text-neutral-900 md:text-xl">Evaluation plots</h3>
@@ -216,9 +250,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                       target="_blank"
                       rel="noreferrer"
                       className={cx(
-                        'group block overflow-hidden rounded-lg border border-black/10 bg-[#f8f8f8]',
-                        'transition-shadow motion-reduce:transition-none',
-                        'hover:shadow-[0_1px_0_rgba(0,0,0,0.06),0_14px_34px_rgba(0,0,0,0.10)]'
+                        'group block overflow-hidden rounded-lg bg-[#f8f8f8]'
                       )}
                     >
                       <div className="aspect-[16/10] w-full overflow-hidden">
@@ -235,7 +267,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                           )}
                         />
                       </div>
-                      <div className="border-t border-black/10 bg-white px-4 py-3">
+                      <div className="bg-white px-4 py-3">
                         <div className="text-sm font-medium text-neutral-900">{fig.caption}</div>
                         <div className="mt-0.5 text-xs text-neutral-600">/research/medicinal-cnn</div>
                       </div>

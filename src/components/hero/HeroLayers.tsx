@@ -6,11 +6,13 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { cx } from '@/lib/utils';
+import { tagToBrandKind } from '@/lib/brand';
 import { motionTokens } from '@/lib/motion-tokens';
 import { useHeroScrollProgress } from '@/hooks/useHeroScrollProgress';
 import { parallaxTranslateY } from '@/lib/motion/parallax';
 import { AnimatedHeadline } from '@/components/AnimatedHeadline';
 import { OrbitalPortrait } from '@/components/hero/OrbitalPortrait';
+import { BrandIcon } from '@/components/sections/BrandIcon';
 
 function canUseCursorLight() {
   if (typeof window === 'undefined') return false;
@@ -54,6 +56,12 @@ export function HeroLayers({
   className,
 }: HeroLayersProps) {
   const reduced = useReducedMotion();
+
+  const focusItems = useMemo(
+    () => ['Secure APIs', 'Auth & Validation', 'Database Design', 'Performance', 'Clean UI'] as const,
+    []
+  );
+  const stackItems = useMemo(() => ['Java', 'Python', 'JavaScript', 'TypeScript', 'React', 'MySQL', 'SQL'], []);
 
   const { ref: heroRef, progress, active } = useHeroScrollProgress({ rootMargin: '0px 0px -20% 0px' });
 
@@ -148,7 +156,7 @@ export function HeroLayers({
     <section
       ref={heroRef}
       className={cx(
-        'relative overflow-hidden rounded-[28px] border border-black/5 bg-neutral-100 shadow-soft',
+        'relative overflow-hidden rounded-[28px] bg-neutral-100',
         className
       )}
     >
@@ -196,11 +204,61 @@ export function HeroLayers({
             <dl className="mt-10 grid grid-cols-2 gap-6 md:max-w-lg">
               <div>
                 <dt className="text-xs font-medium text-neutral-500">Focus</dt>
-                <dd className="mt-1 text-sm font-medium text-neutral-900">Backend APIs + web apps</dd>
+                <dd className="mt-1">
+                  <div className="text-sm font-medium text-neutral-900">Backend APIs + web apps</div>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {focusItems.map((item) => (
+                      <span
+                        key={item}
+                        className="inline-flex items-center rounded-full bg-white/70 px-2.5 py-1 text-[12px] font-medium text-neutral-800 ring-1 ring-black/5"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </dd>
               </div>
               <div>
                 <dt className="text-xs font-medium text-neutral-500">Stack</dt>
-                <dd className="mt-1 text-sm font-medium text-neutral-900">Java, Python, React, MySQL</dd>
+                <dd className="mt-2 flex flex-wrap gap-2">
+                  {stackItems.map((label) => (
+                    <span
+                      key={label}
+                      className={
+                        [
+                          'group/stack inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1',
+                          'text-sm font-medium text-neutral-900 ring-1 ring-black/5',
+                          'transition-[background-color] duration-200 ease-out',
+                          'hover:bg-white',
+                        ].join(' ')
+                      }
+                    >
+                      <BrandIcon
+                        kind={tagToBrandKind(label)}
+                        label={label}
+                        className={
+                          [
+                            'h-7 w-7 shrink-0 rounded-lg bg-white ring-black/5',
+                            'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                            'group-hover/stack:scale-[2.05] hover:scale-[2.05]',
+                            'motion-reduce:transition-none motion-reduce:group-hover/stack:scale-100 motion-reduce:hover:scale-100',
+                          ].join(' ')
+                        }
+                      />
+                      <span
+                        className={
+                          [
+                            'overflow-hidden whitespace-nowrap',
+                            'transition-opacity duration-200 ease-out',
+                            'group-hover/stack:opacity-0',
+                          ].join(' ')
+                        }
+                      >
+                        {label}
+                      </span>
+                    </span>
+                  ))}
+                </dd>
               </div>
             </dl>
           </motion.div>
@@ -240,8 +298,7 @@ export function HeroLayers({
               />
             ) : null}
 
-            {/* Edge highlight */}
-            <div aria-hidden className="pointer-events-none absolute inset-0 ring-1 ring-black/5" />
+            {/* Edge highlight removed (flat look) */}
           </div>
         </div>
       </div>

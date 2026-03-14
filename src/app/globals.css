@@ -61,6 +61,27 @@ html[data-page-tone='dark'] {
   --header-cta-fg: 10 10 10;
 }
 
+/* Icon-dock nav theming (keeps labels readable on dark sections). */
+.nav-dock {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.nav-dock-indicator {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+html[data-page-tone='dark'] .nav-dock {
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+html[data-page-tone='dark'] .nav-dock-indicator {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
 html {
   color-scheme: light;
   scroll-behavior: smooth;

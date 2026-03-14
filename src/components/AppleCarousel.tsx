@@ -262,7 +262,7 @@ function AppleCarouselCardView({
         'relative flex-none snap-center overflow-hidden rounded-none',
         'border border-white/10 bg-white/5',
         // Landscape card with a small peek of the next card.
-        'w-[92%] sm:w-[76%] lg:w-[56%]'
+        'w-[86%] sm:w-[70%] lg:w-[52%]'
       )}
       style={{ scrollSnapStop: 'always' }}
     >
@@ -605,16 +605,23 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
 
   return (
     <section className={cx('w-full', className)} aria-label={sectionTitle}>
-      <div className="px-2 py-2">
+      {/* Keep title aligned to content width */}
+      <div className="mx-auto max-w-6xl px-5 py-2">
         <div className="flex items-end justify-between gap-6">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">{sectionTitle}</h2>
             <p className="mt-2 text-sm text-neutral-600">Scroll or drag to explore. The indicator follows your progress.</p>
           </div>
         </div>
+      </div>
 
-        <div ref={viewportRef} className="mt-7 overflow-hidden">
-          <motion.div className="flex gap-6 transform-gpu will-change-transform" style={{ x: trackX }}>
+      {/* Full-bleed viewport so cards can peek off-screen like Apple highlights */}
+      <div className="relative left-1/2 right-1/2 -mx-[50vw] mt-7 w-screen overflow-x-clip">
+        <div ref={viewportRef} className="overflow-hidden px-5 sm:px-8 lg:px-12">
+          <motion.div
+            className="flex gap-6 transform-gpu will-change-transform"
+            style={{ x: trackX }}
+          >
             {loopCards.map((card, i) => (
               <AppleCarouselCardView
                 key={i}
@@ -629,9 +636,10 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
             ))}
           </motion.div>
         </div>
+      </div>
 
-        {/* Pagination: fixed dots + moving cylinder */}
-        <div className="mt-9">
+      {/* Pagination aligned to content width */}
+      <div className="mx-auto mt-9 max-w-6xl px-5">
           <div className="relative flex items-center" style={{ height: 22 }}>
             <div
               ref={dotsWrapRef}
@@ -707,7 +715,6 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
           </div>
 
           <div className="mt-4 text-center text-[11px] leading-snug text-neutral-500">Tap dots to jump between items.</div>
-        </div>
       </div>
     </section>
   );

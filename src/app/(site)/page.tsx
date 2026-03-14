@@ -118,17 +118,21 @@ export default function HomePage() {
               ]}
             />
 
-            <LanguageTape
-              items={defaultLanguageTapeItems}
-              speedPxPerSec={170}
-              direction="ltr"
-              gap={18}
-              size={44}
-              pauseOnHover={false}
-              hoverZoomScale={1.35}
-              hoverLiftPx={-4}
-              className="mt-[3cm]"
-            />
+            <div className="relative left-1/2 right-1/2 -mx-[50vw] mt-[3cm] w-screen overflow-x-clip">
+              <div className="px-5 sm:px-8 lg:px-12">
+                <LanguageTape
+                  items={defaultLanguageTapeItems}
+                  speedPxPerSec={170}
+                  direction="ltr"
+                  gap={18}
+                  size={44}
+                  pauseOnHover={false}
+                  hoverZoomScale={1.35}
+                  hoverLiftPx={-4}
+                  className="mt-0"
+                />
+              </div>
+            </div>
           </div>
         </section>
 

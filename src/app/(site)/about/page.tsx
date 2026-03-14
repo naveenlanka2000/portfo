@@ -4,9 +4,9 @@ import { Reveal } from '@/components/reveal';
 import { tagToBrandKind } from '@/lib/brand';
 import { BrandIcon, type BrandKind } from '@/components/sections/BrandIcon';
 
-const LANGUAGES = ['Java', 'Python', 'JavaScript', 'HTML', 'CSS'] as const;
+const LANGUAGES = ['Java', 'Python', 'JavaScript', 'TypeScript', 'Dart', 'HTML', 'CSS'] as const;
 const FRAMEWORKS = ['Spring Boot', 'Flask', 'React', 'Flutter'] as const;
-const DATA = ['MySQL'] as const;
+const DATA = ['MySQL', 'SQL'] as const;
 
 export const metadata: Metadata = {
   title: 'About',
@@ -74,7 +74,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <div>
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Data</h3>
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Databases</h3>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {DATA.map((t) => (
                     <span

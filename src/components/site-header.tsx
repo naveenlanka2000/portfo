@@ -3,6 +3,9 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useMemo, useState } from 'react';
+import { FaBriefcase, FaCode, FaEnvelope, FaLayerGroup, FaMicroscope, FaUser } from 'react-icons/fa';
 
 import { withBasePath } from '@/lib/utils';
 
@@ -17,18 +20,54 @@ function scrollToId(id: string) {
   el.scrollIntoView({ behavior, block: 'start' });
 }
 
-const links = [
-  { href: '/#experience', label: 'Experience' },
-  { href: '/#research', label: 'Research' },
-  { href: '/#projects', label: 'Projects' },
-  { href: '/projects', label: 'All work' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+const navItems = [
+  { href: '/#experience', label: 'Experience', Icon: FaBriefcase },
+  { href: '/#research', label: 'Research', Icon: FaMicroscope },
+  { href: '/#projects', label: 'Projects', Icon: FaCode },
+  { href: '/projects', label: 'All work', Icon: FaLayerGroup },
+  { href: '/about', label: 'About', Icon: FaUser },
+  { href: '/contact', label: 'Contact', Icon: FaEnvelope },
 ] as const;
+
+type NavHref = (typeof navItems)[number]['href'];
 
 export function SiteHeader() {
   const router = useRouter();
   const pathname = usePathname();
+  const reduced = useReducedMotion();
+
+  const [hash, setHash] = useState<string>('');
+  const [hovered, setHovered] = useState<NavHref | null>(null);
+
+  useEffect(() => {
+    const read = () => setHash(window.location.hash || '');
+    read();
+    window.addEventListener('hashchange', read);
+    return () => window.removeEventListener('hashchange', read);
+  }, []);
+
+  const activeHref = useMemo<NavHref | null>(() => {
+    // Route pages
+    const routeHit = navItems.find((l) => !l.href.startsWith('/#') && l.href === pathname);
+    if (routeHit) return routeHit.href;
+
+    // Home sections
+    if (pathname === '/' && hash) {
+      const sectionHit = navItems.find((l) => l.href.startsWith('/#') && l.href === `/${hash}`);
+      if (sectionHit) return sectionHit.href;
+    }
+
+    return null;
+  }, [hash, pathname]);
+
+  const highlighted = hovered ?? activeHref;
+
+  const onNavClick = (href: NavHref) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (href.startsWith('/#')) return onAnchorClick(href.replace('/#', '#'))(e);
+
+    e.preventDefault();
+    router.push(withBasePath(href));
+  };
 
   const onAnchorClick = (hash: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -60,27 +99,127 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-6 md:flex">
-          {links.map((l) => (
-            l.href.startsWith('/#') ? (
-              <a
-                key={l.href}
-                href={withBasePath(l.href)}
-                onClick={onAnchorClick(l.href.replace('/#', '#'))}
-                className="text-sm text-[rgb(var(--header-link))] transition-colors hover:text-[rgb(var(--header-link-hover))]"
-              >
-                {l.label}
-              </a>
-            ) : (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="text-sm text-[rgb(var(--header-link))] transition-colors hover:text-[rgb(var(--header-link-hover))]"
-              >
-                {l.label}
-              </Link>
-            )
-          ))}
+        <nav
+          aria-label="Primary"
+          className="hidden items-center md:flex"
+          onMouseLeave={() => setHovered(null)}
+        >
+          <div className="nav-dock relative flex items-center rounded-full p-1.5 backdrop-blur">
+            {navItems.map((item) => {
+              const isActive = activeHref === item.href;
+              const isHovered = hovered === item.href;
+              const isHighlighted = highlighted === item.href;
+              const expanded = isActive || isHovered;
+
+              return (
+                <div key={item.href} className="relative">
+                  {isHighlighted ? (
+                    <motion.span
+                      layoutId="nav-dock-indicator"
+                      aria-hidden
+                      className="nav-dock-indicator absolute inset-0 rounded-full"
+                      transition={
+                        reduced
+                          ? { duration: 0 }
+                          : { type: 'spring', stiffness: 420, damping: 38, mass: 0.85 }
+                      }
+                    />
+                  ) : null}
+
+                  <motion.a
+                    layout
+                    href={withBasePath(item.href)}
+                    onMouseEnter={() => setHovered(item.href)}
+                    onFocus={() => setHovered(item.href)}
+                    onClick={onNavClick(item.href)}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={
+                      [
+                        'group relative z-10 inline-flex items-center gap-2 rounded-full',
+                        'text-[rgb(var(--header-link))] hover:text-[rgb(var(--header-link-hover))]',
+                        'focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500/40',
+                        'select-none',
+                      ].join(' ')
+                    }
+                    variants={
+                      reduced
+                        ? undefined
+                        : {
+                            expanded: {
+                              paddingLeft: 14,
+                              paddingRight: 14,
+                              transition: { type: 'spring', stiffness: 460, damping: 36, mass: 0.9 },
+                            },
+                            collapsed: {
+                              paddingLeft: 12,
+                              paddingRight: 12,
+                              // Slightly more damping on the way back feels smoother.
+                              transition: { type: 'spring', stiffness: 360, damping: 40, mass: 0.95 },
+                            },
+                          }
+                    }
+                    animate={reduced ? undefined : expanded ? 'expanded' : 'collapsed'}
+                  >
+                    <motion.span
+                      className="grid size-9 place-items-center rounded-full bg-white/0"
+                      variants={
+                        reduced
+                          ? undefined
+                          : {
+                              expanded: {
+                                scale: 1.12,
+                                transition: { type: 'spring', stiffness: 460, damping: 34, mass: 0.9 },
+                              },
+                              collapsed: {
+                                scale: 1,
+                                transition: { type: 'spring', stiffness: 360, damping: 40, mass: 0.95 },
+                              },
+                            }
+                      }
+                      animate={reduced ? undefined : expanded ? 'expanded' : 'collapsed'}
+                    >
+                      <item.Icon className="h-[18px] w-[18px]" aria-hidden />
+                    </motion.span>
+
+                    <motion.span
+                      aria-hidden={!expanded}
+                      className="pr-0.5 text-sm font-semibold tracking-tight overflow-hidden whitespace-nowrap"
+                      variants={
+                        reduced
+                          ? undefined
+                          : {
+                              expanded: {
+                                opacity: 1,
+                                x: 0,
+                                maxWidth: 140,
+                                transition: {
+                                  opacity: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
+                                  x: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
+                                  maxWidth: { duration: 0.28, ease: [0.16, 1, 0.3, 1] },
+                                },
+                              },
+                              collapsed: {
+                                opacity: 0,
+                                x: -6,
+                                maxWidth: 0,
+                                transition: {
+                                  opacity: { duration: 0.16, ease: [0.16, 1, 0.3, 1] },
+                                  x: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
+                                  maxWidth: { duration: 0.32, ease: [0.16, 1, 0.3, 1] },
+                                },
+                              },
+                            }
+                      }
+                      animate={reduced ? undefined : expanded ? 'expanded' : 'collapsed'}
+                      style={reduced ? undefined : { pointerEvents: 'none' }}
+                    >
+                      {item.label}
+                    </motion.span>
+                  </motion.a>
+                </div>
+              );
+            })}
+          </div>
         </nav>
 
         <Link

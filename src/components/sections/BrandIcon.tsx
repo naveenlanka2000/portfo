@@ -8,12 +8,21 @@ import {
   SiCss,
   SiDart,
   SiFlask,
+  SiGit,
   SiHtml5,
   SiJavascript,
+  SiJupyter,
+  SiKeras,
   SiMysql,
+  SiNumpy,
+  SiOpencv,
+  SiPandas,
+  SiPostman,
   SiPython,
   SiReact,
   SiSpringboot,
+  SiTensorflow,
+  SiTypescript,
   SiFlutter,
 } from 'react-icons/si';
 
@@ -21,6 +30,15 @@ export type BrandKind =
   | 'nforce'
   | 'java'
   | 'python'
+  | 'typescript'
+  | 'git'
+  | 'postman'
+  | 'tensorflow'
+  | 'keras'
+  | 'jupyter'
+  | 'numpy'
+  | 'pandas'
+  | 'opencv'
   | 'spring-boot'
   | 'flask'
   | 'react'
@@ -46,6 +64,15 @@ export function BrandIcon({ kind, label, className }: BrandIconProps) {
     react: SiReact,
     java: FaJava,
     python: SiPython,
+    typescript: SiTypescript,
+    git: SiGit,
+    postman: SiPostman,
+    tensorflow: SiTensorflow,
+    keras: SiKeras,
+    jupyter: SiJupyter,
+    numpy: SiNumpy,
+    pandas: SiPandas,
+    opencv: SiOpencv,
     'spring-boot': SiSpringboot,
     flask: SiFlask,
     flutter: SiFlutter,
@@ -65,6 +92,15 @@ export function BrandIcon({ kind, label, className }: BrandIconProps) {
     react: 'text-sky-400',
     java: 'text-rose-500',
     python: 'text-blue-600',
+    typescript: 'text-blue-600',
+    git: 'text-orange-600',
+    postman: 'text-orange-500',
+    tensorflow: 'text-orange-500',
+    keras: 'text-red-500',
+    jupyter: 'text-orange-500',
+    numpy: 'text-blue-700',
+    pandas: 'text-indigo-600',
+    opencv: 'text-emerald-600',
     'spring-boot': 'text-green-500',
     flask: 'text-neutral-900',
     flutter: 'text-sky-500',

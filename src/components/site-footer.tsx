@@ -27,8 +27,9 @@ export function SiteFooter() {
             <h4 className="text-sm font-semibold text-neutral-900">Connect</h4>
             <ul className="mt-4 space-y-2 text-sm">
               <li><a className="text-neutral-600 hover:text-neutral-900" href="https://github.com/naveenlanka2000" target="_blank" rel="noreferrer">GitHub</a></li>
-              <li><a className="text-neutral-600 hover:text-neutral-900" href="https://www.linkedin.com/in/naveen-lanka" target="_blank" rel="noreferrer">LinkedIn</a></li>
-              <li><a className="text-neutral-600 hover:text-neutral-900" href="https://twitter.com/NaveenLanka" target="_blank" rel="noreferrer">X</a></li>
+              <li><a className="text-neutral-600 hover:text-neutral-900" href="https://www.linkedin.com/in/naveen-lanka-528932331?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noreferrer">LinkedIn</a></li>
+              <li><a className="text-neutral-600 hover:text-neutral-900" href="https://x.com/Naveenlanka6" target="_blank" rel="noreferrer">X</a></li>
+              <li><a className="text-neutral-600 hover:text-neutral-900" href="https://www.instagram.com/naveen_kandanaarachchi?igsh=MXN4cDExemI1bGdvcA==" target="_blank" rel="noreferrer">Instagram</a></li>
             </ul>
           </div>
           <div className="col-span-2 md:col-span-1">
@@ -46,11 +47,14 @@ export function SiteFooter() {
             <a href="https://github.com/naveenlanka2000" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
               <Image src={withBasePath('/brands/github.svg')} alt="GitHub" width={24} height={24} sizes="24px" />
             </a>
-            <a href="https://www.linkedin.com/in/naveen-lanka" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
+            <a href="https://www.linkedin.com/in/naveen-lanka-528932331?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
               <Image src={withBasePath('/brands/linkedin.svg')} alt="LinkedIn" width={24} height={24} sizes="24px" />
             </a>
-            <a href="https://twitter.com/NaveenLanka" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
+            <a href="https://x.com/Naveenlanka6" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
               <Image src={withBasePath('/brands/x.svg')} alt="X" width={24} height={24} sizes="24px" />
+            </a>
+            <a href="https://www.instagram.com/naveen_kandanaarachchi?igsh=MXN4cDExemI1bGdvcA==" target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-neutral-900">
+              <Image src={withBasePath('/brands/instagram.svg')} alt="Instagram" width={24} height={24} sizes="24px" />
             </a>
           </div>
         </div>

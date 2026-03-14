@@ -14,13 +14,13 @@ export function IronShineHeadline({ text = 'A floating gallery of ideas', classN
         [
           // Premium typography
           'text-pretty font-sans text-4xl font-bold tracking-tight md:text-5xl',
-          // Iron/steel look via clipped gradient
-          'bg-gradient-to-r from-gray-700 via-gray-400 to-gray-700',
+          // Brighter steel look (reads well on dark backgrounds)
+          'bg-gradient-to-r from-neutral-200 via-neutral-400 to-neutral-200',
           'bg-[length:200%_100%] bg-clip-text text-transparent',
           // Safari/WebKit support
           '[-webkit-text-fill-color:transparent]',
           // Subtle depth (not chrome)
-          '[text-shadow:0_1px_0_rgba(0,0,0,0.35)]',
+          '[text-shadow:0_1px_0_rgba(0,0,0,0.22)]',
           className,
         ].join(' ')
       }

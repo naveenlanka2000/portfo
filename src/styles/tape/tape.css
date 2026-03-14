@@ -17,7 +17,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 42px;
+  width: 30px;
   pointer-events: none;
   z-index: 2;
 }
