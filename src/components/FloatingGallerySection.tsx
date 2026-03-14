@@ -116,7 +116,10 @@ function chunk3(items: FloatingGalleryItem[]) {
 function Card({ item }: { item: FloatingGalleryItem }) {
   const content = (
     <>
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/30" style={{ aspectRatio: '4 / 3' }}>
+      <div
+        className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/30"
+        style={{ aspectRatio: '4 / 3' }}
+      >
         <Image
           src={item.imageSrc}
           alt={item.imageAlt}

@@ -88,12 +88,12 @@ export function SiteHeader() {
     <header
       className="sticky top-0 z-40 border-b border-[rgb(var(--header-border)/var(--header-border-alpha))] bg-[rgb(var(--header-bg)/var(--header-bg-alpha))] backdrop-blur supports-[backdrop-filter]:bg-[rgb(var(--header-bg)/var(--header-bg-alpha-blur))]"
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+      <div className="mx-auto grid h-16 max-w-6xl grid-cols-[auto_1fr_auto] items-center px-5">
         <Link href="/" className="group inline-flex items-center gap-2">
-          <span className="grid size-8 place-items-center rounded-xl bg-[rgb(var(--header-badge-bg))] text-sm font-semibold text-[rgb(var(--header-badge-fg))] shadow-soft">
+          <span className="grid size-9 place-items-center rounded-xl bg-[rgb(var(--header-badge-bg))] text-sm font-semibold text-[rgb(var(--header-badge-fg))] shadow-soft">
             N
           </span>
-          <span className="text-sm font-medium tracking-tight text-[rgb(var(--header-fg))]">
+          <span className="hidden text-sm font-medium tracking-tight text-[rgb(var(--header-fg))] md:inline">
             Naveen Lanka
             <span className="text-[rgb(var(--header-muted))]"> — Software Engineer</span>
           </span>
@@ -101,10 +101,11 @@ export function SiteHeader() {
 
         <nav
           aria-label="Primary"
-          className="hidden items-center md:flex"
+          className="flex items-center justify-center"
           onMouseLeave={() => setHovered(null)}
         >
-          <div className="nav-dock relative flex items-center rounded-full p-1.5 backdrop-blur">
+          <div className="max-w-[68vw] overflow-x-auto md:max-w-none">
+            <div className="nav-dock relative flex w-max items-center rounded-full p-1.5 backdrop-blur">
             {navItems.map((item) => {
               const isActive = activeHref === item.href;
               const isHovered = hovered === item.href;
@@ -219,12 +220,13 @@ export function SiteHeader() {
                 </div>
               );
             })}
+            </div>
           </div>
         </nav>
 
         <Link
           href="/projects"
-          className="inline-flex items-center justify-center rounded-full bg-[rgb(var(--header-cta-bg))] px-4 py-2 text-sm font-medium text-[rgb(var(--header-cta-fg))] shadow-soft transition-transform duration-200 active:scale-95"
+          className="hidden items-center justify-center rounded-full bg-[rgb(var(--header-cta-bg))] px-4 py-2 text-sm font-medium text-[rgb(var(--header-cta-fg))] shadow-soft transition-transform duration-200 active:scale-95 md:inline-flex"
         >
           View work
         </Link>

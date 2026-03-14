@@ -181,11 +181,11 @@ export function HeroLayers({
             ) : null}
 
             {(ctaPrimary || ctaSecondary) ? (
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex flex-nowrap items-center gap-3">
                 {ctaPrimary ? (
                   <Link
                     href={ctaPrimary.href}
-                    className="inline-flex min-h-11 items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white shadow-soft transition-transform duration-200 active:scale-95"
+                    className="inline-flex min-h-11 flex-1 items-center justify-center whitespace-nowrap rounded-full bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white shadow-soft transition-transform duration-200 active:scale-95 sm:flex-none sm:px-6 sm:py-3"
                   >
                     {ctaPrimary.label}
                   </Link>
@@ -193,7 +193,7 @@ export function HeroLayers({
                 {ctaSecondary ? (
                   <Link
                     href={ctaSecondary.href}
-                    className="inline-flex min-h-11 items-center justify-center rounded-full border border-black bg-white px-6 py-3 text-sm font-medium text-neutral-900 shadow-soft transition-all duration-75 hover:bg-black hover:text-white hover:border-black active:scale-95"
+                    className="inline-flex min-h-11 flex-1 items-center justify-center whitespace-nowrap rounded-full border border-black bg-white px-4 py-2.5 text-sm font-medium text-neutral-900 shadow-soft transition-all duration-75 hover:bg-black hover:text-white hover:border-black active:scale-95 sm:flex-none sm:px-6 sm:py-3"
                   >
                     {ctaSecondary.label}
                   </Link>
