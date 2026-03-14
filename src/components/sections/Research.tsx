@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
+import { useMemo } from 'react';
 
 import { useSectionScrollProgress } from '@/hooks/useSectionScrollProgress';
 import { cx, withBasePath } from '@/lib/utils';
@@ -75,6 +76,20 @@ export type ResearchSectionProps = {
 export function ResearchSection({ className }: ResearchSectionProps) {
   const reduced = useReducedMotion();
   const { ref, progress } = useSectionScrollProgress({ rootMargin: '0px 0px -25% 0px', throttle: 'rAF' });
+
+  const metricCards = useMemo(
+    () =>
+      [
+        { label: 'Accuracy', value: RESEARCH_METRICS.accuracy },
+        { label: 'F1 (defect)', value: RESEARCH_METRICS.f1Defect },
+        { label: 'Precision (defect)', value: RESEARCH_METRICS.precisionDefect },
+        { label: 'Recall (defect)', value: RESEARCH_METRICS.recallDefect },
+      ].map((m) => ({
+        ...m,
+        pct: Math.max(0, Math.min(100, m.value * 100)),
+      })),
+    []
+  );
 
   return (
     <section
@@ -198,30 +213,34 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                     </div>
 
                     <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                      <div className="rounded-md bg-white px-3 py-2">
-                        <div className="text-[11px] uppercase tracking-wide text-neutral-500">Accuracy</div>
-                        <div className="mt-0.5 text-base font-semibold text-neutral-900">
-                          {(RESEARCH_METRICS.accuracy * 100).toFixed(1)}%
+                      {metricCards.map((m) => (
+                        <div key={m.label} className="rounded-md bg-white px-3 py-2">
+                          <div className="text-[11px] uppercase tracking-wide text-neutral-500">{m.label}</div>
+                          <div className="mt-0.5 text-base font-semibold tabular-nums text-neutral-900">{m.pct.toFixed(1)}%</div>
+
+                          <div
+                            role="meter"
+                            aria-label={`${m.label}: ${m.pct.toFixed(1)}%`}
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                            aria-valuenow={Number(m.pct.toFixed(1))}
+                            className="mt-2 h-2 w-full overflow-hidden rounded-full bg-neutral-100 ring-1 ring-black/5"
+                          >
+                            <motion.div
+                              className="h-full rounded-full bg-[linear-gradient(90deg,rgba(16,185,129,0.72),rgba(16,185,129,0.95))]"
+                              initial={reduced ? false : { width: 0 }}
+                              whileInView={reduced ? undefined : { width: `${m.pct}%` }}
+                              viewport={reduced ? undefined : { once: true, amount: 0.7 }}
+                              transition={
+                                reduced
+                                  ? { duration: 0 }
+                                  : { duration: 0.9, ease: [0.16, 1, 0.3, 1] }
+                              }
+                              style={reduced ? { width: `${m.pct}%` } : undefined}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="rounded-md bg-white px-3 py-2">
-                        <div className="text-[11px] uppercase tracking-wide text-neutral-500">F1 (defect)</div>
-                        <div className="mt-0.5 text-base font-semibold text-neutral-900">
-                          {(RESEARCH_METRICS.f1Defect * 100).toFixed(1)}%
-                        </div>
-                      </div>
-                      <div className="rounded-md bg-white px-3 py-2">
-                        <div className="text-[11px] uppercase tracking-wide text-neutral-500">Precision (defect)</div>
-                        <div className="mt-0.5 text-base font-semibold text-neutral-900">
-                          {(RESEARCH_METRICS.precisionDefect * 100).toFixed(1)}%
-                        </div>
-                      </div>
-                      <div className="rounded-md bg-white px-3 py-2">
-                        <div className="text-[11px] uppercase tracking-wide text-neutral-500">Recall (defect)</div>
-                        <div className="mt-0.5 text-base font-semibold text-neutral-900">
-                          {(RESEARCH_METRICS.recallDefect * 100).toFixed(1)}%
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </motion.article>
@@ -269,7 +288,6 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                       </div>
                       <div className="bg-white px-4 py-3">
                         <div className="text-sm font-medium text-neutral-900">{fig.caption}</div>
-                        <div className="mt-0.5 text-xs text-neutral-600">/research/medicinal-cnn</div>
                       </div>
                     </a>
                   );

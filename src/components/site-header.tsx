@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, useReducedMotion } from 'framer-motion';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { FaBriefcase, FaCode, FaEnvelope, FaLayerGroup, FaMicroscope, FaUser } from 'react-icons/fa';
 
 import { withBasePath } from '@/lib/utils';
@@ -40,6 +40,10 @@ export function SiteHeader() {
 
   const [hash, setHash] = useState<string>('');
   const [hovered, setHovered] = useState<NavHref | null>(null);
+  const dockRef = useRef<HTMLDivElement | null>(null);
+  const [mobileTooltip, setMobileTooltip] = useState<{ x: number; label: string } | null>(null);
+  const pointerRafRef = useRef<number | null>(null);
+  const clearHoverTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const read = () => setHash(window.location.hash || '');
@@ -71,6 +75,65 @@ export function SiteHeader() {
       else anyMql.removeListener?.(apply);
     };
   }, []);
+
+  useEffect(() => {
+    if (desktop) {
+      setMobileTooltip(null);
+      return;
+    }
+
+    if (!hovered) {
+      setMobileTooltip(null);
+      return;
+    }
+
+    const dock = dockRef.current;
+    if (!dock) return;
+
+    const anchor = dock.querySelector<HTMLAnchorElement>(`a[data-nav-href="${CSS.escape(hovered)}"]`);
+    if (!anchor) return;
+
+    const dockRect = dock.getBoundingClientRect();
+    const aRect = anchor.getBoundingClientRect();
+    const rawX = aRect.left - dockRect.left + aRect.width / 2;
+    const x = Math.max(28, Math.min(dockRect.width - 28, rawX));
+    const label = navItems.find((i) => i.href === hovered)?.label ?? '';
+    setMobileTooltip({ x, label });
+  }, [desktop, hovered]);
+
+  useEffect(() => {
+    return () => {
+      if (pointerRafRef.current != null) window.cancelAnimationFrame(pointerRafRef.current);
+      if (clearHoverTimeoutRef.current != null) window.clearTimeout(clearHoverTimeoutRef.current);
+    };
+  }, []);
+
+  const scheduleClearHover = (delayMs = 450) => {
+    if (clearHoverTimeoutRef.current != null) window.clearTimeout(clearHoverTimeoutRef.current);
+    clearHoverTimeoutRef.current = window.setTimeout(() => {
+      setHovered(null);
+    }, delayMs);
+  };
+
+  const onDockPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (desktop) return;
+    if (e.pointerType !== 'touch') return;
+
+    if (clearHoverTimeoutRef.current != null) {
+      window.clearTimeout(clearHoverTimeoutRef.current);
+      clearHoverTimeoutRef.current = null;
+    }
+
+    const { clientX, clientY } = e;
+    if (pointerRafRef.current != null) return;
+    pointerRafRef.current = window.requestAnimationFrame(() => {
+      pointerRafRef.current = null;
+      const el = document.elementFromPoint(clientX, clientY) as HTMLElement | null;
+      const anchor = el?.closest?.('a[data-nav-href]') as HTMLAnchorElement | null;
+      const href = (anchor?.dataset?.navHref as NavHref | undefined) ?? undefined;
+      if (href) setHovered(href);
+    });
+  };
 
   const activeHref = useMemo<NavHref | null>(() => {
     // Route pages
@@ -130,7 +193,28 @@ export function SiteHeader() {
           className="flex items-center justify-center"
           onMouseLeave={() => setHovered(null)}
         >
-          <div className="nav-dock relative flex items-center rounded-full p-1 backdrop-blur md:p-1.5">
+          <div
+            ref={dockRef}
+            className="nav-dock relative flex items-center rounded-full p-1 backdrop-blur md:p-1.5"
+            onPointerMove={onDockPointerMove}
+            onPointerUp={() => scheduleClearHover(220)}
+            onPointerCancel={() => scheduleClearHover(180)}
+            onPointerLeave={() => scheduleClearHover(180)}
+          >
+            {!desktop && mobileTooltip ? (
+              <motion.div
+                aria-hidden
+                initial={reduced ? false : { opacity: 0, y: 6 }}
+                animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                exit={reduced ? undefined : { opacity: 0, y: 6 }}
+                transition={reduced ? { duration: 0 } : { duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                className="pointer-events-none absolute -top-9 z-20 -translate-x-1/2 rounded-full bg-black/80 px-2.5 py-1 text-[11px] font-semibold tracking-tight text-white shadow-soft"
+                style={{ left: mobileTooltip.x }}
+              >
+                {mobileTooltip.label}
+              </motion.div>
+            ) : null}
+
             {navItems.map((item) => {
               const isActive = activeHref === item.href;
               const isHovered = hovered === item.href;
@@ -155,8 +239,15 @@ export function SiteHeader() {
                   <motion.a
                     layout={desktop}
                     href={withBasePath(item.href)}
+                    data-nav-href={item.href}
                     onMouseEnter={() => setHovered(item.href)}
                     onFocus={() => setHovered(item.href)}
+                    onPointerDown={(e) => {
+                      if (!desktop && e.pointerType === 'touch') {
+                        setHovered(item.href);
+                        scheduleClearHover(1200);
+                      }
+                    }}
                     onClick={onNavClick(item.href)}
                     aria-current={isActive ? 'page' : undefined}
                     className={
