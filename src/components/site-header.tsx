@@ -36,6 +36,8 @@ export function SiteHeader() {
   const pathname = usePathname();
   const reduced = useReducedMotion();
 
+  const [desktop, setDesktop] = useState(false);
+
   const [hash, setHash] = useState<string>('');
   const [hovered, setHovered] = useState<NavHref | null>(null);
 
@@ -44,6 +46,30 @@ export function SiteHeader() {
     read();
     window.addEventListener('hashchange', read);
     return () => window.removeEventListener('hashchange', read);
+  }, []);
+
+  useEffect(() => {
+    const mql = window.matchMedia?.('(min-width: 768px)');
+    if (!mql) return;
+
+    const apply = () => setDesktop(!!mql.matches);
+    apply();
+
+    // Safari < 14 uses addListener/removeListener.
+    const anyMql = mql as unknown as {
+      addEventListener?: (type: 'change', listener: () => void) => void;
+      removeEventListener?: (type: 'change', listener: () => void) => void;
+      addListener?: (listener: () => void) => void;
+      removeListener?: (listener: () => void) => void;
+    };
+
+    if (typeof anyMql.addEventListener === 'function') anyMql.addEventListener('change', apply);
+    else anyMql.addListener?.(apply);
+
+    return () => {
+      if (typeof anyMql.removeEventListener === 'function') anyMql.removeEventListener('change', apply);
+      else anyMql.removeListener?.(apply);
+    };
   }, []);
 
   const activeHref = useMemo<NavHref | null>(() => {
@@ -104,8 +130,7 @@ export function SiteHeader() {
           className="flex items-center justify-center"
           onMouseLeave={() => setHovered(null)}
         >
-          <div className="max-w-[68vw] overflow-x-auto md:max-w-none">
-            <div className="nav-dock relative flex w-max items-center rounded-full p-1.5 backdrop-blur">
+          <div className="nav-dock relative flex items-center rounded-full p-1 backdrop-blur md:p-1.5">
             {navItems.map((item) => {
               const isActive = activeHref === item.href;
               const isHovered = hovered === item.href;
@@ -128,7 +153,7 @@ export function SiteHeader() {
                   ) : null}
 
                   <motion.a
-                    layout
+                    layout={desktop}
                     href={withBasePath(item.href)}
                     onMouseEnter={() => setHovered(item.href)}
                     onFocus={() => setHovered(item.href)}
@@ -143,7 +168,7 @@ export function SiteHeader() {
                       ].join(' ')
                     }
                     variants={
-                      reduced
+                      reduced || !desktop
                         ? undefined
                         : {
                             expanded: {
@@ -159,12 +184,20 @@ export function SiteHeader() {
                             },
                           }
                     }
-                    animate={reduced ? undefined : expanded ? 'expanded' : 'collapsed'}
+                    animate={reduced || !desktop ? undefined : expanded ? 'expanded' : 'collapsed'}
+                    style={
+                      desktop
+                        ? undefined
+                        : {
+                            paddingLeft: 8,
+                            paddingRight: 8,
+                          }
+                    }
                   >
                     <motion.span
-                      className="grid size-9 place-items-center rounded-full bg-white/0"
+                      className="grid place-items-center rounded-full bg-white/0 size-7 md:size-9"
                       variants={
-                        reduced
+                        reduced || !desktop
                           ? undefined
                           : {
                               expanded: {
@@ -177,50 +210,51 @@ export function SiteHeader() {
                               },
                             }
                       }
-                      animate={reduced ? undefined : expanded ? 'expanded' : 'collapsed'}
+                      animate={reduced || !desktop ? undefined : expanded ? 'expanded' : 'collapsed'}
                     >
-                      <item.Icon className="h-[18px] w-[18px]" aria-hidden />
+                      <item.Icon className="h-[15px] w-[15px] md:h-[18px] md:w-[18px]" aria-hidden />
                     </motion.span>
 
-                    <motion.span
-                      aria-hidden={!expanded}
-                      className="pr-0.5 text-sm font-semibold tracking-tight overflow-hidden whitespace-nowrap"
-                      variants={
-                        reduced
-                          ? undefined
-                          : {
-                              expanded: {
-                                opacity: 1,
-                                x: 0,
-                                maxWidth: 140,
-                                transition: {
-                                  opacity: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
-                                  x: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
-                                  maxWidth: { duration: 0.28, ease: [0.16, 1, 0.3, 1] },
+                    {desktop ? (
+                      <motion.span
+                        aria-hidden={!expanded}
+                        className="pr-0.5 text-sm font-semibold tracking-tight overflow-hidden whitespace-nowrap"
+                        variants={
+                          reduced
+                            ? undefined
+                            : {
+                                expanded: {
+                                  opacity: 1,
+                                  x: 0,
+                                  maxWidth: 140,
+                                  transition: {
+                                    opacity: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
+                                    x: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
+                                    maxWidth: { duration: 0.28, ease: [0.16, 1, 0.3, 1] },
+                                  },
                                 },
-                              },
-                              collapsed: {
-                                opacity: 0,
-                                x: -6,
-                                maxWidth: 0,
-                                transition: {
-                                  opacity: { duration: 0.16, ease: [0.16, 1, 0.3, 1] },
-                                  x: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
-                                  maxWidth: { duration: 0.32, ease: [0.16, 1, 0.3, 1] },
+                                collapsed: {
+                                  opacity: 0,
+                                  x: -6,
+                                  maxWidth: 0,
+                                  transition: {
+                                    opacity: { duration: 0.16, ease: [0.16, 1, 0.3, 1] },
+                                    x: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
+                                    maxWidth: { duration: 0.32, ease: [0.16, 1, 0.3, 1] },
+                                  },
                                 },
-                              },
-                            }
-                      }
-                      animate={reduced ? undefined : expanded ? 'expanded' : 'collapsed'}
-                      style={reduced ? undefined : { pointerEvents: 'none' }}
-                    >
-                      {item.label}
-                    </motion.span>
+                              }
+                        }
+                        animate={reduced ? undefined : expanded ? 'expanded' : 'collapsed'}
+                        style={reduced ? undefined : { pointerEvents: 'none' }}
+                      >
+                        {item.label}
+                      </motion.span>
+                    ) : null}
                   </motion.a>
                 </div>
               );
             })}
-            </div>
           </div>
         </nav>
 
