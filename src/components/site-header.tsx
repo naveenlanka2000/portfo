@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FaBriefcase, FaCode, FaEnvelope, FaMicroscope, FaUser } from 'react-icons/fa';
 
@@ -40,8 +40,11 @@ export function SiteHeader() {
   const [hash, setHash] = useState<string>('');
   const [hovered, setHovered] = useState<NavHref | null>(null);
   const dockRef = useRef<HTMLDivElement | null>(null);
+  const [mobileTooltip, setMobileTooltip] = useState<{ x: number; label: string } | null>(null);
+  const [mobileSelected, setMobileSelected] = useState<NavHref | null>(null);
   const pointerRafRef = useRef<number | null>(null);
   const clearHoverTimeoutRef = useRef<number | null>(null);
+  const clearMobileSelectedTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const read = () => setHash(window.location.hash || '');
@@ -75,9 +78,35 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
+    if (desktop) {
+      setMobileTooltip(null);
+      return;
+    }
+
+    if (!hovered) {
+      setMobileTooltip(null);
+      return;
+    }
+
+    const dock = dockRef.current;
+    if (!dock) return;
+
+    const anchor = dock.querySelector<HTMLAnchorElement>(`a[data-nav-href="${CSS.escape(hovered)}"]`);
+    if (!anchor) return;
+
+    const dockRect = dock.getBoundingClientRect();
+    const aRect = anchor.getBoundingClientRect();
+    const rawX = aRect.left - dockRect.left + aRect.width / 2;
+    const x = Math.max(28, Math.min(dockRect.width - 28, rawX));
+    const label = navItems.find((i) => i.href === hovered)?.label ?? '';
+    setMobileTooltip({ x, label });
+  }, [desktop, hovered]);
+
+  useEffect(() => {
     return () => {
       if (pointerRafRef.current != null) window.cancelAnimationFrame(pointerRafRef.current);
       if (clearHoverTimeoutRef.current != null) window.clearTimeout(clearHoverTimeoutRef.current);
+      if (clearMobileSelectedTimeoutRef.current != null) window.clearTimeout(clearMobileSelectedTimeoutRef.current);
     };
   }, []);
 
@@ -85,6 +114,13 @@ export function SiteHeader() {
     if (clearHoverTimeoutRef.current != null) window.clearTimeout(clearHoverTimeoutRef.current);
     clearHoverTimeoutRef.current = window.setTimeout(() => {
       setHovered(null);
+    }, delayMs);
+  };
+
+  const scheduleClearMobileSelected = (delayMs = 1300) => {
+    if (clearMobileSelectedTimeoutRef.current != null) window.clearTimeout(clearMobileSelectedTimeoutRef.current);
+    clearMobileSelectedTimeoutRef.current = window.setTimeout(() => {
+      setMobileSelected(null);
     }, delayMs);
   };
 
@@ -174,11 +210,51 @@ export function SiteHeader() {
             onPointerCancel={() => scheduleClearHover(180)}
             onPointerLeave={() => scheduleClearHover(180)}
           >
+            <AnimatePresence>
+              {!desktop && mobileTooltip && !mobileSelected ? (
+                <motion.div
+                  key="mobile-nav-tooltip"
+                  aria-hidden
+                  initial={
+                    reduced
+                      ? false
+                      : {
+                          opacity: 0,
+                          y: 8,
+                          x: mobileTooltip.x,
+                        }
+                  }
+                  animate={
+                    reduced
+                      ? { opacity: 1, y: 0 }
+                      : {
+                          opacity: 1,
+                          y: 0,
+                          x: mobileTooltip.x,
+                        }
+                  }
+                  exit={reduced ? undefined : { opacity: 0, y: 8 }}
+                  transition={
+                    reduced
+                      ? { duration: 0 }
+                      : {
+                          opacity: { duration: 0.16, ease: [0.16, 1, 0.3, 1] },
+                          y: { duration: 0.18, ease: [0.16, 1, 0.3, 1] },
+                          x: { type: 'spring', stiffness: 520, damping: 40, mass: 0.9 },
+                        }
+                  }
+                  className="pointer-events-none absolute -top-10 left-0 z-20 -translate-x-1/2 rounded-full bg-black/80 px-2.5 py-1 text-[11px] font-semibold tracking-tight text-white shadow-soft will-change-transform"
+                >
+                  {mobileTooltip.label}
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+
             {navItems.map((item) => {
               const isActive = activeHref === item.href;
               const isHovered = hovered === item.href;
               const isHighlighted = highlighted === item.href;
-              const expanded = isActive || isHovered;
+              const expanded = desktop ? isActive || isHovered : mobileSelected === item.href;
 
               return (
                 <div key={item.href} className="relative">
@@ -196,13 +272,15 @@ export function SiteHeader() {
                   ) : null}
 
                   <motion.a
-                    layout={reduced ? false : true}
+                    layout={desktop}
                     href={withBasePath(item.href)}
                     data-nav-href={item.href}
                     onMouseEnter={() => setHovered(item.href)}
                     onFocus={() => setHovered(item.href)}
                     onPointerDown={(e) => {
                       if (!desktop && e.pointerType === 'touch') {
+                        setMobileSelected(item.href);
+                        scheduleClearMobileSelected();
                         setHovered(item.href);
                         scheduleClearHover(1200);
                       }
@@ -235,6 +313,14 @@ export function SiteHeader() {
                           }
                     }
                     animate={reduced ? undefined : expanded ? 'expanded' : 'collapsed'}
+                    style={
+                      desktop
+                        ? undefined
+                        : {
+                            paddingLeft: 8,
+                            paddingRight: 8,
+                          }
+                    }
                   >
                     <motion.span
                       className="grid place-items-center rounded-full bg-white/0 size-7 md:size-9"
