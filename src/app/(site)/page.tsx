@@ -72,8 +72,8 @@ export default function HomePage() {
         />
 
         <HeroLayers
-          title="Crafting Secure Backends & Polished Web Apps"
-          subtitle="Specializing in Java/Spring Boot, Python APIs, and React/Next.js frontends, with a focus on creating efficient healthcare and booking systems."
+          title="Building Secure Backends & Polished Web Apps"
+          subtitle="I build Java/Spring Boot and Python APIs, and ship React/Next.js frontends—focused on reliable healthcare and booking workflows."
           ctaPrimary={{ label: 'View work', href: '/projects' }}
           ctaSecondary={{ label: 'About me', href: '/about' }}
           portraitSrc={withBasePath('/portrait.png')}

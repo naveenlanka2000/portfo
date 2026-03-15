@@ -239,6 +239,7 @@ function AppleCarouselCardView({
   reduced,
   setRef,
   onWatch,
+  priority,
 }: {
   card: AppleCarouselCard;
   centerScrollLeft: number;
@@ -246,6 +247,7 @@ function AppleCarouselCardView({
   reduced: boolean;
   setRef: (el: HTMLDivElement | null) => void;
   onWatch?: () => void;
+  priority?: boolean;
 }) {
   const range = 320;
   const input = [centerScrollLeft - range, centerScrollLeft, centerScrollLeft + range];
@@ -255,6 +257,10 @@ function AppleCarouselCardView({
   const textOpacity = useTransform(scrollX, input, reduced ? [1, 1, 1] : [0.62, 1, 0.62]);
   const textY = useTransform(scrollX, input, reduced ? [0, 0, 0] : [10, 0, 10]);
 
+  // Tiny neutral blur placeholder to avoid "late" card appearance while the remote image loads.
+  const BLUR_DATA_URL =
+    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
   return (
     <article
       ref={setRef}
@@ -262,7 +268,7 @@ function AppleCarouselCardView({
         'relative flex-none snap-center overflow-hidden rounded-none',
         'border border-white/10 bg-white/5',
         // Landscape card with a small peek of the next card.
-        'w-[86%] sm:w-[70%] lg:w-[52%]'
+        'w-[90%] sm:w-[72%] lg:w-[52%]'
       )}
       style={{ scrollSnapStop: 'always' }}
     >
@@ -274,6 +280,9 @@ function AppleCarouselCardView({
             fill
             className="object-cover"
             sizes="(min-width: 1024px) 760px, 92vw"
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
+            priority={!!priority}
           />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/0" />
@@ -617,9 +626,9 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
 
       {/* Full-bleed viewport so cards can peek off-screen like Apple highlights */}
       <div className="relative left-1/2 right-1/2 -mx-[50vw] mt-7 w-screen overflow-x-clip">
-        <div ref={viewportRef} className="overflow-hidden px-5 sm:px-8 lg:px-12">
+        <div ref={viewportRef} className="overflow-hidden px-3 sm:px-6 lg:px-10">
           <motion.div
-            className="flex gap-6 transform-gpu will-change-transform"
+            className="flex gap-[2px] transform-gpu will-change-transform"
             style={{ x: trackX }}
           >
             {loopCards.map((card, i) => (
@@ -629,6 +638,8 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
                 centerScrollLeft={snapPositions[i] ?? 0}
                 scrollX={scrollX}
                 reduced={!!reduced}
+                // Preload the first couple of cards so initial + adjacent cards appear together.
+                priority={i <= 2}
                 setRef={(el) => {
                   cardRefs.current[i] = el;
                 }}

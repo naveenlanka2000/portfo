@@ -167,7 +167,7 @@ export function HeroLayers({
             animate={contentMotion.animate}
             transition={{ duration: 0.6, ease: motionTokens.ease }}
           >
-            <p className="text-sm font-medium text-neutral-700">Software Engineer • Backend + Web • AI-curious</p>
+            <p className="text-sm font-medium text-neutral-700">Software Engineer • Backend & Web • AI-curious</p>
             <AnimatedHeadline
               play={hasEntered}
               className="mt-4 text-pretty font-sans text-4xl font-bold tracking-tight text-neutral-900 md:text-6xl"

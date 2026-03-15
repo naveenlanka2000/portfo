@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { cloneElement, isValidElement, useMemo } from 'react';
 
 import { cx } from '@/lib/utils';
 import { clamp } from '@/utils/math';
@@ -46,15 +46,50 @@ export type TechTagProps = {
 };
 
 export function TechTag({ label, icon, className }: TechTagProps) {
+  const hasIcon = !!icon;
+
+  const iconNode = useMemo(() => {
+    if (!hasIcon) return null;
+
+    // Prefer applying the interaction classes directly to the icon element
+    // (e.g. <BrandIcon />) so we don't compound transforms.
+    if (isValidElement<{ className?: string }>(icon)) {
+      const nextClassName = cx(
+        icon.props.className,
+        'shrink-0',
+        'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
+        'group-hover/tech:scale-[2.05] hover:scale-[2.05]',
+        'motion-reduce:transition-none motion-reduce:group-hover/tech:scale-100 motion-reduce:hover:scale-100'
+      );
+
+      return cloneElement(icon, { className: nextClassName });
+    }
+
+    return icon;
+  }, [hasIcon, icon]);
+
   return (
     <span
       className={cx(
-        'inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-white px-4 text-sm text-neutral-700',
+        'group/tech inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-white px-4 text-sm text-neutral-700',
+        'overflow-visible transition-[background-color] duration-200 ease-out hover:bg-white',
         className
       )}
     >
-      {icon ? <span className="text-neutral-900">{icon}</span> : null}
-      <span className="leading-none">{label}</span>
+      {hasIcon ? (
+        <span className="relative z-10 inline-flex origin-center text-neutral-900">{iconNode}</span>
+      ) : null}
+
+      <span
+        className={cx(
+          'leading-none',
+          hasIcon
+            ? 'overflow-hidden whitespace-nowrap transition-opacity duration-200 ease-out group-hover/tech:opacity-0'
+            : undefined
+        )}
+      >
+        {label}
+      </span>
     </span>
   );
 }

@@ -69,7 +69,13 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
                   {['Java', 'Spring Boot', 'MySQL', 'SQL', 'Postman'].map((t) => (
                     <span
                       key={t}
-                      className="inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1 text-xs font-medium text-neutral-800 ring-1 ring-black/5"
+                      className={
+                        [
+                          'group/tool inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1',
+                          'text-xs font-medium text-neutral-800 ring-1 ring-black/5',
+                          'overflow-visible transition-[background-color] duration-200 ease-out hover:bg-white',
+                        ].join(' ')
+                      }
                     >
                       <BrandIcon
                         // uses tagToBrandKind logic embedded in Experience tags elsewhere, but here we keep it explicit
@@ -85,9 +91,26 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
                                   : 'postman'
                         }
                         label={t}
-                        className="h-4 w-4 rounded-md bg-transparent ring-0"
+                        className={
+                          [
+                            'h-4 w-4 shrink-0 rounded-md bg-transparent ring-0',
+                            'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                            'group-hover/tool:scale-[2.05] hover:scale-[2.05]',
+                            'motion-reduce:transition-none motion-reduce:group-hover/tool:scale-100 motion-reduce:hover:scale-100',
+                          ].join(' ')
+                        }
                       />
-                      {t}
+                      <span
+                        className={
+                          [
+                            'overflow-hidden whitespace-nowrap',
+                            'transition-opacity duration-200 ease-out',
+                            'group-hover/tool:opacity-0',
+                          ].join(' ')
+                        }
+                      >
+                        {t}
+                      </span>
                     </span>
                   ))}
                 </div>

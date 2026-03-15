@@ -37,6 +37,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 'overflow-visible',
                 // Create a local hover target so “near the icon” (hovering the pill) also pops it
                 'group/tech',
+                'transition-[background-color] duration-200 ease-out hover:bg-white',
               ].join(' ')
             }
           >
@@ -47,16 +48,23 @@ export function ProjectCard({ project }: { project: Project }) {
                 [
                   // Base size a bit bigger in Featured cards
                   'h-5 w-5 rounded-md bg-transparent ring-0',
-                  // Big, smooth pop on hover
-                  'transition-transform duration-200 ease-out',
-                  // Hovering the whole pill should already enlarge the icon
-                  'group-hover/tech:scale-[1.6]',
-                  // Hovering the icon itself makes it even bigger
-                  'hover:scale-[2.0]',
+                  'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                  'group-hover/tech:scale-[2.05] hover:scale-[2.05]',
+                  'motion-reduce:transition-none motion-reduce:group-hover/tech:scale-100 motion-reduce:hover:scale-100',
                 ].join(' ')
               }
             />
-            {s}
+            <span
+              className={
+                [
+                  'overflow-hidden whitespace-nowrap',
+                  'transition-opacity duration-200 ease-out',
+                  'group-hover/tech:opacity-0',
+                ].join(' ')
+              }
+            >
+              {s}
+            </span>
           </span>
         ))}
       </div>
