@@ -241,7 +241,7 @@ export function OrbitalPortrait({
     <div
       className={cx(
         'relative h-full w-full',
-        'flex items-center justify-center',
+        'flex items-start justify-center',
         className
       )}
     >
@@ -321,7 +321,7 @@ export function OrbitalPortrait({
           </motion.div>
 
           {/* Portrait */}
-          <div className="absolute left-1/2 top-[13%] z-[10] w-[74%] -translate-x-1/2">
+          <div className="absolute left-1/2 top-[10%] md:top-[13%] z-[10] w-[74%] -translate-x-1/2">
             <motion.div
               initial={false}
               animate={

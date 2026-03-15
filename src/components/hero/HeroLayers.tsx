@@ -160,7 +160,7 @@ export function HeroLayers({
         className
       )}
     >
-      <div className="grid gap-10 px-7 py-14 md:grid-cols-12 md:items-center md:px-12 md:py-20">
+      <div className="grid gap-10 px-7 py-14 md:grid-cols-12 md:items-start md:px-12 md:py-20">
         <div className="md:col-span-7">
           <motion.div
             initial={contentMotion.initial}
@@ -273,7 +273,7 @@ export function HeroLayers({
             style={{ aspectRatio: '4 / 5' }}
           >
             {/* Portrait + orbital rings */}
-            <div className="relative z-10 flex h-full w-full items-center justify-center">
+            <div className="relative z-10 flex h-full w-full items-start justify-center">
               <OrbitalPortrait
                 src={portraitSrc}
                 alt={portraitAlt ?? 'Naveen Lanka portrait'}
