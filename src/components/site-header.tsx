@@ -3,9 +3,9 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { FaBriefcase, FaCode, FaEnvelope, FaLayerGroup, FaMicroscope, FaUser } from 'react-icons/fa';
+import { FaBriefcase, FaCode, FaEnvelope, FaMicroscope, FaUser } from 'react-icons/fa';
 
 import { withBasePath } from '@/lib/utils';
 
@@ -24,7 +24,6 @@ const navItems = [
   { href: '/#experience', label: 'Experience', Icon: FaBriefcase },
   { href: '/#research', label: 'Research', Icon: FaMicroscope },
   { href: '/#projects', label: 'Projects', Icon: FaCode },
-  { href: '/projects', label: 'All work', Icon: FaLayerGroup },
   { href: '/about', label: 'About', Icon: FaUser },
   { href: '/contact', label: 'Contact', Icon: FaEnvelope },
 ] as const;
@@ -201,19 +200,45 @@ export function SiteHeader() {
             onPointerCancel={() => scheduleClearHover(180)}
             onPointerLeave={() => scheduleClearHover(180)}
           >
-            {!desktop && mobileTooltip ? (
-              <motion.div
-                aria-hidden
-                initial={reduced ? false : { opacity: 0, y: 6 }}
-                animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-                exit={reduced ? undefined : { opacity: 0, y: 6 }}
-                transition={reduced ? { duration: 0 } : { duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                className="pointer-events-none absolute -top-9 z-20 -translate-x-1/2 rounded-full bg-black/80 px-2.5 py-1 text-[11px] font-semibold tracking-tight text-white shadow-soft"
-                style={{ left: mobileTooltip.x }}
-              >
-                {mobileTooltip.label}
-              </motion.div>
-            ) : null}
+            <AnimatePresence>
+              {!desktop && mobileTooltip ? (
+                <motion.div
+                  key="mobile-nav-tooltip"
+                  aria-hidden
+                  initial={
+                    reduced
+                      ? false
+                      : {
+                          opacity: 0,
+                          y: 8,
+                          x: mobileTooltip.x,
+                        }
+                  }
+                  animate={
+                    reduced
+                      ? { opacity: 1, y: 0 }
+                      : {
+                          opacity: 1,
+                          y: 0,
+                          x: mobileTooltip.x,
+                        }
+                  }
+                  exit={reduced ? undefined : { opacity: 0, y: 8 }}
+                  transition={
+                    reduced
+                      ? { duration: 0 }
+                      : {
+                          opacity: { duration: 0.16, ease: [0.16, 1, 0.3, 1] },
+                          y: { duration: 0.18, ease: [0.16, 1, 0.3, 1] },
+                          x: { type: 'spring', stiffness: 520, damping: 40, mass: 0.9 },
+                        }
+                  }
+                  className="pointer-events-none absolute -top-10 left-0 z-20 -translate-x-1/2 rounded-full bg-black/80 px-2.5 py-1 text-[11px] font-semibold tracking-tight text-white shadow-soft will-change-transform"
+                >
+                  {mobileTooltip.label}
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
 
             {navItems.map((item) => {
               const isActive = activeHref === item.href;

@@ -119,6 +119,7 @@ export function ProjectsSection({ className }: ProjectsSectionProps) {
                 </motion.article>
               ))}
             </div>
+
           </div>
         </div>
       </div>
