@@ -266,7 +266,8 @@ function AppleCarouselCardView({
       ref={setRef}
       className={cx(
         'relative flex-none snap-center overflow-hidden rounded-none',
-        'border border-white/10 bg-white/5',
+        // Mobile: flat (no outline). Desktop: keep the subtle border.
+        'border-0 bg-white/5 md:border md:border-white/10',
         // Landscape card with a small peek of the next card.
         'w-[90%] sm:w-[72%] lg:w-[52%]'
       )}

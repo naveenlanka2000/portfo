@@ -21,7 +21,7 @@ export function OrbitalPortrait({
   alt = 'Portrait',
   className,
   name = 'Naveen Lanka',
-  tagline = 'SOFTWARE ENGINEER',
+  tagline = 'SOFTWARE ENGINEER // BACKEND + WEB',
   accentColor = 'rgba(16, 185, 129, 0.75)',
   badgeText = "COME ON LET'S TALK",
 }: OrbitalPortraitProps) {
@@ -100,6 +100,12 @@ export function OrbitalPortrait({
     if (typeof window === 'undefined') return;
     if (imageError) return;
 
+    // This processing is purely visual polish; keep it from hurting LCP.
+    const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency ?? 8 : 8;
+    const deviceMemory = typeof navigator !== 'undefined' ? (navigator as any).deviceMemory ?? 8 : 8;
+    const shouldProcess = !reduced && cores >= 6 && deviceMemory >= 6;
+    if (!shouldProcess) return;
+
     let cancelled = false;
 
     const isBgLike = (r: number, g: number, b: number, a: number) => {
@@ -125,8 +131,14 @@ export function OrbitalPortrait({
 
         if (cancelled) return;
 
-        const w = Math.max(1, img.naturalWidth || img.width);
-        const h = Math.max(1, img.naturalHeight || img.height);
+        const w0 = Math.max(1, img.naturalWidth || img.width);
+        const h0 = Math.max(1, img.naturalHeight || img.height);
+
+        // Downscale for processing to reduce CPU + memory cost.
+        const maxSide = 900;
+        const scale = Math.min(1, maxSide / Math.max(w0, h0));
+        const w = Math.max(1, Math.round(w0 * scale));
+        const h = Math.max(1, Math.round(h0 * scale));
         const canvas = document.createElement('canvas');
         canvas.width = w;
         canvas.height = h;
@@ -218,12 +230,28 @@ export function OrbitalPortrait({
       }
     };
 
-    load();
+    // Defer heavy processing off the critical path.
+    const idle = (window as any).requestIdleCallback as undefined | ((cb: () => void, opts?: { timeout: number }) => number);
+    const cancelIdle = (window as any).cancelIdleCallback as undefined | ((id: number) => void);
+    let idleId: number | null = null;
+    let timeoutId: number | null = null;
+
+    if (idle) {
+      idleId = idle(() => {
+        if (!cancelled) void load();
+      }, { timeout: 2500 });
+    } else {
+      timeoutId = window.setTimeout(() => {
+        if (!cancelled) void load();
+      }, 0);
+    }
 
     return () => {
       cancelled = true;
+      if (idleId != null && cancelIdle) cancelIdle(idleId);
+      if (timeoutId != null) window.clearTimeout(timeoutId);
     };
-  }, [src, imageError]);
+  }, [src, imageError, reduced]);
 
   useEffect(() => {
     if (phase !== 'finishing') return;
@@ -423,7 +451,7 @@ export function OrbitalPortrait({
             )}
 
             <motion.div
-              className="mt-3 text-[11px] font-medium tracking-[0.34em] text-neutral-600"
+              className="mt-3 text-[10px] font-medium tracking-[0.24em] text-neutral-600 sm:text-[11px] sm:tracking-[0.34em] whitespace-normal sm:whitespace-nowrap"
               initial={reduced ? false : { opacity: 0, y: 6 }}
               animate={
                 reduced

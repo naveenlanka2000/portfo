@@ -117,7 +117,7 @@ function Card({ item }: { item: FloatingGalleryItem }) {
   const content = (
     <>
       <div
-        className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/30"
+        className="relative overflow-hidden rounded-2xl bg-black/30 border-0 md:border md:border-white/10"
         style={{ aspectRatio: '4 / 3' }}
       >
         <Image
@@ -130,7 +130,7 @@ function Card({ item }: { item: FloatingGalleryItem }) {
 
         {item.overlay ? (
           <div className="absolute inset-x-0 bottom-0 p-4">
-            <div className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3 backdrop-blur">
+            <div className="rounded-2xl bg-black/40 px-4 py-3 backdrop-blur border-0 md:border md:border-white/10">
               <p className="text-sm font-semibold tracking-tight text-white">{item.overlay.title}</p>
               {item.overlay.subtitle ? (
                 <p className="mt-1 text-xs text-white/75">{item.overlay.subtitle}</p>
@@ -146,7 +146,8 @@ function Card({ item }: { item: FloatingGalleryItem }) {
     </>
   );
 
-  const frame = "rounded-3xl border border-white/10 bg-neutral-950 p-3 text-white shadow-[0_1px_0_rgba(255,255,255,0.04),0_10px_30px_rgba(0,0,0,0.35)] sm:p-4";
+  const frame =
+    "rounded-3xl bg-neutral-950 p-3 text-white border-0 shadow-none md:border md:border-white/10 md:shadow-[0_1px_0_rgba(255,255,255,0.04),0_10px_30px_rgba(0,0,0,0.35)] sm:p-4";
 
   return <article className={frame}>{content}</article>;
 }

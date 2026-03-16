@@ -45,6 +45,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link rel="preload" as="image" href={withBasePath('/portrait.png')} />
+      </head>
       <body className={`${displayFont.variable} min-h-dvh antialiased`}>
         <HashScroller />
         <a
