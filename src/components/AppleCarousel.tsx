@@ -266,7 +266,7 @@ function AppleCarouselCardView({
       ref={setRef}
       className={cx(
         'relative flex-none snap-center overflow-hidden rounded-none',
-        'border border-white/10 bg-white/5',
+        'border border-transparent bg-white/5 sm:border-white/10',
         // Landscape card with a small peek of the next card.
         'w-[90%] sm:w-[72%] lg:w-[52%]'
       )}
@@ -299,7 +299,7 @@ function AppleCarouselCardView({
             className={cx(
               'inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium',
               'bg-white/80 text-black backdrop-blur-xl',
-              'border border-white/25 shadow-soft',
+              'border border-transparent shadow-none sm:border-white/25 sm:shadow-soft',
               'transition-all duration-200 hover:bg-white/90 active:scale-95',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70'
             )}
