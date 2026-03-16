@@ -163,7 +163,7 @@ export function HeroLayers({
     <section
       ref={heroRef}
       className={cx(
-        'relative overflow-hidden rounded-[28px] bg-neutral-100',
+        'relative overflow-hidden rounded-none bg-transparent sm:rounded-[28px] sm:bg-neutral-100',
         className
       )}
     >
