@@ -21,7 +21,7 @@ export function OrbitalPortrait({
   alt = 'Portrait',
   className,
   name = 'Naveen Lanka',
-  tagline = 'SOFTWARE ENGINEER // BACKEND + WEB',
+  tagline = 'SOFTWARE ENGINEER',
   accentColor = 'rgba(16, 185, 129, 0.75)',
   badgeText = "COME ON LET'S TALK",
 }: OrbitalPortraitProps) {
@@ -103,8 +103,7 @@ export function OrbitalPortrait({
     // This processing is purely visual polish; keep it from hurting LCP.
     const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency ?? 8 : 8;
     const deviceMemory = typeof navigator !== 'undefined' ? (navigator as any).deviceMemory ?? 8 : 8;
-    const isSmallViewport = window.matchMedia?.('(max-width: 639px)')?.matches ?? false;
-    const shouldProcess = !reduced && !isSmallViewport && cores >= 6 && deviceMemory >= 6;
+    const shouldProcess = !reduced && cores >= 6 && deviceMemory >= 6;
     if (!shouldProcess) return;
 
     let cancelled = false;
@@ -452,7 +451,7 @@ export function OrbitalPortrait({
             )}
 
             <motion.div
-              className="mt-3 text-[9px] font-medium tracking-[0.2em] text-neutral-600 whitespace-nowrap sm:text-[11px] sm:tracking-[0.34em]"
+              className="mt-3 text-[11px] font-medium tracking-[0.34em] text-neutral-600"
               initial={reduced ? false : { opacity: 0, y: 6 }}
               animate={
                 reduced

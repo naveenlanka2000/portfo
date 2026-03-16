@@ -135,9 +135,8 @@ export function ScrollScrubImage({
   return (
     <div
       className={cx(
-        'relative overflow-hidden rounded-xl bg-white',
-        // Mobile: flat (no outline/shadow). Desktop: keep original card frame.
-        'border-0 shadow-none md:border md:border-black/10 md:shadow-[0_1px_0_rgba(0,0,0,0.06),0_16px_40px_rgba(0,0,0,0.08)]',
+        'relative overflow-hidden rounded-xl border border-black/10 bg-white',
+        'shadow-[0_1px_0_rgba(0,0,0,0.06),0_16px_40px_rgba(0,0,0,0.08)]',
         className
       )}
       style={{ aspectRatio }}
