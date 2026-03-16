@@ -350,7 +350,7 @@ export function OrbitalPortrait({
           </motion.div>
 
           {/* Portrait */}
-          <div className="absolute left-1/2 top-[7%] sm:top-[10%] md:top-[13%] z-[10] w-[70%] sm:w-[74%] -translate-x-1/2">
+          <div className="absolute left-1/2 top-[10%] md:top-[13%] z-[10] w-[74%] -translate-x-1/2">
             <motion.div
               initial={false}
               animate={
@@ -452,7 +452,7 @@ export function OrbitalPortrait({
             )}
 
             <motion.div
-              className="mt-3 text-[10px] font-medium tracking-[0.24em] text-neutral-600 sm:text-[11px] sm:tracking-[0.34em] whitespace-normal sm:whitespace-nowrap"
+              className="mt-3 text-[9px] font-medium tracking-[0.2em] text-neutral-600 whitespace-nowrap sm:text-[11px] sm:tracking-[0.34em]"
               initial={reduced ? false : { opacity: 0, y: 6 }}
               animate={
                 reduced
