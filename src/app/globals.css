@@ -63,22 +63,22 @@ html[data-page-tone='dark'] {
 
 /* Icon-dock nav theming (keeps labels readable on dark sections). */
 .nav-dock {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.45);
   border: 0;
 }
 
 .nav-dock-indicator {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.92);
   border: 0;
 }
 
 html[data-page-tone='dark'] .nav-dock {
-  background: transparent;
+  background: rgba(0, 0, 0, 0.38);
   border: 0;
 }
 
 html[data-page-tone='dark'] .nav-dock-indicator {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.12);
   border: 0;
 }
 

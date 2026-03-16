@@ -29,8 +29,9 @@ export function OrbitalPortrait({
   const uid = useId();
   const badgePathId = `${uid}-badge-path`;
 
-  // Intentional staging for a premium feel.
-  const MIN_LOADING_MS = 1700;
+  // Keep the UI snappy: no artificial 2s wait.
+  // Small minimum just avoids flicker if the image is instant.
+  const MIN_LOADING_MS = reduced ? 0 : 180;
   const FINISH_MS = 250;
   const easeSoft: [number, number, number, number] = [0.16, 1, 0.3, 1];
   const badgeLoopText = `${badgeText} • `.repeat(6);
@@ -54,6 +55,7 @@ export function OrbitalPortrait({
   const [imageError, setImageError] = useState(false);
   const [processedSrc, setProcessedSrc] = useState<string | null>(null);
   const processedUrlRef = useRef<string | null>(null);
+  const loadStartRef = useRef<number>(0);
 
   const doneTimerRef = useRef<number | null>(null);
 
@@ -66,6 +68,7 @@ export function OrbitalPortrait({
     // If the image source changes, return to loading.
     clearTimers();
     setPhase('loading');
+    loadStartRef.current = typeof performance !== 'undefined' ? performance.now() : Date.now();
     setImageLoaded(false);
     setLoaderFilled(reduced);
     setImageError(false);
@@ -83,10 +86,14 @@ export function OrbitalPortrait({
   useEffect(() => {
     if (phase !== 'loading') return;
     if (reduced) return;
-    // Fallback in case animations don't complete (tab hidden, throttling, etc).
-    const t = window.setTimeout(() => setLoaderFilled(true), MIN_LOADING_MS + 200);
+    if (!imageLoaded && !imageError) return;
+
+    const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    const elapsed = Math.max(0, now - (loadStartRef.current || now));
+    const delay = Math.max(0, MIN_LOADING_MS - elapsed);
+    const t = window.setTimeout(() => setLoaderFilled(true), delay);
     return () => window.clearTimeout(t);
-  }, [phase, reduced, MIN_LOADING_MS]);
+  }, [phase, reduced, imageLoaded, imageError, MIN_LOADING_MS]);
 
   useEffect(() => {
     if (phase !== 'loading') return;
@@ -103,9 +110,7 @@ export function OrbitalPortrait({
     // This processing is purely visual polish; keep it from hurting LCP.
     const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency ?? 8 : 8;
     const deviceMemory = typeof navigator !== 'undefined' ? (navigator as any).deviceMemory ?? 8 : 8;
-    const isSmallScreen = window.matchMedia?.('(max-width: 767px)')?.matches ?? false;
-    const isCoarse = window.matchMedia?.('(pointer: coarse)')?.matches ?? false;
-    const shouldProcess = !reduced && !isSmallScreen && !isCoarse && cores >= 6 && deviceMemory >= 6;
+    const shouldProcess = !reduced && cores >= 6 && deviceMemory >= 6;
     if (!shouldProcess) return;
 
     let cancelled = false;
@@ -224,25 +229,9 @@ export function OrbitalPortrait({
         });
         if (!blob || cancelled) return;
 
-        const nextUrl = URL.createObjectURL(blob);
-
-        // Only swap to the processed blob if it actually loads.
-        await new Promise<void>((resolve, reject) => {
-          const test = new window.Image();
-          test.decoding = 'async';
-          test.onload = () => resolve();
-          test.onerror = () => reject(new Error('processed image failed to load'));
-          test.src = nextUrl;
-        });
-
-        if (cancelled) {
-          URL.revokeObjectURL(nextUrl);
-          return;
-        }
-
         if (processedUrlRef.current) URL.revokeObjectURL(processedUrlRef.current);
-        processedUrlRef.current = nextUrl;
-        setProcessedSrc(nextUrl);
+        processedUrlRef.current = URL.createObjectURL(blob);
+        setProcessedSrc(processedUrlRef.current);
       } catch {
         // If processing fails, just fall back to the original src.
       }
@@ -353,7 +342,7 @@ export function OrbitalPortrait({
                         : { duration: MIN_LOADING_MS / 1000, ease: 'linear' }
                   }
                   onAnimationComplete={() => {
-                    if (!reduced && phase === 'loading') setLoaderFilled(true);
+                    // No-op: loader completion is driven by image load now.
                   }}
                   style={{ transformOrigin: '32px 32px', transform: 'rotate(-90deg)' }}
                 />
@@ -383,11 +372,10 @@ export function OrbitalPortrait({
                 </div>
               ) : (
                 <img
-                  src={processedSrc ?? src ?? ''}
+                  src={processedSrc ?? src}
                   alt={alt}
                   decoding="async"
                   loading="eager"
-                  fetchPriority="high"
                   onLoad={() => setImageLoaded(true)}
                   onError={() => {
                     setImageError(true);

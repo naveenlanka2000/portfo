@@ -20,8 +20,8 @@ const displayFont = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Naveen Lanka — Software Engineer (Backend + Full‑Stack)',
-    template: 'Naveen Lanka — %s',
+    default: 'Naveen Lanka - Software Engineer (Backend + Full-Stack)',
+    template: 'Naveen Lanka - %s',
   },
   description:
     'Backend + full-stack engineer building secure APIs, clean data systems, and polished web experiences.',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: siteUrl,
-    title: 'Naveen Lanka — Software Engineer (Backend + Full‑Stack)',
+    title: 'Naveen Lanka - Software Engineer (Backend + Full-Stack)',
     description:
       'Backend + full-stack engineer building secure APIs, clean data systems, and polished web experiences.',
     images: [{ url: withBasePath('/og/site.png'), width: 1200, height: 630, alt: 'Portfolio preview' }],

@@ -33,9 +33,8 @@ export function ProjectCard({ project }: { project: Project }) {
             className={
               [
                 'relative inline-flex items-center gap-2 rounded-full bg-neutral-50 px-3 py-1 text-xs font-medium text-neutral-800',
-                // Let the icon scale above neighbors
                 'overflow-visible',
-                // Create a local hover target so “near the icon” (hovering the pill) also pops it
+                // Hovering the pill should also trigger the icon expansion.
                 'group/tech',
                 'transition-[background-color] duration-200 ease-out hover:bg-white',
               ].join(' ')
@@ -46,7 +45,6 @@ export function ProjectCard({ project }: { project: Project }) {
               label={s}
               className={
                 [
-                  // Base size a bit bigger in Featured cards
                   'h-5 w-5 rounded-md bg-transparent ring-0',
                   'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
                   'group-hover/tech:scale-[2.05] hover:scale-[2.05]',

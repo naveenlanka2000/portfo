@@ -1,14 +1,12 @@
 import Link from 'next/link';
 
-import { AppleCarousel } from '@/components/AppleCarousel';
-import { FloatingGallerySection } from '@/components/FloatingGallerySection';
+import { ExperienceLazy } from '@/components/home/ExperienceLazy';
+import { FloatingGalleryLazy } from '@/components/home/FloatingGalleryLazy';
+import { HighlightsLazy } from '@/components/home/HighlightsLazy';
+import { ProjectsLazy } from '@/components/home/ProjectsLazy';
+import { ResearchLazy } from '@/components/home/ResearchLazy';
 import { HeroLayers } from '@/components/hero/HeroLayers';
-import { LanguageTape } from '@/components/tape/LanguageTape';
-import { defaultLanguageTapeItems } from '@/components/tape/icons';
 import { ProjectCard } from '@/components/project-card';
-import { ExperienceSection } from '@/components/sections/Experience';
-import { ResearchSection } from '@/components/sections/Research';
-import { ProjectsSection } from '@/components/sections/Projects';
 import { projects } from '@/lib/projects';
 import { withBasePath } from '@/lib/utils';
 
@@ -73,7 +71,7 @@ export default function HomePage() {
 
         <HeroLayers
           title="Building Secure Backends & Polished Web Apps"
-          subtitle="I build Java/Spring Boot and Python APIs, and ship React/Next.js frontends—focused on reliable healthcare and booking workflows."
+          subtitle="I build Java/Spring Boot and Python APIs, and ship React/Next.js frontends, focused on reliable healthcare and booking workflows."
           ctaPrimary={{ label: 'View work', href: '/projects' }}
           ctaSecondary={{ label: 'About me', href: '/about' }}
           portraitSrc={withBasePath('/portrait.png')}
@@ -99,46 +97,25 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {featured.map((p, idx) => (
+            {featured.map((p) => (
               <ProjectCard key={p.slug} project={p} />
             ))}
           </div>
         </section>
 
-        <section className="pb-16">
-          <div className="mt-8">
-            <AppleCarousel
-              ariaLabel="Highlights"
-              cards={[
-                { title: 'Secure Backend Services', sub: 'Validation & Access Control', img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=70' },
-                { title: 'Workflow-Driven APIs', sub: 'Booking & Scheduling', img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1800&q=70' },
-                { title: 'Robust Data Systems', sub: 'MySQL Schema & Queries', img: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1800&q=70' },
-                { title: 'Polished Interfaces', sub: 'React + Motion', img: 'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=1800&q=70' },
-                { title: 'ML-Powered Research', sub: 'CNN-Based Classification', img: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1800&q=70' },
-              ]}
-            />
+        <div className="[content-visibility:auto] [contain-intrinsic-size:1px_720px]">
+          <HighlightsLazy />
+        </div>
 
-            <div className="relative left-1/2 right-1/2 -mx-[50vw] mt-[3cm] w-screen overflow-x-clip">
-              <div className="px-5 sm:px-8 lg:px-12">
-                <LanguageTape
-                  items={defaultLanguageTapeItems}
-                  speedPxPerSec={170}
-                  direction="ltr"
-                  gap={18}
-                  size={44}
-                  pauseOnHover={false}
-                  hoverZoomScale={1.35}
-                  hoverLiftPx={-4}
-                  className="mt-0"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <ExperienceSection className="-mx-5" />
-        <ResearchSection className="-mx-5" />
-        <ProjectsSection className="-mx-5" />
+        <div className="[content-visibility:auto] [contain-intrinsic-size:1px_960px]">
+          <ExperienceLazy className="-mx-5" />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:1px_1100px]">
+          <ResearchLazy className="-mx-5" />
+        </div>
+        <div className="[content-visibility:auto] [contain-intrinsic-size:1px_920px]">
+          <ProjectsLazy className="-mx-5" />
+        </div>
 
         <section className="mt-24 pb-16">
           <div className="grid gap-6 rounded-3xl border border-black/5 bg-white p-8 shadow-soft md:grid-cols-3">
@@ -160,7 +137,9 @@ export default function HomePage() {
         </section>
       </div>
 
-      <FloatingGallerySection />
+      <div className="[content-visibility:auto] [contain-intrinsic-size:1px_980px]">
+        <FloatingGalleryLazy />
+      </div>
     </>
   );
 }

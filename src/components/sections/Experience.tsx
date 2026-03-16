@@ -21,7 +21,7 @@ const EXPERIENCE: ExperienceItem[] = [
   {
     role: 'Software Engineer',
     company: 'NFORCE Dental Management System',
-    dateRange: 'Oct 2024 – Mar 2025',
+    dateRange: 'Oct 2024 - Mar 2025',
     bullets: [
       'Built and maintained Java / Spring Boot backend services for core clinical workflows.',
       'Worked with MySQL data models + SQL queries to keep records consistent and reliable.',
@@ -57,11 +57,11 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
               >
                 <ObsidianShimmerExperienceHeading as="h2" className="text-4xl md:text-5xl" />
                 <p className="mt-3 text-pretty text-base leading-relaxed text-neutral-600 md:text-lg">
-                  Backend experience focused on secure workflows, clean data handling, and reliable delivery with Java, Spring Boot, and MySQL.
+                  Backend experience focused on secure workflows, clean data handling, and reliable
+                  delivery with Java, Spring Boot, and MySQL.
                 </p>
               </motion.div>
               <div className="mt-6 h-px w-full bg-black/10" />
-
 
               <div className="mt-6">
                 <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Toolbox</div>
@@ -78,7 +78,6 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
                       }
                     >
                       <BrandIcon
-                        // uses tagToBrandKind logic embedded in Experience tags elsewhere, but here we keep it explicit
                         kind={
                           t === 'Java'
                             ? 'java'
@@ -130,7 +129,11 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
                   initial={reduced ? false : { opacity: 0, y: 14 }}
                   whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear', delay: i * 0.06 }}
+                  transition={{
+                    duration: motionTokens.durations.medium / 1000,
+                    ease: 'linear',
+                    delay: i * 0.06,
+                  }}
                   className={cx(
                     'rounded-2xl bg-white p-7',
                     'transition-transform [transition-duration:220ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
@@ -146,21 +149,43 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
                           <h3 className="text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
                             {item.role}
                           </h3>
-                          <p className="mt-1 text-sm font-medium text-neutral-700">
-                            {item.company}
-                          </p>
+                          <p className="mt-1 text-sm font-medium text-neutral-700">{item.company}</p>
                           <p className="mt-2 text-sm text-neutral-500">{item.dateRange}</p>
                         </div>
                       </div>
 
                       <div className="mt-5 flex flex-wrap gap-2">
                         <span className="sr-only">Technologies:</span>
-                        <TechTag label="Java" icon={<BrandIcon kind="java" label="Java" className="h-4 w-4 rounded-md bg-transparent ring-0" />} className="bg-neutral-50 border-black/5" />
-                        <TechTag label="Spring Boot" icon={<BrandIcon kind="spring-boot" label="Spring Boot" className="h-4 w-4 rounded-md bg-transparent ring-0" />} className="bg-neutral-50 border-black/5" />
-                        <TechTag label="MySQL" icon={<BrandIcon kind="mysql" label="MySQL" className="h-4 w-4 rounded-md bg-transparent ring-0" />} className="bg-neutral-50 border-black/5" />
-                        <TechTag label="SQL" icon={<BrandIcon kind="sql" label="SQL" className="h-4 w-4 rounded-md bg-transparent ring-0" />} className="bg-neutral-50 border-black/5" />
-                        <TechTag label="Postman" icon={<BrandIcon kind="postman" label="Postman" className="h-4 w-4 rounded-md bg-transparent ring-0" />} className="bg-neutral-50 border-black/5" />
-                        <TechTag label="Git" icon={<BrandIcon kind="git" label="Git" className="h-4 w-4 rounded-md bg-transparent ring-0" />} className="bg-neutral-50 border-black/5" />
+                        <TechTag
+                          label="Java"
+                          icon={<BrandIcon kind="java" label="Java" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          className="bg-neutral-50 border-black/5"
+                        />
+                        <TechTag
+                          label="Spring Boot"
+                          icon={<BrandIcon kind="spring-boot" label="Spring Boot" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          className="bg-neutral-50 border-black/5"
+                        />
+                        <TechTag
+                          label="MySQL"
+                          icon={<BrandIcon kind="mysql" label="MySQL" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          className="bg-neutral-50 border-black/5"
+                        />
+                        <TechTag
+                          label="SQL"
+                          icon={<BrandIcon kind="sql" label="SQL" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          className="bg-neutral-50 border-black/5"
+                        />
+                        <TechTag
+                          label="Postman"
+                          icon={<BrandIcon kind="postman" label="Postman" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          className="bg-neutral-50 border-black/5"
+                        />
+                        <TechTag
+                          label="Git"
+                          icon={<BrandIcon kind="git" label="Git" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          className="bg-neutral-50 border-black/5"
+                        />
                       </div>
                     </div>
 
