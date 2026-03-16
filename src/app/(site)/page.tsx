@@ -103,9 +103,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <div className="[content-visibility:auto] [contain-intrinsic-size:1px_720px]">
-          <HighlightsLazy />
-        </div>
+        <HighlightsLazy />
 
         <div className="[content-visibility:auto] [contain-intrinsic-size:1px_960px]">
           <ExperienceLazy className="-mx-5" />

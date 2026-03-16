@@ -119,7 +119,8 @@ export function OrbitalPortrait({
     // This processing is purely visual polish; keep it from hurting LCP.
     const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency ?? 8 : 8;
     const deviceMemory = typeof navigator !== 'undefined' ? (navigator as any).deviceMemory ?? 8 : 8;
-    const shouldProcess = !reduced && cores >= 6 && deviceMemory >= 6;
+    const shouldProcess = !reduced;
+    const maxSide = cores >= 6 && deviceMemory >= 6 ? 900 : 520;
     if (!shouldProcess) return;
 
     let cancelled = false;
@@ -151,7 +152,6 @@ export function OrbitalPortrait({
         const h0 = Math.max(1, img.naturalHeight || img.height);
 
         // Downscale for processing to reduce CPU + memory cost.
-        const maxSide = 900;
         const scale = Math.min(1, maxSide / Math.max(w0, h0));
         const w = Math.max(1, Math.round(w0 * scale));
         const h = Math.max(1, Math.round(h0 * scale));
