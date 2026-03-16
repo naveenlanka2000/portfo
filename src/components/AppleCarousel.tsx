@@ -266,7 +266,7 @@ function AppleCarouselCardView({
       ref={setRef}
       className={cx(
         'relative flex-none snap-center overflow-hidden rounded-none',
-        'border border-transparent bg-white/5 sm:border-white/10',
+        'border border-transparent bg-transparent sm:border-white/10 sm:bg-white/5',
         // Landscape card with a small peek of the next card.
         'w-[90%] sm:w-[72%] lg:w-[52%]'
       )}
