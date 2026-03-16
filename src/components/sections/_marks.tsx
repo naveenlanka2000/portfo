@@ -49,37 +49,94 @@ export function LeafMark({ className, title }: MarkProps) {
       preserveAspectRatio="xMidYMid slice"
     >
       <defs>
-        <linearGradient id="leafFill" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#0a84ff" stopOpacity="0.30" />
-          <stop offset="1" stopColor="#0a84ff" stopOpacity="0.06" />
+        <linearGradient id="leafBg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#eef6ff" />
+          <stop offset="0.52" stopColor="#d9ebff" />
+          <stop offset="1" stopColor="#f6fbff" />
+        </linearGradient>
+        <radialGradient id="leafGlowA" cx="0" cy="0" r="1" gradientTransform="translate(118 108) rotate(31) scale(188 154)">
+          <stop offset="0" stopColor="#0a84ff" stopOpacity="0.34" />
+          <stop offset="1" stopColor="#0a84ff" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="leafGlowB" cx="0" cy="0" r="1" gradientTransform="translate(434 312) rotate(180) scale(176 132)">
+          <stop offset="0" stopColor="#38bdf8" stopOpacity="0.22" />
+          <stop offset="1" stopColor="#38bdf8" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="leafFill" x1="0.14" y1="0.08" x2="0.92" y2="0.9">
+          <stop offset="0" stopColor="#1d4ed8" stopOpacity="0.98" />
+          <stop offset="0.48" stopColor="#0ea5e9" stopOpacity="0.92" />
+          <stop offset="1" stopColor="#93c5fd" stopOpacity="0.82" />
+        </linearGradient>
+        <linearGradient id="leafVein" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#eff6ff" stopOpacity="0.9" />
+          <stop offset="1" stopColor="#bfdbfe" stopOpacity="0.32" />
+        </linearGradient>
+        <filter id="leafShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="18" stdDeviation="18" floodColor="#1d4ed8" floodOpacity="0.18" />
+        </filter>
+        <pattern id="leafGrid" width="28" height="28" patternUnits="userSpaceOnUse">
+          <path d="M28 0H0V28" fill="none" stroke="#0f172a" strokeOpacity="0.06" />
+        </pattern>
+        <clipPath id="leafClip">
+          <path d="M422 82c-84 8-153 46-206 112-48 59-69 118-62 176 61 6 124-19 188-73 68-58 108-132 118-223-12 1-25 4-38 8z" />
+        </clipPath>
+        <linearGradient id="leafStem" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#1e3a8a" stopOpacity="0.72" />
+          <stop offset="1" stopColor="#0f172a" stopOpacity="0.22" />
         </linearGradient>
       </defs>
-      <rect width="560" height="420" fill="#ffffff" />
+
+      <rect width="560" height="420" rx="28" fill="url(#leafBg)" />
+      <rect width="560" height="420" rx="28" fill="url(#leafGrid)" />
+      <circle cx="126" cy="114" r="132" fill="url(#leafGlowA)" />
+      <circle cx="438" cy="312" r="126" fill="url(#leafGlowB)" />
+
+      <g opacity="0.72">
+        <path d="M74 312c78-58 144-83 198-75" fill="none" stroke="#0a84ff" strokeOpacity="0.12" strokeWidth="2" />
+        <path d="M308 82c78 14 132 44 164 90" fill="none" stroke="#0f172a" strokeOpacity="0.08" strokeWidth="2" />
+      </g>
+
       <path
-        d="M420 88c-82 6-150 42-202 106-50 61-70 122-62 182 58 4 118-20 178-70 66-55 106-128 118-218 1-8 2-16 2-0z"
+        d="M422 82c-84 8-153 46-206 112-48 59-69 118-62 176 61 6 124-19 188-73 68-58 108-132 118-223-12 1-25 4-38 8z"
         fill="url(#leafFill)"
+        filter="url(#leafShadow)"
       />
       <path
-        d="M408 98c-72 10-132 44-178 103-43 54-62 110-56 168"
+        d="M262 352c38-60 86-109 145-148"
         fill="none"
-        stroke="rgba(10,10,10,0.22)"
-        strokeWidth="2"
+        stroke="url(#leafStem)"
+        strokeWidth="7"
         strokeLinecap="round"
       />
       <path
-        d="M220 348c36-54 80-96 132-124"
+        d="M408 102c-72 10-132 44-178 103-43 54-62 110-56 168"
         fill="none"
-        stroke="rgba(10,10,10,0.18)"
-        strokeWidth="2"
+        stroke="url(#leafVein)"
+        strokeWidth="3"
         strokeLinecap="round"
       />
       <path
-        d="M304 304c10-28 28-56 54-82"
+        d="M226 336c36-54 80-96 132-124"
         fill="none"
-        stroke="rgba(10,132,255,0.35)"
-        strokeWidth="2"
+        stroke="url(#leafVein)"
+        strokeWidth="2.5"
         strokeLinecap="round"
       />
+      <path
+        d="M308 302c11-27 29-55 56-81"
+        fill="none"
+        stroke="url(#leafVein)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+
+      <g clipPath="url(#leafClip)" opacity="0.38">
+        <path d="M214 114 414 314" stroke="#eff6ff" strokeWidth="16" />
+        <path d="M192 152 384 344" stroke="#bfdbfe" strokeWidth="10" strokeOpacity="0.72" />
+      </g>
+
+      <circle cx="420" cy="84" r="7" fill="#ffffff" fillOpacity="0.9" />
+      <circle cx="434" cy="98" r="3" fill="#1d4ed8" fillOpacity="0.32" />
     </svg>
   );
 }
