@@ -96,7 +96,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
       id="research"
       ref={ref}
       aria-labelledby="research-title"
-      className={cx('scroll-mt-28 bg-[#f8f8f8] py-16 md:py-20', className)}
+      className={cx('scroll-mt-28 bg-white py-16 md:bg-[#f8f8f8] md:py-20', className)}
     >
       <div className="mx-auto max-w-6xl px-5">
         <div className="grid gap-10 md:grid-cols-12 md:gap-12">
@@ -170,7 +170,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                   startOffsetPct={0.16}
                   fadeInRange={0.2}
                   aspectRatio="4 / 5"
-                  className="bg-white"
+                  className="bg-transparent sm:bg-white"
                   priority={false}
                 >
                   <LeafMark title="Leaf mark" />
