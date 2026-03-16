@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -86,6 +85,14 @@ export function HeroLayers({
     setHasEntered(true);
   }, [active]);
 
+  useEffect(() => {
+    const fallback = window.setTimeout(() => {
+      setHasEntered(true);
+    }, 200);
+
+    return () => window.clearTimeout(fallback);
+  }, []);
+
   // Optional cursor lighting (desktop only), updates CSS vars via rAF.
   const mediaRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef(0);
@@ -149,7 +156,7 @@ export function HeroLayers({
   }, [enableCursorLight, reduced]);
 
   const contentMotion = reduced
-    ? { initial: { opacity: 0 }, animate: { opacity: hasEntered ? 1 : 0 } }
+    ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
     : { initial: { opacity: 0 }, animate: { opacity: hasEntered ? 1 : 0 } };
 
   return (

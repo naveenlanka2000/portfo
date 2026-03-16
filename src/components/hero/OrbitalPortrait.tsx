@@ -58,6 +58,7 @@ export function OrbitalPortrait({
   const loadStartRef = useRef<number>(0);
 
   const doneTimerRef = useRef<number | null>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
 
   const clearTimers = () => {
     if (doneTimerRef.current !== null) window.clearTimeout(doneTimerRef.current);
@@ -82,6 +83,14 @@ export function OrbitalPortrait({
   useEffect(() => {
     if (reduced) setLoaderFilled(true);
   }, [reduced]);
+
+  useEffect(() => {
+    const img = imageRef.current;
+    if (!img) return;
+    if (img.complete && img.naturalWidth > 0) {
+      setImageLoaded(true);
+    }
+  }, [processedSrc, src]);
 
   useEffect(() => {
     if (phase !== 'loading') return;
@@ -272,6 +281,17 @@ export function OrbitalPortrait({
     };
   }, [phase]);
 
+  useEffect(() => {
+    if (phase !== 'loading') return;
+
+    const fallback = window.setTimeout(() => {
+      setLoaderFilled(true);
+      setImageLoaded(true);
+    }, 1800);
+
+    return () => window.clearTimeout(fallback);
+  }, [phase]);
+
   return (
     <div
       className={cx(
@@ -372,6 +392,7 @@ export function OrbitalPortrait({
                 </div>
               ) : (
                 <img
+                  ref={imageRef}
                   src={processedSrc ?? src}
                   alt={alt}
                   decoding="async"
