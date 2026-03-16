@@ -184,7 +184,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                   whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear' }}
-                  className={cx('rounded-xl bg-white p-7')}
+                  className={cx('rounded-none bg-transparent p-0 sm:rounded-xl sm:bg-white sm:p-7')}
                 >
                   <h3 className="text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
                     {RESEARCH.title}
@@ -275,7 +275,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
               whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear' }}
-              className={cx('mt-6 rounded-xl bg-white p-6')}
+              className={cx('mt-6 rounded-none bg-transparent p-0 sm:rounded-xl sm:bg-white sm:p-6')}
             >
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="text-lg font-semibold tracking-tight text-neutral-900 md:text-xl">Evaluation plots</h3>
@@ -291,9 +291,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                       href={src}
                       target="_blank"
                       rel="noreferrer"
-                      className={cx(
-                        'group block overflow-hidden rounded-lg bg-[#f8f8f8]'
-                      )}
+                      className={cx('group block overflow-hidden rounded-none bg-transparent sm:rounded-lg sm:bg-[#f8f8f8]')}
                     >
                       <div className="aspect-[16/10] w-full overflow-hidden">
                         <Image
@@ -309,7 +307,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                           )}
                         />
                       </div>
-                      <div className="bg-white px-4 py-3">
+                      <div className="bg-transparent px-0 py-3 sm:bg-white sm:px-4">
                         <div className="text-sm font-medium text-neutral-900">{fig.caption}</div>
                       </div>
                     </a>
