@@ -103,7 +103,9 @@ export function OrbitalPortrait({
     // This processing is purely visual polish; keep it from hurting LCP.
     const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency ?? 8 : 8;
     const deviceMemory = typeof navigator !== 'undefined' ? (navigator as any).deviceMemory ?? 8 : 8;
-    const shouldProcess = !reduced && cores >= 6 && deviceMemory >= 6;
+    const isSmallScreen = window.matchMedia?.('(max-width: 767px)')?.matches ?? false;
+    const isCoarse = window.matchMedia?.('(pointer: coarse)')?.matches ?? false;
+    const shouldProcess = !reduced && !isSmallScreen && !isCoarse && cores >= 6 && deviceMemory >= 6;
     if (!shouldProcess) return;
 
     let cancelled = false;
@@ -222,9 +224,25 @@ export function OrbitalPortrait({
         });
         if (!blob || cancelled) return;
 
+        const nextUrl = URL.createObjectURL(blob);
+
+        // Only swap to the processed blob if it actually loads.
+        await new Promise<void>((resolve, reject) => {
+          const test = new window.Image();
+          test.decoding = 'async';
+          test.onload = () => resolve();
+          test.onerror = () => reject(new Error('processed image failed to load'));
+          test.src = nextUrl;
+        });
+
+        if (cancelled) {
+          URL.revokeObjectURL(nextUrl);
+          return;
+        }
+
         if (processedUrlRef.current) URL.revokeObjectURL(processedUrlRef.current);
-        processedUrlRef.current = URL.createObjectURL(blob);
-        setProcessedSrc(processedUrlRef.current);
+        processedUrlRef.current = nextUrl;
+        setProcessedSrc(nextUrl);
       } catch {
         // If processing fails, just fall back to the original src.
       }
@@ -365,10 +383,11 @@ export function OrbitalPortrait({
                 </div>
               ) : (
                 <img
-                  src={processedSrc ?? src}
+                  src={processedSrc ?? src ?? ''}
                   alt={alt}
                   decoding="async"
                   loading="eager"
+                  fetchPriority="high"
                   onLoad={() => setImageLoaded(true)}
                   onError={() => {
                     setImageError(true);
