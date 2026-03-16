@@ -103,7 +103,8 @@ export function OrbitalPortrait({
     // This processing is purely visual polish; keep it from hurting LCP.
     const cores = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency ?? 8 : 8;
     const deviceMemory = typeof navigator !== 'undefined' ? (navigator as any).deviceMemory ?? 8 : 8;
-    const shouldProcess = !reduced && cores >= 6 && deviceMemory >= 6;
+    const isSmallViewport = window.matchMedia?.('(max-width: 639px)')?.matches ?? false;
+    const shouldProcess = !reduced && !isSmallViewport && cores >= 6 && deviceMemory >= 6;
     if (!shouldProcess) return;
 
     let cancelled = false;
@@ -349,7 +350,7 @@ export function OrbitalPortrait({
           </motion.div>
 
           {/* Portrait */}
-          <div className="absolute left-1/2 top-[10%] md:top-[13%] z-[10] w-[74%] -translate-x-1/2">
+          <div className="absolute left-1/2 top-[7%] sm:top-[10%] md:top-[13%] z-[10] w-[70%] sm:w-[74%] -translate-x-1/2">
             <motion.div
               initial={false}
               animate={
