@@ -301,7 +301,7 @@ export function OrbitalPortrait({
       )}
     >
       <div className="relative w-full max-w-[560px] aspect-[4/5]">
-        <div className="relative h-full w-full overflow-hidden rounded-[32px] bg-[#f4f4f2]">
+        <div className="relative h-full w-full overflow-hidden rounded-none bg-transparent sm:rounded-[32px] sm:bg-[#f4f4f2]">
           {/* Paper grain */}
           <div
             aria-hidden
