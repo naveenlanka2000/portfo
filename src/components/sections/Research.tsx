@@ -229,7 +229,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                     />
                   </div>
 
-                  <div className="mt-7 rounded-lg bg-[#f8f8f8] p-4">
+                  <div className="mt-7 rounded-none bg-transparent p-0 sm:rounded-lg sm:bg-[#f8f8f8] sm:p-4">
                     <div className="flex flex-wrap items-baseline justify-between gap-3">
                       <h4 className="text-sm font-semibold tracking-tight text-neutral-900">Model results</h4>
                       <p className="text-xs text-neutral-600">from evaluation plots</p>
@@ -237,7 +237,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
 
                     <div className="mt-3 grid gap-2 sm:grid-cols-2">
                       {metricCards.map((m) => (
-                        <div key={m.label} className="rounded-md bg-white px-3 py-2">
+                        <div key={m.label} className="rounded-none bg-transparent px-0 py-2 sm:rounded-md sm:bg-white sm:px-3">
                           <div className="text-[11px] uppercase tracking-wide text-neutral-500">{m.label}</div>
                           <div className="mt-0.5 text-base font-semibold tabular-nums text-neutral-900">{m.pct.toFixed(1)}%</div>
 

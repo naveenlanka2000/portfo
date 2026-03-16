@@ -135,8 +135,9 @@ export function ScrollScrubImage({
   return (
     <div
       className={cx(
-        'relative overflow-hidden rounded-xl border border-black/10 bg-white',
-        'shadow-[0_1px_0_rgba(0,0,0,0.06),0_16px_40px_rgba(0,0,0,0.08)]',
+        'relative overflow-hidden rounded-none border-0 bg-transparent shadow-none',
+        'sm:rounded-xl sm:border sm:border-black/10 sm:bg-white',
+        'sm:shadow-[0_1px_0_rgba(0,0,0,0.06),0_16px_40px_rgba(0,0,0,0.08)]',
         className
       )}
       style={{ aspectRatio }}
