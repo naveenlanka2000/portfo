@@ -11,6 +11,14 @@ const DATA = ['MySQL', 'SQL'] as const;
 export const metadata: Metadata = {
   title: 'About',
   description: 'Backend + full-stack background, skills, and experience.',
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    title: 'About | Naveen Lanka',
+    description: 'Backend + full-stack background, skills, and experience.',
+    url: '/about',
+  },
 };
 
 export default function AboutPage() {

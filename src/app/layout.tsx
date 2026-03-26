@@ -6,9 +6,8 @@ import './globals.css';
 import { HashScroller } from '@/components/hash-scroller';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
+import { siteConfig } from '@/lib/site';
 import { withBasePath } from '@/lib/utils';
-
-const siteUrl = 'https://www.naveenlanka.me';
 
 const displayFont = Space_Grotesk({
   subsets: ['latin'],
@@ -18,27 +17,40 @@ const displayFont = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: 'Naveen Lanka - Software Engineer (Backend + Full-Stack)',
-    template: 'Naveen Lanka - %s',
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    'Backend + full-stack engineer building secure APIs, clean data systems, and polished web experiences.',
-  alternates: {
-    canonical: withBasePath('/'),
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.name, url: siteConfig.siteUrl }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
   },
   openGraph: {
     type: 'website',
-    url: siteUrl,
-    title: 'Naveen Lanka - Software Engineer (Backend + Full-Stack)',
-    description:
-      'Backend + full-stack engineer building secure APIs, clean data systems, and polished web experiences.',
-    images: [{ url: withBasePath('/og/site.png'), width: 1200, height: 630, alt: 'Portfolio preview' }],
+    url: siteConfig.siteUrl,
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [withBasePath('/portrait.png')],
   },
   twitter: {
     card: 'summary_large_image',
-    images: [withBasePath('/og/site.png')],
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [withBasePath('/portrait.png')],
   },
 };
 

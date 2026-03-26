@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { ExperienceLazy } from '@/components/home/ExperienceLazy';
@@ -8,10 +9,87 @@ import { ResearchLazy } from '@/components/home/ResearchLazy';
 import { HeroLayers } from '@/components/hero/HeroLayers';
 import { ProjectCard } from '@/components/project-card';
 import { projects } from '@/lib/projects';
+import { siteConfig } from '@/lib/site';
 import { withBasePath } from '@/lib/utils';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: '/',
+  },
+};
 
 export default function HomePage() {
   const featured = projects.slice(0, 3);
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${siteConfig.siteUrl}/#website`,
+        url: siteConfig.siteUrl,
+        name: siteConfig.name,
+        description: siteConfig.description,
+        inLanguage: 'en',
+      },
+      {
+        '@type': 'Person',
+        '@id': `${siteConfig.siteUrl}/#person`,
+        name: siteConfig.name,
+        jobTitle: 'Software Engineer',
+        email: `mailto:${siteConfig.email}`,
+        url: siteConfig.siteUrl,
+        image: `${siteConfig.siteUrl}${withBasePath('/portrait.png')}`,
+        sameAs: siteConfig.sameAs,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Delgoda',
+          addressCountry: 'Sri Lanka',
+        },
+      },
+      {
+        '@type': 'ProfilePage',
+        '@id': `${siteConfig.siteUrl}/#profile`,
+        url: siteConfig.siteUrl,
+        name: siteConfig.title,
+        isPartOf: { '@id': `${siteConfig.siteUrl}/#website` },
+        mainEntity: { '@id': `${siteConfig.siteUrl}/#person` },
+      },
+      {
+        '@type': 'ItemList',
+        name: 'Projects',
+        itemListElement: [
+          {
+            '@type': 'CreativeWork',
+            name: 'Online Banking Application',
+            description:
+              'Secure banking workflows with a feedback module and clean data handling.',
+          },
+          {
+            '@type': 'CreativeWork',
+            name: 'Air Ticket Booking System',
+            description:
+              'Java and SQL reservation flows for booking, cancellations, and passenger records.',
+          },
+          {
+            '@type': 'CreativeWork',
+            name: 'Medicare Application',
+            description: 'A Flutter app for appointments and healthcare resources.',
+          },
+          {
+            '@type': 'CreativeWork',
+            name: 'Food Market Database Management',
+            description:
+              'Inventory, sales, and supplier management with a SQL-backed web UI.',
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>
@@ -20,58 +98,13 @@ export default function HomePage() {
           type="application/ld+json"
           // JSON-LD is static content; safe to inline.
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@graph': [
-                {
-                  '@type': 'Person',
-                  name: 'Naveen Lanka',
-                  email: 'mailto:naveenlanka45@gmail.com',
-                  address: {
-                    '@type': 'PostalAddress',
-                    addressLocality: 'Delgoda',
-                    addressCountry: 'Sri Lanka',
-                  },
-                  url: 'https://github.com/naveenlanka2000',
-                },
-                {
-                  '@type': 'ItemList',
-                  name: 'Projects',
-                  itemListElement: [
-                    {
-                      '@type': 'CreativeWork',
-                      name: 'Online Banking Application',
-                      description:
-                        'Secure banking workflows with a feedback module and clean data handling.',
-                    },
-                    {
-                      '@type': 'CreativeWork',
-                      name: 'Air Ticket Booking System',
-                      description:
-                        'Java + SQL reservation flows for booking, cancellations, and passenger records.',
-                    },
-                    {
-                      '@type': 'CreativeWork',
-                      name: 'Medicare Application',
-                      description:
-                        'A Flutter app for appointments and healthcare resources.',
-                    },
-                    {
-                      '@type': 'CreativeWork',
-                      name: 'Food Market Database Management',
-                      description:
-                        'Inventory, sales, and supplier management with a SQL-backed web UI.',
-                    },
-                  ],
-                },
-              ],
-            }),
+            __html: JSON.stringify(structuredData),
           }}
         />
 
         <HeroLayers
-          title="Building Secure Backends & Polished Web Apps"
-          subtitle="I build Java/Spring Boot and Python APIs, and ship React/Next.js frontends, focused on reliable healthcare and booking workflows."
+          title={siteConfig.name}
+          subtitle="Software engineer building secure backends, Spring Boot and Python APIs, and polished React/Next.js web apps for reliable healthcare and booking workflows."
           ctaPrimary={{ label: 'View work', href: '/projects' }}
           ctaSecondary={{ label: 'About me', href: '/about' }}
           portraitSrc={withBasePath('/portrait.png')}

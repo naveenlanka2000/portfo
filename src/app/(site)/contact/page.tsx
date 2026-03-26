@@ -5,6 +5,14 @@ import { Reveal } from '@/components/reveal';
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Get in touch about roles, projects, or collaboration.',
+  alternates: {
+    canonical: '/contact',
+  },
+  openGraph: {
+    title: 'Contact | Naveen Lanka',
+    description: 'Get in touch about roles, projects, or collaboration.',
+    url: '/contact',
+  },
 };
 
 export default function ContactPage() {

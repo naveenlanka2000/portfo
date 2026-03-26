@@ -7,6 +7,14 @@ import { projects } from '@/lib/projects';
 export const metadata: Metadata = {
   title: 'Projects',
   description: 'Selected backend + full-stack projects with clear scope and stack.',
+  alternates: {
+    canonical: '/projects',
+  },
+  openGraph: {
+    title: 'Projects | Naveen Lanka',
+    description: 'Selected backend + full-stack projects with clear scope and stack.',
+    url: '/projects',
+  },
 };
 
 export default function ProjectsPage() {
