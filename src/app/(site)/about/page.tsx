@@ -1,41 +1,95 @@
 import type { Metadata } from 'next';
 
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Reveal } from '@/components/reveal';
 import { tagToBrandKind } from '@/lib/brand';
 import { BrandIcon, type BrandKind } from '@/components/sections/BrandIcon';
+import { absoluteUrl, buildBreadcrumbList } from '@/lib/seo';
+import { siteConfig } from '@/lib/site';
 
 const LANGUAGES = ['Java', 'Python', 'JavaScript', 'TypeScript', 'Dart', 'HTML', 'CSS'] as const;
 const FRAMEWORKS = ['Spring Boot', 'Flask', 'React', 'Flutter'] as const;
 const DATA = ['MySQL', 'SQL'] as const;
 
+const pageTitle = 'About';
+const pageDescription =
+  'Learn about Naveen Lanka, a software engineer in Sri Lanka focused on backend development, full-stack web apps, Java, Spring Boot, Python, React, and applied machine learning.';
+
 export const metadata: Metadata = {
-  title: 'About',
-  description: 'Backend + full-stack background, skills, and experience.',
+  title: pageTitle,
+  description: pageDescription,
   alternates: {
     canonical: '/about',
   },
   openGraph: {
-    title: 'About | Naveen Lanka',
-    description: 'Backend + full-stack background, skills, and experience.',
+    title: `${pageTitle} | ${siteConfig.name}`,
+    description: pageDescription,
     url: '/about',
+    images: ['/portrait.png'],
+  },
+  twitter: {
+    title: `${pageTitle} | ${siteConfig.name}`,
+    description: pageDescription,
+    images: ['/portrait.png'],
   },
 };
 
 export default function AboutPage() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      buildBreadcrumbList([
+        { name: 'Home', path: '/' },
+        { name: 'About', path: '/about' },
+      ]),
+      {
+        '@type': 'ProfilePage',
+        '@id': `${absoluteUrl('/about')}#webpage`,
+        url: absoluteUrl('/about'),
+        name: `${pageTitle} | ${siteConfig.name}`,
+        description: pageDescription,
+        isPartOf: { '@id': `${siteConfig.siteUrl}/#website` },
+        mainEntity: { '@id': `${absoluteUrl('/about')}#person` },
+      },
+      {
+        '@type': 'Person',
+        '@id': `${absoluteUrl('/about')}#person`,
+        name: siteConfig.name,
+        alternateName: siteConfig.alternateName,
+        jobTitle: siteConfig.jobTitle,
+        description: siteConfig.description,
+        url: siteConfig.siteUrl,
+        image: absoluteUrl('/portrait.png'),
+        email: `mailto:${siteConfig.email}`,
+        sameAs: siteConfig.sameAs,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Delgoda',
+          addressCountry: 'Sri Lanka',
+        },
+      },
+    ],
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
+      <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'About' }]} />
+
       <header className="max-w-3xl">
         <Reveal y={24}>
-          <h1 className="text-4xl font-semibold tracking-tight text-neutral-900">About</h1>
+          <h1 className="text-4xl font-semibold tracking-tight text-neutral-900">About Naveen Lanka</h1>
         </Reveal>
         <Reveal delay={0.12} y={24}>
           <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
-            I’m{' '}
-            <span className="[font-family:var(--font-cursive)] text-neutral-900">
-              Naveen Lanka
-            </span>{' '}
-            — a software engineering graduate focused on backend and full-stack development.
-            I build secure, reliable services and ship clean web experiences, with an interest in applied ML.
+            I&apos;m <span className="[font-family:var(--font-cursive)] text-neutral-900">Naveen Lanka</span>, a software
+            engineer in Sri Lanka focused on backend and full-stack development. I build secure, reliable services and
+            clean web experiences, with a strong interest in Java, Spring Boot, Python, React, Next.js, SQL, and
+            applied machine learning.
           </p>
         </Reveal>
       </header>
@@ -48,17 +102,17 @@ export default function AboutPage() {
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Languages</h3>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {LANGUAGES.map((t) => (
+                  {LANGUAGES.map((label) => (
                     <span
-                      key={t}
+                      key={label}
                       className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700"
                     >
                       <BrandIcon
-                        kind={tagToBrandKind(t) as BrandKind}
-                        label={t}
+                        kind={tagToBrandKind(label) as BrandKind}
+                        label={label}
                         className="h-4 w-4 rounded-md bg-transparent ring-0 transition-transform duration-200 ease-out hover:scale-150"
                       />
-                      {t}
+                      {label}
                     </span>
                   ))}
                 </div>
@@ -66,17 +120,17 @@ export default function AboutPage() {
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Frameworks</h3>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {FRAMEWORKS.map((t) => (
+                  {FRAMEWORKS.map((label) => (
                     <span
-                      key={t}
+                      key={label}
                       className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700"
                     >
                       <BrandIcon
-                        kind={tagToBrandKind(t) as BrandKind}
-                        label={t}
+                        kind={tagToBrandKind(label) as BrandKind}
+                        label={label}
                         className="h-4 w-4 rounded-md bg-transparent ring-0 transition-transform duration-200 ease-out hover:scale-150"
                       />
-                      {t}
+                      {label}
                     </span>
                   ))}
                 </div>
@@ -84,17 +138,17 @@ export default function AboutPage() {
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Databases</h3>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {DATA.map((t) => (
+                  {DATA.map((label) => (
                     <span
-                      key={t}
+                      key={label}
                       className="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700"
                     >
                       <BrandIcon
-                        kind={tagToBrandKind(t) as BrandKind}
-                        label={t}
+                        kind={tagToBrandKind(label) as BrandKind}
+                        label={label}
                         className="h-4 w-4 rounded-md bg-transparent ring-0 transition-transform duration-200 ease-out hover:scale-150"
                       />
-                      {t}
+                      {label}
                     </span>
                   ))}
                 </div>
@@ -102,7 +156,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">AI/ML</h3>
-                <p className="mt-2 text-sm text-neutral-700">CNNs, TensorFlow, Keras (experimentation & evaluation)</p>
+                <p className="mt-2 text-sm text-neutral-700">CNNs, TensorFlow, Keras, experimentation, and evaluation</p>
               </div>
             </div>
           </div>
@@ -114,8 +168,10 @@ export default function AboutPage() {
             <div className="mt-5 grid gap-5 text-sm text-neutral-600">
               <div className="grid gap-1">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <span className="font-medium text-neutral-900">Backend Developer — NFORCE (Dental Management System)</span>
-                  <span className="text-xs text-neutral-500">Oct 2024 – Mar 2025</span>
+                  <span className="font-medium text-neutral-900">
+                    Backend Developer - NFORCE (Dental Management System)
+                  </span>
+                  <span className="text-xs text-neutral-500">Oct 2024 - Mar 2025</span>
                 </div>
                 <ul className="mt-2 grid gap-2">
                   <li>Built and maintained Java backend services for core clinical workflows.</li>
@@ -126,13 +182,15 @@ export default function AboutPage() {
 
               <div className="grid gap-1">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <span className="font-medium text-neutral-900">Research — CNN-Based Sri Lankan Medicinal Leaf Classification</span>
+                  <span className="font-medium text-neutral-900">
+                    Research - CNN-Based Sri Lankan Medicinal Leaf Classification
+                  </span>
                   <span className="text-xs text-neutral-500">Academic</span>
                 </div>
                 <ul className="mt-2 grid gap-2">
                   <li>Built and trained CNN models to classify Sri Lankan medicinal leaves.</li>
-                  <li>Used TensorFlow/Keras to iterate quickly on architectures and evaluation.</li>
-                  <li>Goal: support Ayurvedic medicine with accurate leaf recognition.</li>
+                  <li>Used TensorFlow and Keras to iterate quickly on architectures and evaluation.</li>
+                  <li>Focused on practical ML evaluation for an applied healthcare-related research topic.</li>
                 </ul>
               </div>
             </div>
@@ -147,11 +205,11 @@ export default function AboutPage() {
             <div className="mt-5 grid gap-4 text-sm text-neutral-600">
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">Online Banking Application</p>
-                <p>Feedback module with React, Spring Boot, and MySQL; focused on secure data handling.</p>
+                <p>Feedback module with React, Spring Boot, and MySQL, focused on secure data handling.</p>
               </div>
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">Air Ticket Booking System</p>
-                <p>Java + SQL reservation flows for bookings, cancellations, and passenger records.</p>
+                <p>Java and SQL reservation workflows for bookings, cancellations, and passenger records.</p>
               </div>
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">Medicare Application</p>
@@ -159,7 +217,7 @@ export default function AboutPage() {
               </div>
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">Food Market DB Management</p>
-                <p>Web app with HTML/CSS/JS + SQL for inventory, sales, and supplier management.</p>
+                <p>Web app with HTML, CSS, JavaScript, and SQL for inventory, sales, and supplier management.</p>
               </div>
             </div>
           </div>

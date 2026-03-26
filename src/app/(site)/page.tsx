@@ -9,6 +9,7 @@ import { ResearchLazy } from '@/components/home/ResearchLazy';
 import { HeroLayers } from '@/components/hero/HeroLayers';
 import { ProjectCard } from '@/components/project-card';
 import { projects } from '@/lib/projects';
+import { absoluteUrl } from '@/lib/seo';
 import { siteConfig } from '@/lib/site';
 import { withBasePath } from '@/lib/utils';
 
@@ -20,6 +21,12 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     url: '/',
+    images: ['/portrait.png'],
+  },
+  twitter: {
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: ['/portrait.png'],
   },
 };
 
@@ -33,6 +40,7 @@ export default function HomePage() {
         '@id': `${siteConfig.siteUrl}/#website`,
         url: siteConfig.siteUrl,
         name: siteConfig.name,
+        alternateName: siteConfig.alternateName,
         description: siteConfig.description,
         inLanguage: 'en',
       },
@@ -40,10 +48,12 @@ export default function HomePage() {
         '@type': 'Person',
         '@id': `${siteConfig.siteUrl}/#person`,
         name: siteConfig.name,
-        jobTitle: 'Software Engineer',
+        alternateName: siteConfig.alternateName,
+        jobTitle: siteConfig.jobTitle,
+        description: siteConfig.description,
         email: `mailto:${siteConfig.email}`,
         url: siteConfig.siteUrl,
-        image: `${siteConfig.siteUrl}${withBasePath('/portrait.png')}`,
+        image: absoluteUrl('/portrait.png'),
         sameAs: siteConfig.sameAs,
         address: {
           '@type': 'PostalAddress',
@@ -52,41 +62,18 @@ export default function HomePage() {
         },
       },
       {
-        '@type': 'ProfilePage',
-        '@id': `${siteConfig.siteUrl}/#profile`,
-        url: siteConfig.siteUrl,
-        name: siteConfig.title,
-        isPartOf: { '@id': `${siteConfig.siteUrl}/#website` },
-        mainEntity: { '@id': `${siteConfig.siteUrl}/#person` },
-      },
-      {
         '@type': 'ItemList',
-        name: 'Projects',
-        itemListElement: [
-          {
+        name: 'Featured projects by Naveen Lanka',
+        itemListElement: featured.map((project, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          url: absoluteUrl(`/projects/${project.slug}`),
+          item: {
             '@type': 'CreativeWork',
-            name: 'Online Banking Application',
-            description:
-              'Secure banking workflows with a feedback module and clean data handling.',
+            name: project.title,
+            description: project.summary,
           },
-          {
-            '@type': 'CreativeWork',
-            name: 'Air Ticket Booking System',
-            description:
-              'Java and SQL reservation flows for booking, cancellations, and passenger records.',
-          },
-          {
-            '@type': 'CreativeWork',
-            name: 'Medicare Application',
-            description: 'A Flutter app for appointments and healthcare resources.',
-          },
-          {
-            '@type': 'CreativeWork',
-            name: 'Food Market Database Management',
-            description:
-              'Inventory, sales, and supplier management with a SQL-backed web UI.',
-          },
-        ],
+        })),
       },
     ],
   };
@@ -96,7 +83,6 @@ export default function HomePage() {
       <div className="mx-auto max-w-6xl px-5">
         <script
           type="application/ld+json"
-          // JSON-LD is static content; safe to inline.
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData),
           }}
@@ -104,7 +90,7 @@ export default function HomePage() {
 
         <HeroLayers
           title={siteConfig.name}
-          subtitle="Software engineer building secure backends, Spring Boot and Python APIs, and polished React/Next.js web apps for reliable healthcare and booking workflows."
+          subtitle="Backend and full-stack software engineer in Sri Lanka building secure Spring Boot and Python APIs, polished React and Next.js frontends, and reliable healthcare and booking workflows."
           ctaPrimary={{ label: 'View work', href: '/projects' }}
           ctaSecondary={{ label: 'About me', href: '/about' }}
           portraitSrc={withBasePath('/portrait.png')}
@@ -117,6 +103,17 @@ export default function HomePage() {
         />
 
         <section className="py-16">
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">Naveen Lanka</h2>
+            <p className="mt-3 text-base leading-relaxed text-neutral-600 md:text-lg">
+              Naveen Lanka is a backend and full-stack software engineer from Sri Lanka. This portfolio highlights Java,
+              Spring Boot, Python, React, Next.js, Flutter, and SQL projects across banking, booking, healthcare, and
+              database-driven web applications.
+            </p>
+          </div>
+        </section>
+
+        <section className="pb-16">
           <div className="flex items-end justify-between gap-6">
             <div>
               <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">Featured work</h2>
@@ -130,8 +127,8 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {featured.map((p) => (
-              <ProjectCard key={p.slug} project={p} />
+            {featured.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
             ))}
           </div>
         </section>
@@ -153,7 +150,8 @@ export default function HomePage() {
             <div className="md:col-span-2">
               <h3 className="text-xl font-semibold tracking-tight text-neutral-900">Future work</h3>
               <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-                Currently focused on stronger testing, clearer observability, and faster iteration across full-stack builds.
+                Currently focused on stronger testing, clearer observability, and faster iteration across full-stack
+                builds.
               </p>
             </div>
             <div className="flex items-center md:justify-end">

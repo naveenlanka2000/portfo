@@ -1,7 +1,9 @@
 export const siteConfig = {
   name: 'Naveen Lanka',
   siteUrl: 'https://www.naveenlanka.me',
-  title: 'Naveen Lanka | Software Engineer Portfolio',
+  alternateName: 'Naveen',
+  jobTitle: 'Backend and Full-Stack Software Engineer',
+  title: 'Naveen Lanka | Backend and Full-Stack Software Engineer',
   description:
     'Naveen Lanka is a software engineer in Sri Lanka focused on backend development, Spring Boot, Python APIs, and polished React and Next.js web apps.',
   email: 'naveenlanka45@gmail.com',
