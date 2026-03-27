@@ -2,61 +2,41 @@ import type { Metadata } from 'next';
 
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Reveal } from '@/components/reveal';
-import { absoluteUrl, buildBreadcrumbList } from '@/lib/seo';
+import { absoluteRouteUrl, buildBreadcrumbList, buildPageMetadata, buildWebPageSchema } from '@/lib/seo';
 import { siteConfig } from '@/lib/site';
 
 const pageTitle = 'Contact';
 const pageDescription =
   'Contact Naveen Lanka about backend roles, full-stack opportunities, freelance work, or software engineering collaboration.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/contact',
   title: pageTitle,
   description: pageDescription,
-  alternates: {
-    canonical: '/contact',
-  },
-  openGraph: {
-    title: `${pageTitle} | ${siteConfig.name}`,
-    description: pageDescription,
-    url: '/contact',
-    images: ['/portrait.png'],
-  },
-  twitter: {
-    title: `${pageTitle} | ${siteConfig.name}`,
-    description: pageDescription,
-    images: ['/portrait.png'],
-  },
-};
+  keywords: [
+    'Contact Naveen Lanka',
+    'hire backend engineer Sri Lanka',
+    'hire full-stack developer Sri Lanka',
+    'Java Spring Boot developer Sri Lanka contact',
+  ],
+});
 
 export default function ContactPage() {
+  const breadcrumbId = `${absoluteRouteUrl('/contact')}#breadcrumb`;
   const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [
       buildBreadcrumbList([
         { name: 'Home', path: '/' },
         { name: 'Contact', path: '/contact' },
-      ]),
-      {
-        '@type': 'ContactPage',
-        '@id': `${absoluteUrl('/contact')}#webpage`,
-        url: absoluteUrl('/contact'),
+      ], '/contact'),
+      buildWebPageSchema({
+        path: '/contact',
         name: `${pageTitle} | ${siteConfig.name}`,
         description: pageDescription,
-      },
-      {
-        '@type': 'Person',
-        '@id': `${siteConfig.siteUrl}/#person`,
-        name: siteConfig.name,
-        jobTitle: siteConfig.jobTitle,
-        email: `mailto:${siteConfig.email}`,
-        url: siteConfig.siteUrl,
-        sameAs: siteConfig.sameAs,
-        address: {
-          '@type': 'PostalAddress',
-          addressLocality: 'Delgoda',
-          addressCountry: 'Sri Lanka',
-        },
-      },
+        pageType: 'ContactPage',
+        breadcrumbId,
+      }),
     ],
   };
 
@@ -80,18 +60,29 @@ export default function ContactPage() {
         </Reveal>
       </header>
 
-      <section className="mt-10 grid max-w-4xl gap-6 md:grid-cols-12">
+      <section aria-labelledby="contact-details-title" className="mt-10 grid max-w-4xl gap-6 md:grid-cols-12">
         <Reveal className="md:col-span-5">
-          <div className="grid gap-3 rounded-3xl border border-black/5 bg-white p-7 shadow-soft">
+          <address className="grid gap-3 rounded-3xl border border-black/5 bg-white p-7 not-italic shadow-soft">
+            <h2 id="contact-details-title" className="sr-only">
+              Contact details
+            </h2>
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Email</p>
-              <a className="mt-1 block text-sm font-medium text-neutral-900 hover:underline" href="mailto:naveenlanka45@gmail.com">
+              <a
+                className="mt-1 block text-sm font-medium text-neutral-900 hover:underline"
+                href="mailto:naveenlanka45@gmail.com"
+                aria-label="Email Naveen Lanka at naveenlanka45@gmail.com"
+              >
                 naveenlanka45@gmail.com
               </a>
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Phone</p>
-              <a className="mt-1 block text-sm font-medium text-neutral-900 hover:underline" href="tel:+94707705725">
+              <a
+                className="mt-1 block text-sm font-medium text-neutral-900 hover:underline"
+                href="tel:+94707705725"
+                aria-label="Call Naveen Lanka at plus nine four seven zero seven seven zero five seven two five"
+              >
                 +94 70 770 5725
               </a>
             </div>
@@ -105,7 +96,8 @@ export default function ContactPage() {
                 className="mt-1 block text-sm font-medium text-neutral-900 hover:underline"
                 href="https://github.com/naveenlanka2000"
                 target="_blank"
-                rel="me noreferrer"
+                rel="me noopener noreferrer"
+                aria-label="Visit Naveen Lanka on GitHub"
               >
                 github.com/naveenlanka2000
               </a>
@@ -116,18 +108,22 @@ export default function ContactPage() {
                 className="mt-1 block text-sm font-medium text-neutral-900 hover:underline"
                 href="https://www.linkedin.com/in/naveen-lanka-528932331"
                 target="_blank"
-                rel="me noreferrer"
+                rel="me noopener noreferrer"
+                aria-label="Visit Naveen Lanka on LinkedIn"
               >
                 linkedin.com/in/naveen-lanka-528932331
               </a>
             </div>
 
             <p className="pt-2 text-xs text-neutral-500">Prefer email? That&apos;s the fastest way to reach me.</p>
-          </div>
+          </address>
         </Reveal>
 
         <Reveal>
-          <form className="grid gap-4 rounded-3xl border border-black/5 bg-white p-7 shadow-soft md:col-span-7">
+          <form
+            aria-label="Contact form"
+            className="grid gap-4 rounded-3xl border border-black/5 bg-white p-7 shadow-soft md:col-span-7"
+          >
             <label className="grid gap-2">
               <span className="text-sm font-medium text-neutral-800">Your email</span>
               <input
@@ -135,6 +131,7 @@ export default function ContactPage() {
                 type="email"
                 name="email"
                 autoComplete="email"
+                inputMode="email"
                 required
               />
             </label>

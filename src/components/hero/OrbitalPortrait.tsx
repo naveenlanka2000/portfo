@@ -395,8 +395,11 @@ export function OrbitalPortrait({
                   ref={imageRef}
                   src={processedSrc ?? src}
                   alt={alt}
+                  width={1024}
+                  height={1024}
                   decoding="async"
                   loading="eager"
+                  fetchPriority="high"
                   onLoad={() => setImageLoaded(true)}
                   onError={() => {
                     setImageError(true);

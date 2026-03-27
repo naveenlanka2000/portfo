@@ -4,54 +4,52 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { ProjectCard } from '@/components/project-card';
 import { Reveal } from '@/components/reveal';
 import { projects } from '@/lib/projects';
-import { absoluteUrl, buildBreadcrumbList } from '@/lib/seo';
+import { absoluteRouteUrl, buildBreadcrumbList, buildPageMetadata, buildWebPageSchema } from '@/lib/seo';
 import { siteConfig } from '@/lib/site';
 
 const pageTitle = 'Projects';
 const pageDescription =
   'Browse software engineering projects by Naveen Lanka, including backend systems, full-stack web apps, mobile apps, booking workflows, and SQL-driven builds.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/projects',
   title: pageTitle,
   description: pageDescription,
-  alternates: {
-    canonical: '/projects',
-  },
-  openGraph: {
-    title: `${pageTitle} | ${siteConfig.name}`,
-    description: pageDescription,
-    url: '/projects',
-    images: ['/portrait.png'],
-  },
-  twitter: {
-    title: `${pageTitle} | ${siteConfig.name}`,
-    description: pageDescription,
-    images: ['/portrait.png'],
-  },
-};
+  keywords: [
+    'Naveen Lanka projects',
+    'software engineer portfolio Sri Lanka',
+    'Spring Boot project portfolio',
+    'React and Next.js projects Sri Lanka',
+    'backend developer portfolio Sri Lanka',
+  ],
+});
 
 export default function ProjectsPage() {
+  const breadcrumbId = `${absoluteRouteUrl('/projects')}#breadcrumb`;
+  const itemListId = `${absoluteRouteUrl('/projects')}#project-list`;
   const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [
       buildBreadcrumbList([
         { name: 'Home', path: '/' },
         { name: 'Projects', path: '/projects' },
-      ]),
-      {
-        '@type': 'CollectionPage',
-        '@id': `${absoluteUrl('/projects')}#webpage`,
-        url: absoluteUrl('/projects'),
+      ], '/projects'),
+      buildWebPageSchema({
+        path: '/projects',
         name: `${pageTitle} | ${siteConfig.name}`,
         description: pageDescription,
-      },
+        pageType: 'CollectionPage',
+        breadcrumbId,
+        mainEntityId: itemListId,
+      }),
       {
         '@type': 'ItemList',
+        '@id': itemListId,
         name: 'Projects by Naveen Lanka',
         itemListElement: projects.map((project, index) => ({
           '@type': 'ListItem',
           position: index + 1,
-          url: absoluteUrl(`/projects/${project.slug}`),
+          url: absoluteRouteUrl(`/projects/${project.slug}`),
           item: {
             '@type': 'CreativeWork',
             name: project.title,
@@ -79,13 +77,18 @@ export default function ProjectsPage() {
         </p>
       </header>
 
-      <div className="mt-10 grid gap-5 md:grid-cols-3">
-        {projects.map((project, index) => (
-          <Reveal key={project.slug} delay={index * 0.06}>
-            <ProjectCard project={project} />
-          </Reveal>
-        ))}
-      </div>
+      <section aria-labelledby="projects-list-title" className="mt-10">
+        <h2 id="projects-list-title" className="sr-only">
+          Project list
+        </h2>
+        <div className="grid gap-5 md:grid-cols-3">
+          {projects.map((project, index) => (
+            <Reveal key={project.slug} delay={index * 0.06}>
+              <ProjectCard project={project} />
+            </Reveal>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

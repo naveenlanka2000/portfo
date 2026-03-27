@@ -1,4 +1,14 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+import { buildPageMetadata } from '@/lib/seo';
+
+export const metadata: Metadata = buildPageMetadata({
+  path: '/404',
+  title: 'Not found',
+  description: 'The requested page could not be found.',
+  noindex: true,
+});
 
 export default function NotFound() {
   return (

@@ -9,65 +9,40 @@ import { ResearchLazy } from '@/components/home/ResearchLazy';
 import { HeroLayers } from '@/components/hero/HeroLayers';
 import { ProjectCard } from '@/components/project-card';
 import { projects } from '@/lib/projects';
-import { absoluteUrl } from '@/lib/seo';
+import { absoluteRouteUrl, buildPageMetadata, buildWebPageSchema } from '@/lib/seo';
 import { siteConfig } from '@/lib/site';
 import { withBasePath } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    url: '/',
-    images: ['/portrait.png'],
-  },
-  twitter: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    images: ['/portrait.png'],
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  path: '/',
+  titleAbsolute: siteConfig.title,
+  description: siteConfig.description,
+  keywords: [
+    'backend and full-stack software engineer Sri Lanka',
+    'Spring Boot developer Sri Lanka',
+    'React developer Sri Lanka',
+    'Next.js developer Sri Lanka',
+    'Java backend engineer Sri Lanka',
+  ],
+});
 
 export default function HomePage() {
   const featured = projects.slice(0, 3);
   const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [
-      {
-        '@type': 'WebSite',
-        '@id': `${siteConfig.siteUrl}/#website`,
-        url: siteConfig.siteUrl,
-        name: siteConfig.name,
-        alternateName: siteConfig.alternateName,
+      buildWebPageSchema({
+        path: '/',
+        name: siteConfig.title,
         description: siteConfig.description,
-        inLanguage: 'en',
-      },
-      {
-        '@type': 'Person',
-        '@id': `${siteConfig.siteUrl}/#person`,
-        name: siteConfig.name,
-        alternateName: siteConfig.alternateName,
-        jobTitle: siteConfig.jobTitle,
-        description: siteConfig.description,
-        email: `mailto:${siteConfig.email}`,
-        url: siteConfig.siteUrl,
-        image: absoluteUrl('/portrait.png'),
-        sameAs: siteConfig.sameAs,
-        address: {
-          '@type': 'PostalAddress',
-          addressLocality: 'Delgoda',
-          addressCountry: 'Sri Lanka',
-        },
-      },
+      }),
       {
         '@type': 'ItemList',
         name: 'Featured projects by Naveen Lanka',
         itemListElement: featured.map((project, index) => ({
           '@type': 'ListItem',
           position: index + 1,
-          url: absoluteUrl(`/projects/${project.slug}`),
+          url: absoluteRouteUrl(`/projects/${project.slug}`),
           item: {
             '@type': 'CreativeWork',
             name: project.title,
@@ -94,6 +69,7 @@ export default function HomePage() {
           ctaPrimary={{ label: 'View work', href: '/projects' }}
           ctaSecondary={{ label: 'About me', href: '/about' }}
           portraitSrc={withBasePath('/portrait.png')}
+          portraitAlt="Portrait of Naveen Lanka, backend and full-stack software engineer"
           assets={{
             backgroundSrc: withBasePath('/hero/bg-texture.svg'),
             midAccentSrc: withBasePath('/hero/mid-accent.svg'),
@@ -102,9 +78,11 @@ export default function HomePage() {
           }}
         />
 
-        <section className="py-16">
+        <section aria-labelledby="home-intro-title" className="py-16">
           <div className="max-w-3xl">
-            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">Naveen Lanka</h2>
+            <h2 id="home-intro-title" className="text-2xl font-semibold tracking-tight text-neutral-900">
+              Naveen Lanka
+            </h2>
             <p className="mt-3 text-base leading-relaxed text-neutral-600 md:text-lg">
               Naveen Lanka is a backend and full-stack software engineer from Sri Lanka. This portfolio highlights Java,
               Spring Boot, Python, React, Next.js, Flutter, and SQL projects across banking, booking, healthcare, and
@@ -113,15 +91,21 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="pb-16">
+        <section aria-labelledby="featured-work-title" className="pb-16">
           <div className="flex items-end justify-between gap-6">
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">Featured work</h2>
+              <h2 id="featured-work-title" className="text-2xl font-semibold tracking-tight text-neutral-900">
+                Featured work
+              </h2>
               <p className="mt-2 text-sm text-neutral-600">
                 A short list of projects with clear scope, stack, and outcomes.
               </p>
             </div>
-            <Link className="text-sm font-medium text-neutral-900 hover:underline" href="/projects">
+            <Link
+              className="text-sm font-medium text-neutral-900 hover:underline"
+              href="/projects"
+              aria-label="View all software engineering projects by Naveen Lanka"
+            >
               View all
             </Link>
           </div>
@@ -145,10 +129,12 @@ export default function HomePage() {
           <ProjectsLazy className="-mx-5" />
         </div>
 
-        <section className="mt-24 pb-16">
+        <section aria-labelledby="future-work-title" className="mt-24 pb-16">
           <div className="grid gap-6 rounded-3xl border border-black/5 bg-white p-8 shadow-soft md:grid-cols-3">
             <div className="md:col-span-2">
-              <h3 className="text-xl font-semibold tracking-tight text-neutral-900">Future work</h3>
+              <h2 id="future-work-title" className="text-xl font-semibold tracking-tight text-neutral-900">
+                Future work
+              </h2>
               <p className="mt-2 text-sm leading-relaxed text-neutral-600">
                 Currently focused on stronger testing, clearer observability, and faster iteration across full-stack
                 builds.
@@ -157,6 +143,7 @@ export default function HomePage() {
             <div className="flex items-center md:justify-end">
               <Link
                 href="/contact"
+                aria-label="Contact Naveen Lanka about backend and full-stack opportunities"
                 className="inline-flex items-center justify-center rounded-full bg-accent-500 px-6 py-3 text-sm font-medium text-white shadow-soft transition-transform duration-200 active:scale-95"
               >
                 Get in touch

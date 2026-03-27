@@ -1,73 +1,72 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Reveal } from '@/components/reveal';
 import { tagToBrandKind } from '@/lib/brand';
 import { BrandIcon, type BrandKind } from '@/components/sections/BrandIcon';
-import { absoluteUrl, buildBreadcrumbList } from '@/lib/seo';
+import { absoluteRouteUrl, buildBreadcrumbList, buildPageMetadata, buildWebPageSchema } from '@/lib/seo';
 import { siteConfig } from '@/lib/site';
 
 const LANGUAGES = ['Java', 'Python', 'JavaScript', 'TypeScript', 'Dart', 'HTML', 'CSS'] as const;
 const FRAMEWORKS = ['Spring Boot', 'Flask', 'React', 'Flutter'] as const;
 const DATA = ['MySQL', 'SQL'] as const;
+const ABOUT_PROJECTS = [
+  {
+    slug: 'online-banking-application',
+    title: 'Online Banking Application',
+    description: 'Feedback module with React, Spring Boot, and MySQL, focused on secure data handling.',
+  },
+  {
+    slug: 'air-ticket-booking-system',
+    title: 'Air Ticket Booking System',
+    description: 'Java and SQL reservation workflows for bookings, cancellations, and passenger records.',
+  },
+  {
+    slug: 'medicare-application',
+    title: 'Medicare Application',
+    description: 'Flutter app for appointments and healthcare resources.',
+  },
+  {
+    slug: 'food-market-db-management',
+    title: 'Food Market DB Management',
+    description: 'Web app with HTML, CSS, JavaScript, and SQL for inventory, sales, and supplier management.',
+  },
+] as const;
 
 const pageTitle = 'About';
 const pageDescription =
   'Learn about Naveen Lanka, a software engineer in Sri Lanka focused on backend development, full-stack web apps, Java, Spring Boot, Python, React, and applied machine learning.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
+  path: '/about',
   title: pageTitle,
   description: pageDescription,
-  alternates: {
-    canonical: '/about',
-  },
-  openGraph: {
-    title: `${pageTitle} | ${siteConfig.name}`,
-    description: pageDescription,
-    url: '/about',
-    images: ['/portrait.png'],
-  },
-  twitter: {
-    title: `${pageTitle} | ${siteConfig.name}`,
-    description: pageDescription,
-    images: ['/portrait.png'],
-  },
-};
+  openGraphType: 'profile',
+  keywords: [
+    'Naveen Lanka about',
+    'Naveen Lanka software engineer Sri Lanka',
+    'backend engineer Sri Lanka portfolio',
+    'full-stack developer Sri Lanka portfolio',
+  ],
+});
 
 export default function AboutPage() {
+  const breadcrumbId = `${absoluteRouteUrl('/about')}#breadcrumb`;
   const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [
       buildBreadcrumbList([
         { name: 'Home', path: '/' },
         { name: 'About', path: '/about' },
-      ]),
-      {
-        '@type': 'ProfilePage',
-        '@id': `${absoluteUrl('/about')}#webpage`,
-        url: absoluteUrl('/about'),
+      ], '/about'),
+      buildWebPageSchema({
+        path: '/about',
         name: `${pageTitle} | ${siteConfig.name}`,
         description: pageDescription,
-        isPartOf: { '@id': `${siteConfig.siteUrl}/#website` },
-        mainEntity: { '@id': `${absoluteUrl('/about')}#person` },
-      },
-      {
-        '@type': 'Person',
-        '@id': `${absoluteUrl('/about')}#person`,
-        name: siteConfig.name,
-        alternateName: siteConfig.alternateName,
-        jobTitle: siteConfig.jobTitle,
-        description: siteConfig.description,
-        url: siteConfig.siteUrl,
-        image: absoluteUrl('/portrait.png'),
-        email: `mailto:${siteConfig.email}`,
-        sameAs: siteConfig.sameAs,
-        address: {
-          '@type': 'PostalAddress',
-          addressLocality: 'Delgoda',
-          addressCountry: 'Sri Lanka',
-        },
-      },
+        pageType: 'ProfilePage',
+        breadcrumbId,
+      }),
     ],
   };
 
@@ -94,10 +93,12 @@ export default function AboutPage() {
         </Reveal>
       </header>
 
-      <section className="mt-12 grid gap-6 md:grid-cols-12">
+      <section aria-labelledby="about-skills-title about-experience-title" className="mt-12 grid gap-6 md:grid-cols-12">
         <Reveal className="md:col-span-5">
           <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-soft">
-            <h2 className="text-lg font-semibold tracking-tight text-neutral-900">Skills</h2>
+            <h2 id="about-skills-title" className="text-lg font-semibold tracking-tight text-neutral-900">
+              Skills
+            </h2>
             <div className="mt-5 grid gap-5">
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Languages</h3>
@@ -164,7 +165,9 @@ export default function AboutPage() {
 
         <Reveal className="md:col-span-7" delay={0.06}>
           <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-soft">
-            <h2 className="text-lg font-semibold tracking-tight text-neutral-900">Experience</h2>
+            <h2 id="about-experience-title" className="text-lg font-semibold tracking-tight text-neutral-900">
+              Experience
+            </h2>
             <div className="mt-5 grid gap-5 text-sm text-neutral-600">
               <div className="grid gap-1">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
@@ -198,34 +201,37 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
-      <section className="mt-6 grid gap-6 md:grid-cols-12">
+      <section
+        aria-labelledby="about-projects-title about-education-title"
+        className="mt-6 grid gap-6 md:grid-cols-12"
+      >
         <Reveal className="md:col-span-7">
           <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-soft">
-            <h2 className="text-lg font-semibold tracking-tight text-neutral-900">Projects</h2>
+            <h2 id="about-projects-title" className="text-lg font-semibold tracking-tight text-neutral-900">
+              Projects
+            </h2>
             <div className="mt-5 grid gap-4 text-sm text-neutral-600">
-              <div className="grid gap-1">
-                <p className="font-medium text-neutral-900">Online Banking Application</p>
-                <p>Feedback module with React, Spring Boot, and MySQL, focused on secure data handling.</p>
-              </div>
-              <div className="grid gap-1">
-                <p className="font-medium text-neutral-900">Air Ticket Booking System</p>
-                <p>Java and SQL reservation workflows for bookings, cancellations, and passenger records.</p>
-              </div>
-              <div className="grid gap-1">
-                <p className="font-medium text-neutral-900">Medicare Application</p>
-                <p>Flutter app for appointments and healthcare resources.</p>
-              </div>
-              <div className="grid gap-1">
-                <p className="font-medium text-neutral-900">Food Market DB Management</p>
-                <p>Web app with HTML, CSS, JavaScript, and SQL for inventory, sales, and supplier management.</p>
-              </div>
+              {ABOUT_PROJECTS.map((project) => (
+                <div key={project.slug} className="grid gap-1">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    aria-label={`Read more about the ${project.title} project`}
+                    className="font-medium text-neutral-900"
+                  >
+                    {project.title}
+                  </Link>
+                  <p>{project.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </Reveal>
 
         <Reveal className="md:col-span-5" delay={0.06}>
           <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-soft">
-            <h2 className="text-lg font-semibold tracking-tight text-neutral-900">Education</h2>
+            <h2 id="about-education-title" className="text-lg font-semibold tracking-tight text-neutral-900">
+              Education
+            </h2>
             <div className="mt-5 grid gap-4 text-sm text-neutral-600">
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">NSBM Green University</p>

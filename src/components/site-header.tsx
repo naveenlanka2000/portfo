@@ -187,7 +187,7 @@ export function SiteHeader() {
       className="sticky top-0 z-40 border-b border-[rgb(var(--header-border)/var(--header-border-alpha))] bg-[rgb(var(--header-bg)/var(--header-bg-alpha))] backdrop-blur supports-[backdrop-filter]:bg-[rgb(var(--header-bg)/var(--header-bg-alpha-blur))]"
     >
       <div className="mx-auto grid h-16 max-w-6xl grid-cols-[auto_1fr_auto] items-center px-5">
-        <Link href="/" className="group inline-flex items-center gap-2">
+        <Link href="/" aria-label="Naveen Lanka home" className="group inline-flex items-center gap-2">
           <span className="grid size-9 place-items-center rounded-xl bg-[rgb(var(--header-badge-bg))] text-sm font-semibold text-[rgb(var(--header-badge-fg))] shadow-soft">
             N
           </span>
@@ -287,6 +287,11 @@ export function SiteHeader() {
                     }}
                     onClick={onNavClick(item.href)}
                     aria-current={isActive ? 'page' : undefined}
+                    aria-label={
+                      item.href.startsWith('/#')
+                        ? `Jump to the ${item.label} section`
+                        : `Open the ${item.label} page`
+                    }
                     className={
                       [
                         'group relative z-10 inline-flex items-center gap-2 rounded-full',
@@ -413,6 +418,7 @@ export function SiteHeader() {
 
         <Link
           href="/projects"
+          aria-label="View software engineering projects by Naveen Lanka"
           className="hidden items-center justify-center rounded-full bg-[rgb(var(--header-cta-bg))] px-4 py-2 text-sm font-medium text-[rgb(var(--header-cta-fg))] shadow-soft transition-transform duration-200 active:scale-95 md:inline-flex"
         >
           View work

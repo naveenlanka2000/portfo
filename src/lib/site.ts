@@ -2,18 +2,76 @@ export const siteConfig = {
   name: 'Naveen Lanka',
   siteUrl: 'https://www.naveenlanka.me',
   alternateName: 'Naveen',
+  locale: 'en-LK',
+  openGraphLocale: 'en_LK',
+  themeColor: '#0A0A0A',
   jobTitle: 'Backend and Full-Stack Software Engineer',
   title: 'Naveen Lanka | Backend and Full-Stack Software Engineer',
   description:
     'Naveen Lanka is a software engineer in Sri Lanka focused on backend development, Spring Boot, Python APIs, and polished React and Next.js web apps.',
   email: 'naveenlanka45@gmail.com',
-  location: 'Delgoda, Sri Lanka',
+  phone: '+94707705725',
+  location: {
+    locality: 'Delgoda',
+    country: 'Sri Lanka',
+  },
+  socialImage: {
+    pathname: '/portrait.png',
+    width: 1024,
+    height: 1024,
+    alt: 'Portrait of Naveen Lanka',
+  },
+  xHandle: '@Naveenlanka6',
   sameAs: [
     'https://github.com/naveenlanka2000',
     'https://www.linkedin.com/in/naveen-lanka-528932331',
     'https://x.com/Naveenlanka6',
     'https://www.instagram.com/naveen_kandanaarachchi/',
   ],
+  knowsAbout: [
+    'Backend development',
+    'Full-stack development',
+    'Java',
+    'Spring Boot',
+    'Python',
+    'React',
+    'Next.js',
+    'MySQL',
+    'SQL',
+    'Flutter',
+    'API development',
+    'Machine learning',
+  ],
+  alumniOf: [
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'NSBM Green University',
+    },
+    {
+      '@type': 'EducationalOrganization',
+      name: 'Sri Dharmaloke College, Kelaniya',
+    },
+  ],
+  keywords: [
+    'Naveen Lanka',
+    'Naveen Lanka portfolio',
+    'Naveen Lanka software engineer',
+    'Naveen Lanka backend engineer',
+    'Naveen Lanka full-stack developer',
+    'software engineer portfolio Sri Lanka',
+    'backend engineer Sri Lanka',
+    'full-stack developer Sri Lanka',
+    'Java Spring Boot developer Sri Lanka',
+    'React developer Sri Lanka',
+    'Next.js portfolio',
+  ],
+  personId: 'https://www.naveenlanka.me/#person',
+  websiteId: 'https://www.naveenlanka.me/#website',
 } as const;
 
-export const siteRoutes = ['/', '/about', '/projects', '/contact'] as const;
+export const siteRoutes = [
+  { path: '/', changeFrequency: 'weekly', priority: 1 },
+  { path: '/about', changeFrequency: 'monthly', priority: 0.85 },
+  { path: '/projects', changeFrequency: 'weekly', priority: 0.9 },
+  { path: '/contact', changeFrequency: 'monthly', priority: 0.75 },
+] as const;

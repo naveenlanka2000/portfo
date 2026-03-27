@@ -5,7 +5,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Reveal } from '@/components/reveal';
 import { tagToBrandKind } from '@/lib/brand';
 import { getProjectBySlug, projects } from '@/lib/projects';
-import { absoluteUrl, buildBreadcrumbList } from '@/lib/seo';
+import { absoluteRouteUrl, buildBreadcrumbList, buildPageMetadata, buildProjectSchema, buildWebPageSchema } from '@/lib/seo';
 import { siteConfig } from '@/lib/site';
 import { BrandIcon, type BrandKind } from '@/components/sections/BrandIcon';
 
@@ -17,26 +17,18 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const project = getProjectBySlug(params.slug);
   if (!project) return {};
 
-  const pageTitle = `${project.title} | ${siteConfig.name}`;
-
-  return {
+  return buildPageMetadata({
+    path: `/projects/${project.slug}`,
     title: project.title,
     description: project.summary,
-    alternates: {
-      canonical: `/projects/${project.slug}`,
-    },
-    openGraph: {
-      title: pageTitle,
-      description: project.summary,
-      url: `/projects/${project.slug}`,
-      images: ['/portrait.png'],
-    },
-    twitter: {
-      title: pageTitle,
-      description: project.summary,
-      images: ['/portrait.png'],
-    },
-  };
+    keywords: [
+      project.title,
+      project.role,
+      ...project.stack,
+      `${project.title} project`,
+      'software engineering portfolio project',
+    ],
+  });
 }
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
@@ -44,6 +36,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   if (!project) notFound();
 
   const projectPath = `/projects/${project.slug}`;
+  const breadcrumbId = `${absoluteRouteUrl(projectPath)}#breadcrumb`;
+  const projectId = `${absoluteRouteUrl(projectPath)}#project`;
   const structuredData = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -51,28 +45,15 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         { name: 'Home', path: '/' },
         { name: 'Projects', path: '/projects' },
         { name: project.title, path: projectPath },
-      ]),
-      {
-        '@type': 'WebPage',
-        '@id': `${absoluteUrl(projectPath)}#webpage`,
-        url: absoluteUrl(projectPath),
+      ], projectPath),
+      buildWebPageSchema({
+        path: projectPath,
         name: `${project.title} | ${siteConfig.name}`,
         description: project.summary,
-      },
-      {
-        '@type': 'CreativeWork',
-        '@id': `${absoluteUrl(projectPath)}#project`,
-        name: project.title,
-        description: project.summary,
-        url: absoluteUrl(projectPath),
-        creator: {
-          '@type': 'Person',
-          name: siteConfig.name,
-          url: siteConfig.siteUrl,
-        },
-        keywords: project.stack.join(', '),
-        dateCreated: project.year,
-      },
+        breadcrumbId,
+        mainEntityId: projectId,
+      }),
+      buildProjectSchema(project),
     ],
   };
 
@@ -132,32 +113,43 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         </dl>
       </header>
 
-      <section className="mt-12 grid gap-6 md:grid-cols-12">
+      <section
+        aria-labelledby="project-overview-title project-challenge-title project-solution-title"
+        className="mt-12 grid gap-6 md:grid-cols-12"
+      >
         <Reveal className="md:col-span-12">
           <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-soft">
-            <h2 className="text-lg font-semibold tracking-tight text-neutral-900">Overview</h2>
+            <h2 id="project-overview-title" className="text-lg font-semibold tracking-tight text-neutral-900">
+              Overview
+            </h2>
             <p className="mt-2 text-sm leading-relaxed text-neutral-600">{project.tagline}</p>
           </div>
         </Reveal>
 
         <Reveal className="md:col-span-5">
           <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-soft">
-            <h2 className="text-lg font-semibold tracking-tight text-neutral-900">Challenge</h2>
+            <h2 id="project-challenge-title" className="text-lg font-semibold tracking-tight text-neutral-900">
+              Challenge
+            </h2>
             <p className="mt-2 text-sm leading-relaxed text-neutral-600">{project.challenge}</p>
           </div>
         </Reveal>
         <Reveal className="md:col-span-7" delay={0.06}>
           <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-soft">
-            <h2 className="text-lg font-semibold tracking-tight text-neutral-900">Solution</h2>
+            <h2 id="project-solution-title" className="text-lg font-semibold tracking-tight text-neutral-900">
+              Solution
+            </h2>
             <p className="mt-2 text-sm leading-relaxed text-neutral-600">{project.solution}</p>
           </div>
         </Reveal>
       </section>
 
-      <section className="mt-6">
+      <section aria-labelledby="project-outcome-title" className="mt-6">
         <Reveal>
           <div className="rounded-3xl border border-black/5 bg-neutral-900 p-10 text-white shadow-soft">
-            <h2 className="text-lg font-semibold tracking-tight">Outcome</h2>
+            <h2 id="project-outcome-title" className="text-lg font-semibold tracking-tight">
+              Outcome
+            </h2>
             <p className="mt-3 text-sm leading-relaxed text-white/80">{project.outcome}</p>
             <ul className="mt-6 grid gap-2 text-sm text-white/85 md:grid-cols-3">
               {project.highlights.map((highlight) => (
