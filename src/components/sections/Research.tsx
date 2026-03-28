@@ -1,11 +1,10 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import Image from 'next/image';
 import { useMemo } from 'react';
 
 import { useSectionScrollProgress } from '@/hooks/useSectionScrollProgress';
-import { cx, withBasePath } from '@/lib/utils';
+import { cx } from '@/lib/utils';
 import { motionTokens } from '@/lib/motion-tokens';
 import { ObsidianShimmerExperienceHeading } from '@/components/ObsidianShimmerExperienceHeading';
 import { tagToBrandKind } from '@/lib/brand';
@@ -13,6 +12,7 @@ import { tagToBrandKind } from '@/lib/brand';
 import { ScrollScrubImage, TechTag } from './_ui';
 import { LeafMark } from './_marks';
 import { BrandIcon, type BrandKind } from './BrandIcon';
+import { ResearchImageSlider } from './ResearchImageSlider';
 
 type ResearchItem = {
   title: string;
@@ -269,42 +269,21 @@ export function ResearchSection({ className }: ResearchSectionProps) {
               className={cx('mt-6 rounded-none bg-transparent p-0 sm:rounded-xl sm:bg-white sm:p-6')}
             >
               <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <h3 className="text-lg font-semibold tracking-tight text-neutral-900 md:text-xl">Evaluation plots</h3>
-                <p className="text-sm text-neutral-600">click to open full size</p>
+                <div>
+                  <h3 className="text-lg font-semibold tracking-tight text-neutral-900 md:text-xl">Evaluation plots</h3>
+                  <p className="mt-1 text-sm text-neutral-600">Swipe or use the controls to inspect each result plot.</p>
+                </div>
+                <p className="text-sm text-neutral-500">Each slide opens full size.</p>
               </div>
 
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                {RESEARCH_FIGURES.map((fig) => {
-                  const src = withBasePath(fig.src);
-                  return (
-                    <a
-                      key={fig.src}
-                      href={src}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={cx('group block overflow-hidden rounded-none bg-transparent sm:rounded-lg sm:bg-[#f8f8f8]')}
-                    >
-                      <div className="aspect-[16/10] w-full overflow-hidden">
-                        <Image
-                          src={src}
-                          alt={fig.alt}
-                          width={1600}
-                          height={1000}
-                          sizes="(min-width: 640px) 50vw, 100vw"
-                          className={cx(
-                            'h-full w-full object-contain p-3',
-                            'transition-transform duration-300 motion-reduce:transition-none',
-                            'group-hover:scale-[1.02]'
-                          )}
-                        />
-                      </div>
-                      <div className="bg-transparent px-0 py-3 sm:bg-white sm:px-4">
-                        <div className="text-sm font-medium text-neutral-900">{fig.caption}</div>
-                      </div>
-                    </a>
-                  );
-                })}
-              </div>
+              <ResearchImageSlider
+                className="mt-5"
+                ariaLabel="Research evaluation plots"
+                items={RESEARCH_FIGURES.map((figure, index) => ({
+                  ...figure,
+                  eyebrow: `Plot ${index + 1}`,
+                }))}
+              />
             </motion.div>
           </div>
         </div>
