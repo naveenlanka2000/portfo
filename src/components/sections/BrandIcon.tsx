@@ -57,9 +57,10 @@ export type BrandIconProps = {
   kind: BrandKind;
   label: string;
   className?: string;
+  bare?: boolean;
 };
 
-export function BrandIcon({ kind, label, className }: BrandIconProps) {
+export function BrandIcon({ kind, label, className, bare = false }: BrandIconProps) {
   const iconMap: Record<BrandKind, IconType> = {
     react: SiReact,
     java: FaJava,
@@ -117,6 +118,14 @@ export function BrandIcon({ kind, label, className }: BrandIconProps) {
   };
 
   const Icon = iconMap[kind] ?? FaDatabase;
+
+  if (bare) {
+    return (
+      <span className="inline-flex items-center justify-center overflow-visible" aria-hidden="true" title={label}>
+        <Icon className={cx('h-5 w-5', tintClass[kind], className)} focusable={false} aria-hidden="true" />
+      </span>
+    );
+  }
 
   const wrapperClassName = cx(
     'relative inline-flex h-10 w-10 origin-center items-center justify-center rounded-xl bg-white ring-1 ring-black/10',

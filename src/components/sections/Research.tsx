@@ -122,35 +122,26 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                       key={t}
                       className={
                         [
-                          'group/tool inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1',
+                          'inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1',
                           'text-xs font-medium text-neutral-800 ring-1 ring-black/5',
-                          'overflow-visible transition-[background-color] duration-200 ease-out hover:bg-white',
+                          'overflow-visible',
                         ].join(' ')
                       }
                     >
                       <BrandIcon
                         kind={tagToBrandKind(t) as BrandKind}
                         label={t}
+                        bare
                         className={
                           [
-                            'h-4 w-4 shrink-0 rounded-md bg-transparent ring-0',
+                            'h-4 w-4 shrink-0 origin-center',
                             'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
-                            'group-hover/tool:scale-[2.05] hover:scale-[2.05]',
-                            'motion-reduce:transition-none motion-reduce:group-hover/tool:scale-100 motion-reduce:hover:scale-100',
+                            'hover:scale-[1.8]',
+                            'motion-reduce:transition-none motion-reduce:hover:scale-100',
                           ].join(' ')
                         }
                       />
-                      <span
-                        className={
-                          [
-                            'overflow-hidden whitespace-nowrap',
-                            'transition-opacity duration-200 ease-out',
-                            'group-hover/tool:opacity-0',
-                          ].join(' ')
-                        }
-                      >
-                        {t}
-                      </span>
+                      <span>{t}</span>
                     </span>
                   ))}
                 </div>
@@ -204,27 +195,27 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                     <TechTag label="CNN" className="bg-neutral-50 border-black/5" />
                     <TechTag
                       label="TensorFlow"
-                      icon={<BrandIcon kind="tensorflow" label="TensorFlow" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                      icon={<BrandIcon kind="tensorflow" label="TensorFlow" bare className="h-4 w-4" />}
                       className="bg-neutral-50 border-black/5"
                     />
                     <TechTag
                       label="Keras"
-                      icon={<BrandIcon kind="keras" label="Keras" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                      icon={<BrandIcon kind="keras" label="Keras" bare className="h-4 w-4" />}
                       className="bg-neutral-50 border-black/5"
                     />
                     <TechTag
                       label="OpenCV"
-                      icon={<BrandIcon kind="opencv" label="OpenCV" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                      icon={<BrandIcon kind="opencv" label="OpenCV" bare className="h-4 w-4" />}
                       className="bg-neutral-50 border-black/5"
                     />
                     <TechTag
                       label="NumPy"
-                      icon={<BrandIcon kind="numpy" label="NumPy" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                      icon={<BrandIcon kind="numpy" label="NumPy" bare className="h-4 w-4" />}
                       className="bg-neutral-50 border-black/5"
                     />
                     <TechTag
                       label="Pandas"
-                      icon={<BrandIcon kind="pandas" label="Pandas" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                      icon={<BrandIcon kind="pandas" label="Pandas" bare className="h-4 w-4" />}
                       className="bg-neutral-50 border-black/5"
                     />
                   </div>

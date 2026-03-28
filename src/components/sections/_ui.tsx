@@ -56,10 +56,10 @@ export function TechTag({ label, icon, className }: TechTagProps) {
     if (isValidElement<{ className?: string }>(icon)) {
       const nextClassName = cx(
         icon.props.className,
-        'shrink-0',
+        'shrink-0 origin-center',
         'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
-        'group-hover/tech:scale-[2.05] hover:scale-[2.05]',
-        'motion-reduce:transition-none motion-reduce:group-hover/tech:scale-100 motion-reduce:hover:scale-100'
+        'hover:scale-[1.8]',
+        'motion-reduce:transition-none motion-reduce:hover:scale-100'
       );
 
       return cloneElement(icon, { className: nextClassName });
@@ -71,25 +71,13 @@ export function TechTag({ label, icon, className }: TechTagProps) {
   return (
     <span
       className={cx(
-        'group/tech inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-white px-4 text-sm text-neutral-700',
-        'overflow-visible transition-[background-color] duration-200 ease-out hover:bg-white',
+        'inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-white px-4 text-sm text-neutral-700',
+        'overflow-visible',
         className
       )}
     >
-      {hasIcon ? (
-        <span className="relative z-10 inline-flex origin-center text-neutral-900">{iconNode}</span>
-      ) : null}
-
-      <span
-        className={cx(
-          'leading-none',
-          hasIcon
-            ? 'overflow-hidden whitespace-nowrap transition-opacity duration-200 ease-out group-hover/tech:opacity-0'
-            : undefined
-        )}
-      >
-        {label}
-      </span>
+      {hasIcon ? <span className="relative z-10 inline-flex overflow-visible text-neutral-900">{iconNode}</span> : null}
+      <span className="leading-none">{label}</span>
     </span>
   );
 }

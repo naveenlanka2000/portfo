@@ -71,9 +71,9 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
                       key={t}
                       className={
                         [
-                          'group/tool inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1',
+                          'inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1',
                           'text-xs font-medium text-neutral-800 ring-1 ring-black/5',
-                          'overflow-visible transition-[background-color] duration-200 ease-out hover:bg-white',
+                          'overflow-visible',
                         ].join(' ')
                       }
                     >
@@ -90,26 +90,17 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
                                   : 'postman'
                         }
                         label={t}
+                        bare
                         className={
                           [
-                            'h-4 w-4 shrink-0 rounded-md bg-transparent ring-0',
+                            'h-4 w-4 shrink-0 origin-center',
                             'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
-                            'group-hover/tool:scale-[2.05] hover:scale-[2.05]',
-                            'motion-reduce:transition-none motion-reduce:group-hover/tool:scale-100 motion-reduce:hover:scale-100',
+                            'hover:scale-[1.8]',
+                            'motion-reduce:transition-none motion-reduce:hover:scale-100',
                           ].join(' ')
                         }
                       />
-                      <span
-                        className={
-                          [
-                            'overflow-hidden whitespace-nowrap',
-                            'transition-opacity duration-200 ease-out',
-                            'group-hover/tool:opacity-0',
-                          ].join(' ')
-                        }
-                      >
-                        {t}
-                      </span>
+                      <span>{t}</span>
                     </span>
                   ))}
                 </div>
@@ -144,7 +135,7 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
                   <div className="grid gap-6 md:grid-cols-12 md:items-start">
                     <div className="md:col-span-5">
                       <div className="flex items-start gap-4">
-                        <BrandIcon kind="nforce" label="NFORCE" className="shrink-0" />
+                        <BrandIcon kind="nforce" label="NFORCE" bare className="h-10 w-10 shrink-0" />
                         <div>
                           <h3 className="text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
                             {item.role}
@@ -158,32 +149,32 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
                         <span className="sr-only">Technologies:</span>
                         <TechTag
                           label="Java"
-                          icon={<BrandIcon kind="java" label="Java" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          icon={<BrandIcon kind="java" label="Java" bare className="h-4 w-4" />}
                           className="bg-neutral-50 border-black/5"
                         />
                         <TechTag
                           label="Spring Boot"
-                          icon={<BrandIcon kind="spring-boot" label="Spring Boot" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          icon={<BrandIcon kind="spring-boot" label="Spring Boot" bare className="h-4 w-4" />}
                           className="bg-neutral-50 border-black/5"
                         />
                         <TechTag
                           label="MySQL"
-                          icon={<BrandIcon kind="mysql" label="MySQL" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          icon={<BrandIcon kind="mysql" label="MySQL" bare className="h-4 w-4" />}
                           className="bg-neutral-50 border-black/5"
                         />
                         <TechTag
                           label="SQL"
-                          icon={<BrandIcon kind="sql" label="SQL" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          icon={<BrandIcon kind="sql" label="SQL" bare className="h-4 w-4" />}
                           className="bg-neutral-50 border-black/5"
                         />
                         <TechTag
                           label="Postman"
-                          icon={<BrandIcon kind="postman" label="Postman" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          icon={<BrandIcon kind="postman" label="Postman" bare className="h-4 w-4" />}
                           className="bg-neutral-50 border-black/5"
                         />
                         <TechTag
                           label="Git"
-                          icon={<BrandIcon kind="git" label="Git" className="h-4 w-4 rounded-md bg-transparent ring-0" />}
+                          icon={<BrandIcon kind="git" label="Git" bare className="h-4 w-4" />}
                           className="bg-neutral-50 border-black/5"
                         />
                       </div>

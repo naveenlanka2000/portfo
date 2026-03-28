@@ -233,36 +233,25 @@ export function HeroLayers({
                       key={label}
                       className={
                         [
-                          'group/stack inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1',
+                          'inline-flex items-center gap-2 rounded-full bg-white/70 px-2.5 py-1',
                           'text-sm font-medium text-neutral-900 ring-1 ring-black/5',
-                          'transition-[background-color] duration-200 ease-out',
-                          'hover:bg-white',
                         ].join(' ')
                       }
                     >
                       <BrandIcon
                         kind={tagToBrandKind(label)}
                         label={label}
+                        bare
                         className={
                           [
-                            'h-7 w-7 shrink-0 rounded-lg bg-white ring-black/5',
+                            'h-7 w-7 shrink-0 origin-center',
                             'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
-                            'group-hover/stack:scale-[2.05] hover:scale-[2.05]',
-                            'motion-reduce:transition-none motion-reduce:group-hover/stack:scale-100 motion-reduce:hover:scale-100',
+                            'hover:scale-[1.8]',
+                            'motion-reduce:transition-none motion-reduce:hover:scale-100',
                           ].join(' ')
                         }
                       />
-                      <span
-                        className={
-                          [
-                            'overflow-hidden whitespace-nowrap',
-                            'transition-opacity duration-200 ease-out',
-                            'group-hover/stack:opacity-0',
-                          ].join(' ')
-                        }
-                      >
-                        {label}
-                      </span>
+                      <span>{label}</span>
                     </span>
                   ))}
                 </dd>

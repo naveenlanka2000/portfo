@@ -38,36 +38,26 @@ export function ProjectCard({ project }: { project: Project }) {
               key={s}
               className={
                 [
-                  'relative inline-flex items-center gap-2 rounded-full bg-neutral-50 px-3 py-1 text-xs font-medium text-neutral-800',
+                  'relative inline-flex items-center gap-2 px-1 py-1 text-xs font-medium text-neutral-800',
                   'overflow-visible',
-                  // Hovering the pill should also trigger the icon expansion.
-                  'group/tech',
-                  'transition-[background-color] duration-200 ease-out hover:bg-white',
                 ].join(' ')
               }
             >
-              <BrandIcon
-                kind={tagToBrandKind(s) as BrandKind}
-                label={s}
-                className={
-                  [
-                    'h-5 w-5 rounded-md bg-transparent ring-0',
-                    'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
-                    'group-hover/tech:scale-[2.05] hover:scale-[2.05]',
-                    'motion-reduce:transition-none motion-reduce:group-hover/tech:scale-100 motion-reduce:hover:scale-100',
-                  ].join(' ')
-                }
-              />
-              <span
-                className={
-                  [
-                    'overflow-hidden whitespace-nowrap',
-                    'transition-opacity duration-200 ease-out',
-                    'group-hover/tech:opacity-0',
-                  ].join(' ')
-                }
-              >
-                {s}
+              <span className="inline-flex items-center gap-2">
+                <BrandIcon
+                  kind={tagToBrandKind(s) as BrandKind}
+                  label={s}
+                  bare
+                  className={
+                    [
+                      'shrink-0 origin-center',
+                      'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                      'hover:scale-[1.8]',
+                      'motion-reduce:transition-none motion-reduce:hover:scale-100',
+                    ].join(' ')
+                  }
+                />
+                <span>{s}</span>
               </span>
             </span>
           ))}

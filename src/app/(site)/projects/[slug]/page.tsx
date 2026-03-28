@@ -103,7 +103,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                   <BrandIcon
                     kind={tagToBrandKind(label) as BrandKind}
                     label={label}
-                    className="h-4 w-4 rounded-md bg-transparent ring-0 transition-transform duration-200 ease-out hover:scale-150"
+                    bare
+                    className="h-4 w-4 origin-center transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.8] motion-reduce:transition-none motion-reduce:hover:scale-100"
                   />
                   {label}
                 </span>
