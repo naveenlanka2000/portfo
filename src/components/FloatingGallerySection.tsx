@@ -272,7 +272,7 @@ export function FloatingGallerySection({
       // Local background follows the same transform to avoid seams.
       style={{ backgroundColor: bg }}
     >
-      <div className="mx-auto max-w-6xl px-5 py-14">
+      <div className="site-shell py-14">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-5">
             <p className="text-xs font-medium tracking-wide text-white/60">Gallery</p>

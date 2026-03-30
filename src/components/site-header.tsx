@@ -30,6 +30,12 @@ const navItems = [
 
 type NavHref = (typeof navItems)[number]['href'];
 
+const homeSectionTargets = [
+  { href: '/#experience', id: 'experience' },
+  { href: '/#research', id: 'research' },
+  { href: '/#projects', id: 'projects' },
+] as const satisfies ReadonlyArray<{ href: NavHref; id: string }>;
+
 export function SiteHeader() {
   const router = useRouter();
   const pathname = usePathname();
@@ -38,6 +44,7 @@ export function SiteHeader() {
   const [desktop, setDesktop] = useState(false);
 
   const [hash, setHash] = useState<string>('');
+  const [activeSectionHref, setActiveSectionHref] = useState<NavHref | null>(null);
   const [hovered, setHovered] = useState<NavHref | null>(null);
   const dockRef = useRef<HTMLDivElement | null>(null);
   const [mobileTooltip, setMobileTooltip] = useState<{ x: number; label: string } | null>(null);
@@ -52,6 +59,49 @@ export function SiteHeader() {
     window.addEventListener('hashchange', read);
     return () => window.removeEventListener('hashchange', read);
   }, []);
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      setActiveSectionHref(null);
+      return;
+    }
+
+    let frame = 0;
+
+    const updateActiveSection = () => {
+      frame = 0;
+
+      const triggerLine = Math.min(window.innerHeight * 0.42, 340);
+      let nextHref: NavHref | null = null;
+
+      for (const target of homeSectionTargets) {
+        const section = document.getElementById(target.id);
+        if (!section) continue;
+
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= triggerLine && rect.bottom >= 140) {
+          nextHref = target.href;
+        }
+      }
+
+      setActiveSectionHref((current) => (current === nextHref ? current : nextHref));
+    };
+
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateActiveSection);
+    };
+
+    scheduleUpdate();
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     const mql = window.matchMedia?.('(min-width: 768px)');
@@ -150,13 +200,17 @@ export function SiteHeader() {
     if (routeHit) return routeHit.href;
 
     // Home sections
-    if (pathname === '/' && hash) {
-      const sectionHit = navItems.find((l) => l.href.startsWith('/#') && l.href === `/${hash}`);
-      if (sectionHit) return sectionHit.href;
+    if (pathname === '/') {
+      if (activeSectionHref) return activeSectionHref;
+
+      if (hash) {
+        const sectionHit = navItems.find((l) => l.href.startsWith('/#') && l.href === `/${hash}`);
+        if (sectionHit) return sectionHit.href;
+      }
     }
 
     return null;
-  }, [hash, pathname]);
+  }, [activeSectionHref, hash, pathname]);
 
   const highlighted = hovered ?? activeHref;
 
@@ -186,7 +240,7 @@ export function SiteHeader() {
     <header
       className="sticky top-0 z-40 border-b border-[rgb(var(--header-border)/var(--header-border-alpha))] bg-[rgb(var(--header-bg)/var(--header-bg-alpha))] backdrop-blur supports-[backdrop-filter]:bg-[rgb(var(--header-bg)/var(--header-bg-alpha-blur))]"
     >
-      <div className="mx-auto grid h-16 max-w-6xl grid-cols-[auto_1fr_auto] items-center px-5">
+      <div className="site-shell grid h-16 grid-cols-[auto_1fr_auto] items-center">
         <Link href="/" aria-label="Naveen Lanka home" className="group inline-flex items-center gap-2">
           <span className="grid size-9 place-items-center rounded-xl bg-[rgb(var(--header-badge-bg))] text-sm font-semibold text-[rgb(var(--header-badge-fg))] shadow-soft">
             N

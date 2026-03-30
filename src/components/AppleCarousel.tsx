@@ -615,7 +615,7 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
   return (
     <section className={cx('w-full', className)} aria-label={sectionTitle}>
       {/* Keep title aligned to content width */}
-      <div className="mx-auto max-w-6xl px-5 py-2">
+      <div className="site-shell py-2">
         <div className="flex items-end justify-between gap-6">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">{sectionTitle}</h2>
@@ -650,7 +650,7 @@ export function AppleCarousel({ cards, className, ariaLabel }: AppleCarouselProp
       </div>
 
       {/* Pagination aligned to content width */}
-      <div className="mx-auto mt-9 max-w-6xl px-5">
+      <div className="site-shell mt-9">
           <div className="relative flex items-center" style={{ height: 22 }}>
             <div
               ref={dotsWrapRef}

@@ -46,7 +46,7 @@ export function ExperienceSection({ className }: ExperienceSectionProps) {
       aria-labelledby="experience-title"
       className={cx('scroll-mt-28 bg-white py-16 md:py-20', className)}
     >
-      <div className="mx-auto max-w-6xl px-5">
+      <div className="site-shell">
         <div className="grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-4">
             <div className="sticky top-14">

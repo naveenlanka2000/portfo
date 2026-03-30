@@ -7,7 +7,7 @@ const ExperienceSection = dynamic(
   {
     loading: () => (
       <section className="bg-white py-16 md:py-20" aria-hidden>
-        <div className="mx-auto max-w-6xl px-5">
+        <div className="site-shell">
           <div className="grid gap-10 md:grid-cols-12 md:gap-12">
             <div className="space-y-4 md:col-span-4">
               <div className="h-12 w-40 rounded-2xl bg-black/5" />

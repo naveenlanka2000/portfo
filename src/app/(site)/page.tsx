@@ -55,14 +55,14 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="mx-auto max-w-6xl px-5">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
-          }}
-        />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
 
+      <div className="site-shell">
         <HeroLayers
           title={siteConfig.name}
           subtitle="Backend and full-stack software engineer in Sri Lanka building secure Spring Boot and Python APIs, polished React and Next.js frontends, and reliable healthcare and booking workflows."
@@ -78,7 +78,7 @@ export default function HomePage() {
           }}
         />
 
-        <section aria-labelledby="home-intro-title" className="py-16">
+        <section aria-labelledby="home-intro-title" className="py-16 md:pl-8 lg:pl-12">
           <div className="max-w-3xl">
             <h2 id="home-intro-title" className="text-2xl font-semibold tracking-tight text-neutral-900">
               Naveen Lanka
@@ -91,7 +91,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section aria-labelledby="featured-work-title" className="pb-16">
+        <section aria-labelledby="featured-work-title" className="pb-16 md:pl-8 lg:pl-12">
           <div className="flex items-end justify-between gap-6">
             <div>
               <h2 id="featured-work-title" className="text-2xl font-semibold tracking-tight text-neutral-900">
@@ -116,19 +116,21 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+      </div>
 
-        <HighlightsLazy />
+      <HighlightsLazy />
 
-        <div className="[content-visibility:auto] [contain-intrinsic-size:1px_960px]">
-          <ExperienceLazy className="-mx-5" />
-        </div>
-        <div className="[content-visibility:auto] [contain-intrinsic-size:1px_1100px]">
-          <ResearchLazy className="-mx-5" />
-        </div>
-        <div className="[content-visibility:auto] [contain-intrinsic-size:1px_920px]">
-          <ProjectsLazy className="-mx-5" />
-        </div>
+      <div className="[content-visibility:auto] [contain-intrinsic-size:1px_960px]">
+        <ExperienceLazy />
+      </div>
+      <div className="[content-visibility:auto] [contain-intrinsic-size:1px_1100px]">
+        <ResearchLazy />
+      </div>
+      <div className="[content-visibility:auto] [contain-intrinsic-size:1px_920px]">
+        <ProjectsLazy />
+      </div>
 
+      <div className="site-shell">
         <section aria-labelledby="future-work-title" className="mt-24 pb-16">
           <div className="grid gap-6 rounded-3xl border border-black/5 bg-white p-8 shadow-soft md:grid-cols-3">
             <div className="md:col-span-2">

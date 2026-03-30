@@ -61,7 +61,7 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-14">
+    <div className="site-shell py-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

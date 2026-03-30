@@ -6,7 +6,7 @@ import { withBasePath } from '@/lib/utils';
 export function SiteFooter() {
   return (
     <footer aria-label="Site footer" className="bg-neutral-100/80">
-      <div className="mx-auto max-w-6xl px-5 py-16">
+      <div className="site-shell py-16">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           <div className="col-span-2 md:col-span-1">
             <h4 className="text-sm font-semibold text-neutral-900">Naveen Lanka</h4>

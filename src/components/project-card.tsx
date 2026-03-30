@@ -8,13 +8,13 @@ export function ProjectCard({ project }: { project: Project }) {
   const stackPreview = project.stack.slice(0, 3).join(', ');
 
   return (
-    <article aria-labelledby={`${project.slug}-title`} className="relative">
+    <article aria-labelledby={`${project.slug}-title`} className="relative h-full">
       <Link
         href={`/projects/${project.slug}`}
         aria-label={`Open ${project.title}, a ${project.role.toLowerCase()} project built with ${stackPreview}`}
         className={
           [
-            'group relative block rounded-2xl bg-white p-6',
+            'group relative flex h-full flex-col rounded-2xl bg-white p-7',
             // Samsung-ish hover zoom (flat, no 3D tilt)
             // Avoid forcing GPU text rasterization (keeps text crisp on hover)
             'will-change-transform transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
@@ -25,25 +25,29 @@ export function ProjectCard({ project }: { project: Project }) {
           ].join(' ')
         }
       >
-        <div className="flex items-baseline justify-between gap-4">
-          <h3 id={`${project.slug}-title`} className="text-lg font-semibold tracking-tight text-neutral-950">
+        <div className="flex items-start justify-between gap-4">
+          <h3
+            id={`${project.slug}-title`}
+            className="max-w-[16ch] text-xl font-semibold tracking-tight text-neutral-900 md:text-2xl"
+          >
             {project.title}
           </h3>
-          <span className="text-xs font-medium text-neutral-500">{project.year}</span>
+          <span className="mt-1 text-sm font-medium text-neutral-500">{project.year}</span>
         </div>
-        <p className="mt-2 text-sm leading-relaxed text-neutral-700">{project.tagline}</p>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {project.stack.slice(0, 3).map((s) => (
-            <span
-              key={s}
-              className={
-                [
-                  'relative inline-flex items-center gap-2 px-1 py-1 text-xs font-medium text-neutral-800',
-                  'overflow-visible',
-                ].join(' ')
-              }
-            >
-              <span className="inline-flex items-center gap-2">
+        <p className="mt-3 text-base leading-relaxed text-neutral-600">{project.tagline}</p>
+
+        <div className="mt-auto pt-6">
+          <div className="flex flex-wrap gap-3">
+            {project.stack.slice(0, 3).map((s) => (
+              <span
+                key={s}
+                className={
+                  [
+                    'relative inline-flex items-center gap-2 text-sm font-medium text-neutral-700',
+                    'overflow-visible',
+                  ].join(' ')
+                }
+              >
                 <BrandIcon
                   kind={tagToBrandKind(s) as BrandKind}
                   label={s}
@@ -59,8 +63,8 @@ export function ProjectCard({ project }: { project: Project }) {
                 />
                 <span>{s}</span>
               </span>
-            </span>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
