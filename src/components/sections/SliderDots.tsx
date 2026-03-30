@@ -47,20 +47,21 @@ export function SliderDots({
             >
               <motion.div
                 animate={{
-                  width: isActive ? 44 : 10,
+                  width: isActive ? 36 : 10,
                   opacity: isActive ? 1 : 0.8,
                 }}
                 transition={{
                   duration: 0.9,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="relative h-2.5 overflow-hidden rounded-full border border-black/10 bg-neutral-400 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
+                className="relative h-2.5 overflow-hidden rounded-full border border-black/10 bg-neutral-400 shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_1px_4px_rgba(15,23,42,0.08)]"
               >
                 {isActive ? (
-                  <motion.div
-                    className="absolute inset-y-0 left-0 rounded-full bg-neutral-950 shadow-[0_0_10px_rgba(15,23,42,0.18)]"
-                    animate={{ width: `${progress * 100}%` }}
-                    transition={{ duration: 0.1, ease: 'linear' }}
+                  <div
+                    className="absolute inset-0 origin-left rounded-full bg-neutral-950 shadow-[0_1px_6px_rgba(15,23,42,0.14)] will-change-transform"
+                    style={{
+                      transform: `translateZ(0) scaleX(${progress})`,
+                    }}
                   />
                 ) : null}
               </motion.div>
