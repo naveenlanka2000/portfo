@@ -96,22 +96,18 @@ export function ResearchSection({ className }: ResearchSectionProps) {
       id="research"
       ref={ref}
       aria-labelledby="research-title"
-      className={cx('scroll-mt-28 bg-white py-14 sm:py-16 md:bg-[#f8f8f8] md:py-20', className)}
+      className={cx('scroll-mt-28 bg-white py-16 md:py-20', className)}
     >
       <div className="site-shell">
-        <div className="grid gap-8 sm:gap-10 md:grid-cols-12 md:gap-12">
+        <div className="grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-4">
-            <div className="md:sticky md:top-14">
+            <div className="sticky top-14">
               <motion.div
                 initial={false}
                 animate={reduced ? { opacity: 1 } : { opacity: Math.min(1, Math.max(0, progress / 0.2)) }}
                 transition={reduced ? { duration: motionTokens.durations.short / 1000 } : { duration: 0 }}
               >
-                <ObsidianShimmerExperienceHeading
-                  as="h2"
-                  text="Research"
-                  className="text-3xl sm:text-4xl md:text-5xl"
-                />
+                <ObsidianShimmerExperienceHeading as="h2" text="Research" className="text-4xl md:text-5xl" />
                 <p className="mt-3 text-pretty text-base leading-relaxed text-neutral-600 md:text-lg">
                   Applied ML research aimed at accurate identification through computer vision.
                 </p>
@@ -157,30 +153,35 @@ export function ResearchSection({ className }: ResearchSectionProps) {
           </div>
 
           <div className="md:col-span-8">
-            <div className="grid gap-6 md:grid-cols-12 md:items-start">
-              <div className="md:col-span-5">
-                <ScrollScrubImage
-                  alt="Leaf motif representing CNN-based medicinal leaf classification"
-                  progress={progress}
-                  startOffsetPct={0.16}
-                  fadeInRange={0.2}
-                  aspectRatio="4 / 5"
-                  className="mx-auto max-w-sm bg-transparent sm:max-w-none sm:bg-white"
-                  priority={false}
-                >
-                  <LeafMark title="Leaf mark" />
-                </ScrollScrubImage>
-              </div>
+            <motion.article
+              role="article"
+              initial={reduced ? false : { opacity: 0, y: 14 }}
+              whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear' }}
+              className={cx(
+                'rounded-2xl bg-white p-7',
+                'transition-transform [transition-duration:220ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
+                'hover:scale-[1.01] focus-within:scale-[1.01]',
+                'motion-reduce:hover:scale-100 motion-reduce:focus-within:scale-100'
+              )}
+            >
+              <div className="grid gap-6 md:grid-cols-12 md:items-start">
+                <div className="md:col-span-5">
+                  <ScrollScrubImage
+                    alt="Leaf motif representing CNN-based medicinal leaf classification"
+                    progress={progress}
+                    startOffsetPct={0.16}
+                    fadeInRange={0.2}
+                    aspectRatio="4 / 5"
+                    className="rounded-xl border border-black/10 bg-white shadow-[0_1px_0_rgba(0,0,0,0.06),0_16px_40px_rgba(0,0,0,0.08)]"
+                    priority={false}
+                  >
+                    <LeafMark title="Leaf mark" />
+                  </ScrollScrubImage>
+                </div>
 
-              <div className="md:col-span-7">
-                <motion.article
-                  role="article"
-                  initial={reduced ? false : { opacity: 0, y: 14 }}
-                  whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear' }}
-                  className={cx('rounded-none bg-transparent p-0 sm:rounded-xl sm:bg-white sm:p-7')}
-                >
+                <div className="md:col-span-7">
                   <h3 className="text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
                     {RESEARCH.title}
                   </h3>
@@ -224,7 +225,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                     />
                   </div>
 
-                  <div className="mt-7 rounded-none bg-transparent p-0 sm:rounded-lg sm:bg-[#f8f8f8] sm:p-4">
+                  <div className="mt-7 rounded-lg bg-[#f8f8f8] p-4">
                     <div className="flex flex-wrap items-baseline justify-between gap-3">
                       <h4 className="text-sm font-semibold tracking-tight text-neutral-900">Model results</h4>
                       <p className="text-xs text-neutral-600">from evaluation plots</p>
@@ -232,7 +233,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
 
                     <div className="mt-3 grid gap-2 sm:grid-cols-2">
                       {metricCards.map((m) => (
-                        <div key={m.label} className="rounded-none bg-transparent px-0 py-2 sm:rounded-md sm:bg-white sm:px-3">
+                        <div key={m.label} className="rounded-md bg-white px-3 py-2">
                           <div className="text-[11px] uppercase tracking-wide text-neutral-500">{m.label}</div>
                           <div className="mt-0.5 text-base font-semibold tabular-nums text-neutral-900">{m.pct.toFixed(1)}%</div>
 
@@ -261,16 +262,16 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                       ))}
                     </div>
                   </div>
-                </motion.article>
+                </div>
               </div>
-            </div>
+            </motion.article>
 
             <motion.div
               initial={reduced ? false : { opacity: 0, y: 10 }}
               whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear' }}
-              className={cx('mt-6 rounded-none bg-transparent p-0 sm:rounded-xl sm:bg-white sm:p-6')}
+              className={cx('mt-6 rounded-2xl bg-white p-6')}
             >
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <div>
