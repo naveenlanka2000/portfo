@@ -26,7 +26,7 @@ export function SliderDots({
   disabled = false,
 }: SliderDotsProps) {
   return (
-    <div className={cx('relative mt-5 flex min-h-8 items-center justify-center', className)}>
+    <div className={cx('mt-5 flex flex-col items-center gap-3 sm:relative sm:min-h-8 sm:justify-center', className)}>
       <div className="flex items-center justify-center gap-3">
         {Array.from({ length: count }).map((_, index) => {
           const isActive = index === activeIndex;
@@ -76,7 +76,7 @@ export function SliderDots({
         aria-label={isPlaying ? 'Pause slider' : 'Play slider'}
         disabled={disabled}
         className={cx(
-          'absolute right-0 inline-flex h-8 w-8 items-center justify-center rounded-full',
+          'inline-flex h-8 w-8 items-center justify-center rounded-full sm:absolute sm:right-0',
           'border border-black/10 bg-white/85 text-neutral-900 shadow-soft backdrop-blur-md',
           'transition hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500',
           'disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:scale-100'

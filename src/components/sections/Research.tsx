@@ -96,18 +96,22 @@ export function ResearchSection({ className }: ResearchSectionProps) {
       id="research"
       ref={ref}
       aria-labelledby="research-title"
-      className={cx('scroll-mt-28 bg-white py-16 md:bg-[#f8f8f8] md:py-20', className)}
+      className={cx('scroll-mt-28 bg-white py-14 sm:py-16 md:bg-[#f8f8f8] md:py-20', className)}
     >
       <div className="site-shell">
-        <div className="grid gap-10 md:grid-cols-12 md:gap-12">
+        <div className="grid gap-8 sm:gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-4">
-            <div className="sticky top-14">
+            <div className="md:sticky md:top-14">
               <motion.div
                 initial={false}
                 animate={reduced ? { opacity: 1 } : { opacity: Math.min(1, Math.max(0, progress / 0.2)) }}
                 transition={reduced ? { duration: motionTokens.durations.short / 1000 } : { duration: 0 }}
               >
-                <ObsidianShimmerExperienceHeading as="h2" text="Research" className="text-4xl md:text-5xl" />
+                <ObsidianShimmerExperienceHeading
+                  as="h2"
+                  text="Research"
+                  className="text-3xl sm:text-4xl md:text-5xl"
+                />
                 <p className="mt-3 text-pretty text-base leading-relaxed text-neutral-600 md:text-lg">
                   Applied ML research aimed at accurate identification through computer vision.
                 </p>
@@ -161,7 +165,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                   startOffsetPct={0.16}
                   fadeInRange={0.2}
                   aspectRatio="4 / 5"
-                  className="bg-transparent sm:bg-white"
+                  className="mx-auto max-w-sm bg-transparent sm:max-w-none sm:bg-white"
                   priority={false}
                 >
                   <LeafMark title="Leaf mark" />
@@ -273,7 +277,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                   <h3 className="text-lg font-semibold tracking-tight text-neutral-900 md:text-xl">Evaluation plots</h3>
                   <p className="mt-1 text-sm text-neutral-600">Swipe or use the controls to inspect each result plot.</p>
                 </div>
-                <p className="text-sm text-neutral-500">Each slide opens full size.</p>
+                <p className="hidden text-sm text-neutral-500 sm:block">Each slide opens full size.</p>
               </div>
 
               <ResearchImageSlider
