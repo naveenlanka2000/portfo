@@ -206,7 +206,7 @@ export function ResearchImageSlider({
         }
       }}
     >
-      <div className="overflow-hidden rounded-[24px] border border-black/5 bg-[linear-gradient(180deg,rgba(248,250,252,0.92),rgba(255,255,255,0.98))] sm:rounded-[32px]">
+      <div className="overflow-hidden rounded-[22px] border border-black/5 bg-[linear-gradient(180deg,rgba(248,250,252,0.92),rgba(255,255,255,0.98))] sm:rounded-[32px]">
         <div
           ref={viewportRef}
           className={cx(
@@ -221,7 +221,7 @@ export function ResearchImageSlider({
             }
           `}</style>
 
-          <div className="flex gap-3 px-3 py-4 sm:gap-5 sm:px-[6%] sm:py-5 lg:gap-6 lg:px-[8%]">
+          <div className="flex gap-2.5 px-2 py-3 sm:gap-5 sm:px-[6%] sm:py-5 lg:gap-6 lg:px-[8%]">
             {items.map((item, index) => {
               const src = withBasePath(item.src);
               const isActive = index === activeIndex;
@@ -236,26 +236,26 @@ export function ResearchImageSlider({
                   aria-roledescription="slide"
                   aria-label={`Plot ${index + 1} of ${count}`}
                   className={cx(
-                    'relative w-[92%] shrink-0 snap-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
+                    'relative w-full max-w-full shrink-0 snap-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
                     'sm:w-[84%] lg:w-[78%] xl:w-[74%]',
                     isActive ? 'scale-100 opacity-100' : 'scale-[0.97] opacity-75'
                   )}
                   style={{ scrollSnapStop: 'always' }}
                 >
-                  <div className="overflow-hidden rounded-[22px] border border-black/5 bg-white shadow-[0_20px_70px_rgba(15,23,42,0.08)] sm:rounded-[28px]">
+                  <div className="overflow-hidden rounded-[20px] border border-black/5 bg-white shadow-[0_20px_70px_rgba(15,23,42,0.08)] sm:rounded-[28px]">
                     <div className="relative aspect-[16/10] bg-[radial-gradient(circle_at_top,rgba(226,232,240,0.75),rgba(248,250,252,0.98)_58%,rgba(255,255,255,1))]">
                       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0))]" />
                       <Image
                         src={src}
                         alt={item.alt}
                         fill
-                        sizes="(min-width: 1024px) 58vw, (min-width: 640px) 74vw, 92vw"
-                        className="object-contain p-4 sm:p-7 lg:p-8"
+                        sizes="(min-width: 1024px) 58vw, (min-width: 640px) 74vw, 100vw"
+                        className="object-contain p-3 sm:p-7 lg:p-8"
                         priority={index === 0}
                       />
                     </div>
 
-                    <div className="flex flex-col items-start gap-3 border-t border-black/5 bg-[linear-gradient(180deg,#fcfcfd_0%,#f3f4f6_100%)] px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-5">
+                    <div className="flex flex-col items-start gap-3 border-t border-black/5 bg-[linear-gradient(180deg,#fcfcfd_0%,#f3f4f6_100%)] px-3.5 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-5 sm:py-4">
                       <div className="min-w-0">
                         <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-neutral-500">
                           {item.eyebrow ?? `Plot ${index + 1}`}

@@ -15,28 +15,28 @@ const ABOUT_PROJECTS = [
   {
     slug: 'online-banking-application',
     title: 'Online Banking Application',
-    description: 'Feedback module with React, Spring Boot, and MySQL, focused on secure data handling.',
+    description: 'Built a feedback workflow with React, Spring Boot, and MySQL, with emphasis on secure data handling and reliable backend integration.',
   },
   {
     slug: 'air-ticket-booking-system',
     title: 'Air Ticket Booking System',
-    description: 'Java and SQL reservation workflows for bookings, cancellations, and passenger records.',
+    description: 'Designed reservation workflows in Java and SQL for bookings, cancellations, and passenger record management.',
   },
   {
     slug: 'medicare-application',
     title: 'Medicare Application',
-    description: 'Flutter app for appointments and healthcare resources.',
+    description: 'Created a Flutter mobile app for appointment handling and easier access to healthcare-related resources.',
   },
   {
     slug: 'food-market-db-management',
     title: 'Food Market DB Management',
-    description: 'Web app with HTML, CSS, JavaScript, and SQL for inventory, sales, and supplier management.',
+    description: 'Developed a database-driven web app for inventory, sales tracking, and supplier management using HTML, CSS, JavaScript, and SQL.',
   },
 ] as const;
 
 const pageTitle = 'About';
 const pageDescription =
-  'Learn about Naveen Lanka, a software engineer in Sri Lanka focused on backend development, full-stack web apps, Java, Spring Boot, Python, React, and applied machine learning.';
+  'Learn about Naveen Lanka, a software engineer in Sri Lanka focused on backend systems, full-stack web applications, Spring Boot, Python APIs, React, Next.js, SQL, and practical machine learning.';
 
 export const metadata: Metadata = buildPageMetadata({
   path: '/about',
@@ -86,9 +86,9 @@ export default function AboutPage() {
         <Reveal delay={0.12} y={24}>
           <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
             I&apos;m <span className="[font-family:var(--font-cursive)] text-neutral-900">Naveen Lanka</span>, a software
-            engineer in Sri Lanka focused on backend and full-stack development. I build secure, reliable services and
-            clean web experiences, with a strong interest in Java, Spring Boot, Python, React, Next.js, SQL, and
-            applied machine learning.
+            engineer in Sri Lanka who enjoys building dependable backend systems and polished web applications. My work
+            focuses on Java, Spring Boot, Python, React, Next.js, SQL, and applied machine learning, with consistent
+            attention to secure workflows, maintainable code, and clear user experience.
           </p>
         </Reveal>
       </header>
@@ -156,11 +156,13 @@ export default function AboutPage() {
                     </span>
                   ))}
                 </div>
-                <p className="mt-3 text-sm text-neutral-700">Schema design, queries, data integrity</p>
+                <p className="mt-3 text-sm text-neutral-700">Schema design, relational queries, and data integrity</p>
               </div>
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">AI/ML</h3>
-                <p className="mt-2 text-sm text-neutral-700">CNNs, TensorFlow, Keras, experimentation, and evaluation</p>
+                <p className="mt-2 text-sm text-neutral-700">
+                  CNN-based image classification with TensorFlow, Keras, model training, and evaluation
+                </p>
               </div>
             </div>
           </div>
@@ -180,9 +182,9 @@ export default function AboutPage() {
                   <span className="text-xs text-neutral-500">Oct 2024 - Mar 2025</span>
                 </div>
                 <ul className="mt-2 grid gap-2">
-                  <li>Built and maintained Java backend services for core clinical workflows.</li>
-                  <li>Implemented secure data handling for patient records and appointment scheduling.</li>
-                  <li>Collaborated across teams to improve reliability and performance.</li>
+                  <li>Built and maintained Java backend services that supported core clinical workflows.</li>
+                  <li>Implemented secure handling for patient records, appointments, and related data flows.</li>
+                  <li>Worked with the team to improve system reliability, performance, and day-to-day maintainability.</li>
                 </ul>
               </div>
 
@@ -194,9 +196,9 @@ export default function AboutPage() {
                   <span className="text-xs text-neutral-500">Academic</span>
                 </div>
                 <ul className="mt-2 grid gap-2">
-                  <li>Built and trained CNN models to classify Sri Lankan medicinal leaves.</li>
-                  <li>Used TensorFlow and Keras to iterate quickly on architectures and evaluation.</li>
-                  <li>Focused on practical ML evaluation for an applied healthcare-related research topic.</li>
+                  <li>Built and trained CNN models to classify Sri Lankan medicinal leaves from image data.</li>
+                  <li>Used TensorFlow and Keras to iterate on model architecture, training, and evaluation.</li>
+                  <li>Approached the work as a practical machine learning problem with healthcare-related relevance.</li>
                 </ul>
               </div>
             </div>
@@ -238,11 +240,11 @@ export default function AboutPage() {
             <div className="mt-5 grid gap-4 text-sm text-neutral-600">
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">NSBM Green University</p>
-                <p>BSc (Hons) in Software Engineering</p>
+                <p>BSc (Hons) in Software Engineering, with focus on software design, development, and applied computing.</p>
               </div>
               <div className="grid gap-1">
                 <p className="font-medium text-neutral-900">Sri Dharmaloke College, Kelaniya</p>
-                <p>GCE Advanced Level (Physical Science Stream): Combined Mathematics, Chemistry, Physics</p>
+                <p>GCE Advanced Level, Physical Science stream: Combined Mathematics, Chemistry, and Physics.</p>
               </div>
             </div>
           </div>
