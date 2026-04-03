@@ -99,7 +99,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
       className={cx('scroll-mt-28 bg-white py-14 sm:py-16 md:py-20', className)}
     >
       <div className="site-shell">
-        <div className="grid gap-8 sm:gap-10 md:grid-cols-12 md:gap-12">
+        <div className="grid gap-6 sm:gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-4">
             <div className="md:sticky md:top-14">
               <motion.div
@@ -120,7 +120,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
 
               <div className="mt-6">
                 <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Toolbox</div>
-                <div className="mt-3 flex flex-wrap items-center gap-2">
+                <div className="mt-3 flex flex-wrap items-center gap-1.5 sm:gap-2">
                   {RESEARCH.toolbox.map((t) => (
                     <span
                       key={t}
@@ -170,15 +170,14 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                 'motion-reduce:hover:scale-100 motion-reduce:focus-within:scale-100'
               )}
             >
-              <div className="grid gap-5 sm:gap-6 md:grid-cols-12 md:items-start">
+              <div className="grid gap-4 sm:gap-6 md:grid-cols-12 md:items-start">
                 <div className="md:col-span-5 md:min-w-0">
                   <ScrollScrubImage
                     alt="Leaf motif representing CNN-based medicinal leaf classification"
                     progress={progress}
                     startOffsetPct={0.16}
                     fadeInRange={0.2}
-                    aspectRatio="4 / 5"
-                    className="mx-auto w-full max-w-[20rem] rounded-xl border border-black/10 bg-white shadow-[0_1px_0_rgba(0,0,0,0.06),0_16px_40px_rgba(0,0,0,0.08)] md:max-w-none"
+                    className="mx-auto aspect-[16/11] w-full max-w-[20rem] rounded-xl border border-black/10 bg-white shadow-[0_1px_0_rgba(0,0,0,0.06),0_16px_40px_rgba(0,0,0,0.08)] sm:aspect-[5/4] md:aspect-[4/5] md:max-w-none"
                     priority={false}
                   >
                     <LeafMark title="Leaf mark" />
@@ -199,7 +198,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                     ))}
                   </ul>
 
-                  <div className="mt-6 flex flex-wrap gap-2">
+                  <div className="mt-5 flex flex-wrap gap-2 sm:mt-6">
                     <span className="sr-only">Technologies:</span>
                     <TechTag label="CNN" className="bg-neutral-50 border-black/5" />
                     <TechTag
@@ -229,17 +228,21 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                     />
                   </div>
 
-                  <div className="mt-6 rounded-lg bg-[#f8f8f8] p-3 sm:mt-7 sm:p-4">
+                  <div className="mt-5 rounded-lg bg-[#f8f8f8] p-3 sm:mt-7 sm:p-4">
                     <div className="flex flex-wrap items-baseline justify-between gap-3">
                       <h4 className="text-sm font-semibold tracking-tight text-neutral-900">Model results</h4>
                       <p className="text-xs text-neutral-600">from evaluation plots</p>
                     </div>
 
-                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                    <div className="mt-3 grid grid-cols-2 gap-2">
                       {metricCards.map((m) => (
-                        <div key={m.label} className="rounded-md bg-white px-3 py-2">
-                          <div className="text-[11px] uppercase tracking-wide text-neutral-500">{m.label}</div>
-                          <div className="mt-0.5 text-base font-semibold tabular-nums text-neutral-900">{m.pct.toFixed(1)}%</div>
+                        <div key={m.label} className="rounded-md bg-white px-2.5 py-2 sm:px-3">
+                          <div className="text-[10px] uppercase leading-tight tracking-wide text-neutral-500 sm:text-[11px]">
+                            {m.label}
+                          </div>
+                          <div className="mt-0.5 text-sm font-semibold tabular-nums text-neutral-900 sm:text-base">
+                            {m.pct.toFixed(1)}%
+                          </div>
 
                           <div
                             role="meter"

@@ -238,7 +238,7 @@ export function ResearchImageSlider({
                   className={cx(
                     'relative w-full max-w-full shrink-0 snap-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]',
                     'sm:w-[84%] lg:w-[78%] xl:w-[74%]',
-                    isActive ? 'scale-100 opacity-100' : 'scale-[0.97] opacity-75'
+                    isActive ? 'scale-100 opacity-100' : 'opacity-90 sm:scale-[0.97] sm:opacity-75'
                   )}
                   style={{ scrollSnapStop: 'always' }}
                 >
