@@ -100,18 +100,22 @@ export function ResearchSection({ className }: ResearchSectionProps) {
       id="research"
       ref={ref}
       aria-labelledby="research-title"
-      className={cx('scroll-mt-28 bg-white py-16 md:py-20', className)}
+      className={cx('scroll-mt-28 bg-white py-14 sm:py-16 md:py-20', className)}
     >
       <div className="site-shell">
-        <div className="grid gap-10 md:grid-cols-12 md:gap-12">
+        <div className="grid gap-8 sm:gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-4">
-            <div className="sticky top-14">
+            <div className="md:sticky md:top-14">
               <motion.div
                 initial={false}
                 animate={reduced ? { opacity: 1 } : { opacity: Math.min(1, Math.max(0, progress / 0.2)) }}
                 transition={reduced ? { duration: motionTokens.durations.short / 1000 } : { duration: 0 }}
               >
-                <ObsidianShimmerExperienceHeading as="h2" text="Research" className="text-4xl md:text-5xl" />
+                <ObsidianShimmerExperienceHeading
+                  as="h2"
+                  text="Research"
+                  className="text-3xl sm:text-4xl md:text-5xl"
+                />
                 <p className="mt-3 text-pretty text-base leading-relaxed text-neutral-600 md:text-lg">
                   Applied ML research aimed at accurate identification through computer vision.
                 </p>
@@ -164,7 +168,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear' }}
               className={cx(
-                'rounded-2xl bg-white p-7',
+                'rounded-2xl bg-white p-4 sm:p-6 md:p-7',
                 'transition-transform [transition-duration:220ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
                 'hover:scale-[1.01] focus-within:scale-[1.01]',
                 'motion-reduce:hover:scale-100 motion-reduce:focus-within:scale-100'
@@ -172,12 +176,12 @@ export function ResearchSection({ className }: ResearchSectionProps) {
             >
               <div className="grid gap-6 md:grid-cols-12 md:items-start">
                 <div className="md:col-span-5">
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[linear-gradient(180deg,#f8fbff_0%,#edf5ff_100%)] p-1.5">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[linear-gradient(180deg,#f8fbff_0%,#edf5ff_100%)] p-1.5 sm:h-14 sm:w-14">
                       <LeafMark title="Leaf mark" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
+                      <h3 className="text-xl font-semibold tracking-tight text-neutral-900 sm:text-2xl md:text-3xl">
                         {RESEARCH.title}
                       </h3>
                       <p className="mt-1 text-sm font-medium text-neutral-700">{RESEARCH.context}</p>
@@ -226,17 +230,21 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                     ))}
                   </ul>
 
-                  <div className="mt-7 rounded-lg bg-[#f8f8f8] p-4">
+                  <div className="mt-6 rounded-lg bg-[#f8f8f8] p-3 sm:mt-7 sm:p-4">
                     <div className="flex flex-wrap items-baseline justify-between gap-3">
                       <h4 className="text-sm font-semibold tracking-tight text-neutral-900">Model results</h4>
                       <p className="text-xs text-neutral-600">from evaluation plots</p>
                     </div>
 
-                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                    <div className="mt-3 grid grid-cols-2 gap-2">
                       {metricCards.map((m) => (
-                        <div key={m.label} className="rounded-md bg-white px-3 py-2">
-                          <div className="text-[11px] uppercase tracking-wide text-neutral-500">{m.label}</div>
-                          <div className="mt-0.5 text-base font-semibold tabular-nums text-neutral-900">{m.pct.toFixed(1)}%</div>
+                        <div key={m.label} className="rounded-md bg-white px-2.5 py-2 sm:px-3">
+                          <div className="text-[10px] uppercase leading-tight tracking-wide text-neutral-500 sm:text-[11px]">
+                            {m.label}
+                          </div>
+                          <div className="mt-0.5 text-sm font-semibold tabular-nums text-neutral-900 sm:text-base">
+                            {m.pct.toFixed(1)}%
+                          </div>
 
                           <div
                             role="meter"
@@ -272,9 +280,9 @@ export function ResearchSection({ className }: ResearchSectionProps) {
               whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: motionTokens.durations.medium / 1000, ease: 'linear' }}
-              className={cx('mt-6 rounded-2xl bg-white p-7')}
+              className={cx('mt-6 rounded-2xl bg-white p-4 sm:p-6 md:p-7')}
             >
-              <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <div className="flex flex-wrap items-start justify-between gap-3 sm:items-baseline">
                 <div>
                   <h3 className="text-lg font-semibold tracking-tight text-neutral-900 md:text-xl">Evaluation plots</h3>
                   <p className="mt-1 text-sm text-neutral-600">Swipe or use the controls to inspect each result plot.</p>
