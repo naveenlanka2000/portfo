@@ -175,12 +175,12 @@ export function ResearchSection({ className }: ResearchSectionProps) {
               )}
             >
               <div className="grid gap-6 md:grid-cols-12 md:items-start">
-                <div className="md:col-span-5">
-                  <div className="flex items-start gap-3 sm:gap-4">
+                <div className="min-w-0 md:col-span-5">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-black/10 bg-[linear-gradient(180deg,#f8fbff_0%,#edf5ff_100%)] p-1.5 sm:h-14 sm:w-14">
                       <LeafMark title="Leaf mark" />
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <h3 className="text-xl font-semibold tracking-tight text-neutral-900 sm:text-2xl md:text-3xl">
                         {RESEARCH.title}
                       </h3>
@@ -220,7 +220,7 @@ export function ResearchSection({ className }: ResearchSectionProps) {
                   </div>
                 </div>
 
-                <div className="md:col-span-7">
+                <div className="min-w-0 md:col-span-7">
                   <ul className="grid gap-2 text-base leading-relaxed text-neutral-700 md:text-lg">
                     {RESEARCH.bullets.map((b) => (
                       <li key={b} className="flex gap-3">
