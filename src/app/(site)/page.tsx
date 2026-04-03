@@ -84,9 +84,10 @@ export default function HomePage() {
               Naveen Lanka
             </h2>
             <p className="mt-3 text-base leading-relaxed text-neutral-600 md:text-lg">
-              Naveen Lanka is a backend and full-stack software engineer from Sri Lanka. This portfolio highlights Java,
-              Spring Boot, Python, React, Next.js, Flutter, and SQL projects across banking, booking, healthcare, and
-              database-driven web applications.
+              Naveen Lanka Kandanaarachchi, known professionally as Naveen Lanka, is a backend and full-stack software
+              engineer and fullstack developer from Sri Lanka. This portfolio highlights Java, Spring Boot, Python,
+              React, Next.js, Flutter, and SQL projects across banking, booking, healthcare, and database-driven web
+              applications.
             </p>
           </div>
         </section>

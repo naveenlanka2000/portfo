@@ -81,14 +81,15 @@ export default function AboutPage() {
 
       <header className="max-w-3xl">
         <Reveal y={24}>
-          <h1 className="text-4xl font-semibold tracking-tight text-neutral-900">About Naveen Lanka</h1>
+          <h1 className="text-4xl font-semibold tracking-tight text-neutral-900">About Naveen Lanka Kandanaarachchi</h1>
         </Reveal>
         <Reveal delay={0.12} y={24}>
           <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
-            I&apos;m <span className="[font-family:var(--font-cursive)] text-neutral-900">Naveen Lanka</span>, a software
-            engineer in Sri Lanka who enjoys building dependable backend systems and polished web applications. My work
-            focuses on Java, Spring Boot, Python, React, Next.js, SQL, and applied machine learning, with consistent
-            attention to secure workflows, maintainable code, and clear user experience.
+            I&apos;m <span className="[font-family:var(--font-cursive)] text-neutral-900">Naveen Lanka Kandanaarachchi</span>,
+            also known professionally as Naveen Lanka, a software engineer in Sri Lanka who enjoys building dependable
+            backend systems and polished web applications. My work focuses on Java, Spring Boot, Python, React,
+            Next.js, SQL, and applied machine learning, with consistent attention to secure workflows, maintainable
+            code, and clear user experience.
           </p>
         </Reveal>
       </header>
